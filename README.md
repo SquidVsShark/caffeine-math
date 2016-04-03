@@ -1,6 +1,6 @@
 # Caffeine Math
 
-[![Build Status](https://travis-ci.org/PhilCK/caffeine-math.svg?branch=master)](https://travis-ci.org/PhilCK/caffeine-math)
+[![Build Status](https://travis-ci.org/coredat/math.svg?branch=master)](https://travis-ci.org/coredat/math)
 
 [![codecov.io](https://codecov.io/github/PhilCK/caffeine-math/coverage.svg?branch=master)](https://codecov.io/github/PhilCK/caffeine-math?branch=master)
 
