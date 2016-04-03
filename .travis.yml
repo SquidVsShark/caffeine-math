@@ -1,0 +1,8 @@
+language: cpp
+
+compiler: clang
+
+before_script:
+  - git clone git@github.com:coredat/math-test.git test
+
+script: rake ci

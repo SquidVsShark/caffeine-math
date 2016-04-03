@@ -9,9 +9,8 @@
 
 
 #include "vec_types.hpp"
-#include "vec2.hpp"
+#include "../detail/detail.hpp"
 #include "../general/general.hpp"
-#include <array>
 #include <assert.h>
 
 
@@ -21,38 +20,41 @@ namespace math {
 // ** Interface ** //
 
 // Constants
-inline vec3                   vec3_zero();
-inline vec3                   vec3_one();
-inline vec3                   vec3_zero_zero_one();
+MATH_VEC3_INLINE vec3                   vec3_zero();
+MATH_VEC3_INLINE vec3                   vec3_one();
+MATH_VEC3_INLINE vec3                   vec3_zero_zero_one();
 
 // Initialize vector.
-inline vec3                   vec3_init(const float val);
-inline vec3                   vec3_init(const float x, const float y, const float z);
-inline vec3                   vec3_init(const vec2 vec, const float z);
-inline vec3                   vec3_init_with_array(const float *arr);
-inline vec3                   vec3_init_with_array(const std::array<float, 3> &vec);
+MATH_VEC3_INLINE vec3                   vec3_init(const float val);
+MATH_VEC3_INLINE vec3                   vec3_init(const float x, const float y, const float z);
+MATH_VEC3_INLINE vec3                   vec3_init_with_array(const float *arr);
 
 // Get components.
-inline float                  vec3_get_x(const vec3 vec);
-inline float                  vec3_get_y(const vec3 vec);
-inline float                  vec3_get_z(const vec3 vec);
-inline void                   vec3_to_array(const vec3 a, float *out_array);
-inline std::array<float, 3>   vec3_to_std_array(const vec3 a);
+MATH_VEC3_INLINE float                  vec3_get_x(const vec3 vec);
+MATH_VEC3_INLINE float                  vec3_get_y(const vec3 vec);
+MATH_VEC3_INLINE float                  vec3_get_z(const vec3 vec);
+MATH_VEC3_INLINE void                   vec3_to_array(const vec3 a, float *out_array);
 
 // Component wise arithmetic.
-inline vec3                   vec3_add(const vec3 a, const vec3 b);
-inline vec3                   vec3_subtract(const vec3 a, const vec3 b);
-inline vec3                   vec3_multiply(const vec3 a, const vec3 b);
-inline vec3                   vec3_divide(const vec3 a, const vec3 b);
+MATH_VEC3_INLINE vec3                   vec3_add(const vec3 a, const vec3 b);
+MATH_VEC3_INLINE vec3                   vec3_subtract(const vec3 a, const vec3 b);
+MATH_VEC3_INLINE vec3                   vec3_multiply(const vec3 a, const vec3 b);
+MATH_VEC3_INLINE vec3                   vec3_divide(const vec3 a, const vec3 b);
 
 // Special operations.
-inline vec3                   vec3_lerp(const vec3 start, const vec3 end, const float dt);
-//inline vec3                vec3_slerp(const vec3 start, const vec3 end, const float dt);
-inline vec3                   vec3_scale(const vec3 a, const float scale);
-inline vec3                   vec3_normalize(const vec3 a);
-inline float                  vec3_length(const vec3 a);
-inline vec3                   vec3_cross(const vec3 a, const vec3 b); // not impl
-inline float                  vec3_dot(const vec3 a, const vec3 b); // not impl
+MATH_VEC3_INLINE vec3                   vec3_lerp(const vec3 start, const vec3 end, const float dt);
+//MATH_VEC3_INLINE vec3                vec3_slerp(const vec3 start, const vec3 end, const float dt);
+MATH_VEC3_INLINE vec3                   vec3_scale(const vec3 a, const float scale);
+MATH_VEC3_INLINE vec3                   vec3_normalize(const vec3 a);
+MATH_VEC3_INLINE float                  vec3_length(const vec3 a);
+MATH_VEC3_INLINE vec3                   vec3_cross(const vec3 a, const vec3 b);
+MATH_VEC3_INLINE float                  vec3_dot(const vec3 a, const vec3 b);
+
+// ** Equal Test ** //
+MATH_VEC3_INLINE bool                   vec3_is_equal(const vec3 a, const vec3 b);
+MATH_VEC3_INLINE bool                   vec3_is_not_equal(const vec3 a, const vec3 b);
+MATH_VEC3_INLINE bool                   vec3_is_near(const vec3 a, const vec3 b, const float error);
+MATH_VEC3_INLINE bool                   vec3_is_not_near(const vec3 a, const vec3 b, const float error);
 
 
 // ** Implimentation ** //
@@ -113,23 +115,9 @@ vec3_init(const float x, const float y, const float z)
 
 
 vec3
-vec3_init(const vec2 vec, const float z)
-{
-  return vec3_init(vec2_get_x(vec), vec2_get_y(vec), z);
-}
-
-
-vec3
 vec3_init_with_array(const float *arr)
 {
   return vec3_init(arr[0], arr[1], arr[2]);
-}
-
-
-vec3
-vec3_init_with_array(const std::array<float, 3> &arr)
-{
-  return vec3_init(arr.at(0), arr.at(1), arr.at(2));
 }
 
 
@@ -165,19 +153,6 @@ vec3_to_array(const vec3 a, float *out_array)
   out_array[0] = vec3_get_x(a);
   out_array[1] = vec3_get_y(a);
   out_array[2] = vec3_get_z(a);
-}
-
-
-std::array<float, 3>
-vec3_to_std_array(const vec3 a)
-{
-  std::array<float, 3> return_array = {
-    vec3_get_x(a),
-    vec3_get_y(a),
-    vec3_get_z(a),
-  };
-
-  return return_array;
 }
 
 
@@ -302,6 +277,43 @@ vec3_dot(const vec3 a, const vec3 b)
   return (vec3_get_x(a) * vec3_get_x(b)) +
          (vec3_get_y(a) * vec3_get_y(b)) +
          (vec3_get_z(a) * vec3_get_z(b));
+}
+
+
+bool
+vec3_is_equal(const vec3 a, const vec3 b)
+{
+	return
+  (
+    (vec3_get_x(a) == vec3_get_x(b))
+    &&
+    (vec3_get_y(a) == vec3_get_y(b))
+  );
+}
+
+
+bool
+vec3_is_not_equal(const vec3 a, const vec3 b)
+{
+	return !vec3_is_equal(a, b);
+}
+
+
+bool
+vec3_is_near(const vec3 a, const vec3 b, const float error)
+{
+  return(
+    is_near(vec3_get_x(a), vec3_get_x(b), error)
+    &&
+    is_near(vec3_get_y(a), vec3_get_y(b), error)
+  );
+}
+
+
+bool
+vec3_is_not_near(const vec3 a, const vec3 b, const float error)
+{
+	return !vec3_is_near(a, b, error);
 }
 
 
