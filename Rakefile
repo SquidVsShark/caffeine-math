@@ -7,6 +7,6 @@ task :ci do |t, args|
     "test/unit_tests/vec3.cpp",
   ]
 
-  sh "g++-5 -std=c++11 -Wall #{files.join(' ')} -I ./ -I ./test/ -o unit_test && unit_test"
+  sh "g++-5 -std=c++11 -Wall #{files.join(' ')} -I ./ -I ./test/ -o unit_test && ./unit_test"
 
 end
