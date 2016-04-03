@@ -7,6 +7,6 @@ task :ci do |t, args|
     "test/unit/vec3.cpp",
   ]
 
-  sh "clang++ #{files} -I ./ -o unit_test && unit_test"
+  sh "g++ #{files} -I ./ -o unit_test && unit_test"
 
 end
