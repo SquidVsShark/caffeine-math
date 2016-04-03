@@ -1,6 +1,6 @@
 language: cpp
 
-compiler: clang
+compiler: gcc
 
 before_script:
   - git clone https://github.com/coredat/math-test.git test
