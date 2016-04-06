@@ -288,6 +288,8 @@ vec3_is_equal(const vec3 a, const vec3 b)
     (vec3_get_x(a) == vec3_get_x(b))
     &&
     (vec3_get_y(a) == vec3_get_y(b))
+    &&
+    (vec3_get_z(a) == vec3_get_z(b))
   );
 }
 
@@ -306,6 +308,8 @@ vec3_is_near(const vec3 a, const vec3 b, const float error)
     is_near(vec3_get_x(a), vec3_get_x(b), error)
     &&
     is_near(vec3_get_y(a), vec3_get_y(b), error)
+    &&
+    is_near(vec3_get_z(a), vec3_get_z(b), error)
   );
 }
 

@@ -23,39 +23,46 @@ namespace math {
 
 
 // Constants
-inline vec4                   vec4_zero();
-inline vec4                   vec4_one();
-inline vec4                   vec4_zero_zero_zero_one();
+MATH_VEC4_INLINE vec4                   vec4_zero();
+MATH_VEC4_INLINE vec4                   vec4_one();
+MATH_VEC4_INLINE vec4                   vec4_zero_zero_zero_one();
 
 // Initialize vector.
-inline vec4                   vec4_init(const float val);
-inline vec4                   vec4_init(const float x, const float y, const float z, const float w);
-inline vec4                   vec4_init(const vec2 vec, const float z ,const float w);
-inline vec4                   vec4_init(const vec3 vec, const float w);
-inline vec4                   vec4_init_with_array(const float *arr);
-inline vec4                   vec4_init_with_array(const std::array<float, 4> &vec);
+MATH_VEC4_INLINE vec4                   vec4_init(const float val);
+MATH_VEC4_INLINE vec4                   vec4_init(const float x, const float y, const float z, const float w);
+MATH_VEC4_INLINE vec4                   vec4_init(const vec2 vec, const float z ,const float w);
+MATH_VEC4_INLINE vec4                   vec4_init(const vec3 vec, const float w);
+MATH_VEC4_INLINE vec4                   vec4_init_with_array(const float *arr);
+MATH_VEC4_INLINE vec4                   vec4_init_with_array(const std::array<float, 4> &vec);
 
 // Get components.
-inline float                  vec4_get_x(const vec4 vec);
-inline float                  vec4_get_y(const vec4 vec);
-inline float                  vec4_get_z(const vec4 vec);
-inline float                  vec4_get_w(const vec4 vec);
-inline void                   vec4_to_array(const vec4 a, float *out_array);
-inline std::array<float, 4>   vec4_to_std_array(const vec4 a);
+MATH_VEC4_INLINE float                  vec4_get_x(const vec4 vec);
+MATH_VEC4_INLINE float                  vec4_get_y(const vec4 vec);
+MATH_VEC4_INLINE float                  vec4_get_z(const vec4 vec);
+MATH_VEC4_INLINE float                  vec4_get_w(const vec4 vec);
+MATH_VEC4_INLINE void                   vec4_to_array(const vec4 a, float *out_array);
+MATH_VEC4_INLINE std::array<float, 4>   vec4_to_std_array(const vec4 a);
 
 // Component wise arithmetic.
-inline vec4                   vec4_add(const vec4 a, const vec4 b);
-inline vec4                   vec4_subtract(const vec4 a, const vec4 b);
-inline vec4                   vec4_multiply(const vec4 a, const vec4 b);
-inline vec4                   vec4_divide(const vec4 a, const vec4 b);
+MATH_VEC4_INLINE vec4                   vec4_add(const vec4 a, const vec4 b);
+MATH_VEC4_INLINE vec4                   vec4_subtract(const vec4 a, const vec4 b);
+MATH_VEC4_INLINE vec4                   vec4_multiply(const vec4 a, const vec4 b);
+MATH_VEC4_INLINE vec4                   vec4_divide(const vec4 a, const vec4 b);
 
 // Special operations.
-inline vec4                   vec4_lerp(const vec4 start, const vec4 end, const float dt);
-//inline vec4                 vec4_slerp(const vec4 start, const vec4 end, const float dt); // not impl
-inline vec4                   vec4_scale(const vec4 a, const float scale);
-inline vec4                   vec4_normalize(const vec4 a);
-inline float                  vec4_length(const vec4 a);
-inline float                  vec4_dot(const vec4 a, const vec4 b);
+MATH_VEC4_INLINE vec4                   vec4_lerp(const vec4 start, const vec4 end, const float dt);
+//MATH_VEC4_INLINE vec4                 vec4_slerp(const vec4 start, const vec4 end, const float dt); // not impl
+MATH_VEC4_INLINE vec4                   vec4_scale(const vec4 a, const float scale);
+MATH_VEC4_INLINE vec4                   vec4_normalize(const vec4 a);
+MATH_VEC4_INLINE float                  vec4_length(const vec4 a);
+MATH_VEC4_INLINE float                  vec4_dot(const vec4 a, const vec4 b);
+
+// Equality
+MATH_VEC4_INLINE bool                   vec4_is_equal(const vec4 a, const vec4 b);
+MATH_VEC4_INLINE bool                   vec4_is_not_equal(const vec4 a, const vec4 b);
+MATH_VEC4_INLINE bool                   vec4_is_near(const vec4 a, const vec4 b, const float error);
+MATH_VEC4_INLINE bool                   vec4_is_not_near(const vec4 a, const vec4 b, const float error);
+
 
 
 // ** Implimentation ** //
@@ -301,6 +308,51 @@ vec4_dot(const vec4 a, const vec4 b)
           (vec4_get_y(a) * vec4_get_y(b)) +
           (vec4_get_z(a) * vec4_get_z(b)) + 
           (vec4_get_w(a) * vec4_get_w(b));
+}
+
+
+bool
+vec4_is_equal(const vec4 a, const vec4 b)
+{
+	return
+  (
+    (vec4_get_x(a) == vec4_get_x(b))
+    &&
+    (vec4_get_y(a) == vec4_get_y(b))
+    &&
+    (vec4_get_z(a) == vec4_get_z(b))
+    &&
+    (vec4_get_w(a) == vec4_get_w(b))
+  );
+}
+
+
+bool
+vec4_is_not_equal(const vec4 a, const vec4 b)
+{
+	return !vec4_is_equal(a, b);
+}
+
+
+bool
+vec4_is_near(const vec4 a, const vec4 b, const float error)
+{
+  return(
+    is_near(vec4_get_x(a), vec4_get_x(b), error)
+    &&
+    is_near(vec4_get_y(a), vec4_get_y(b), error)
+    &&
+    is_near(vec4_get_z(a), vec4_get_z(b), error)
+    &&
+    is_near(vec4_get_w(a), vec4_get_w(b), error)
+  );
+}
+
+
+bool
+vec4_is_not_near(const vec4 a, const vec4 b, const float error)
+{
+	return !vec4_is_near(a, b, error);
 }
 
 
