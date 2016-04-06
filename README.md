@@ -2,9 +2,6 @@
 
 [![Build Status](https://travis-ci.org/coredat/math.svg?branch=master)](https://travis-ci.org/coredat/math)
 
-[![codecov.io](https://codecov.io/github/PhilCK/caffeine-math/coverage.svg?branch=master)](https://codecov.io/github/PhilCK/caffeine-math?branch=master)
-
-
 This is a header only math library that built up in my hobby projects. I've extracted it and put it up here for anybody who wants it use it. Its a no-nonsense floating point math library.
 
 
