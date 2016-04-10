@@ -55,7 +55,7 @@ MATH_GENR_INLINE float              abs(const float x);
 MATH_GENR_INLINE float              max(const float a, const float b);
 MATH_GENR_INLINE float              min(const float a, const float b);
 MATH_GENR_INLINE float              clamp(const float x, const float between_a, const float between_b);
-MATH_GENR_INLINE bool               is_between(const float to_check, const float a, const float b); // TODO:
+MATH_GENR_INLINE bool               is_between(const float to_check, const float a, const float b);
 MATH_GENR_INLINE bool               is_near(const float a, const float b, const float error_margin);
 MATH_GENR_INLINE bool               is_pow_two(const uint32_t i); // TODO:
 MATH_GENR_INLINE bool               fmod(const float x, const float max); // TODO;
@@ -106,6 +106,16 @@ clamp(const float x, const float between_a, const float between_b)
   }
 
   return x;
+}
+
+
+bool
+is_between(const float value, const float limit_a, const float limit_b)
+{
+  const float min = math::min(limit_a, limit_b);
+  const float max = math::max(limit_a, limit_b);
+  
+  return value > min && value < max;
 }
 
 
