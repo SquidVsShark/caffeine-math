@@ -60,6 +60,8 @@ MATH_GENR_INLINE bool               is_near(const float a, const float b, const 
 MATH_GENR_INLINE bool               is_pow_two(const uint32_t i); // TODO:
 MATH_GENR_INLINE bool               fmod(const float x, const float max); // TODO;
 MATH_GENR_INLINE float              sign(const float x); // Returns 1 or -1
+MATH_GENR_INLINE float              mod(const float x, const float divisor);
+MATH_GENR_INLINE float              nearest_floor(const float x, const float increments);
 
 
 // ** Search ** //
@@ -210,6 +212,21 @@ is_near(const float a, const float b, const float error_margin)
   const float abs_error = abs(error_margin);
 
   return abs(b - a) <= abs_error;
+}
+
+
+float
+mod(const float x, const float divisor)
+{
+  return static_cast<float>(std::fmod(static_cast<double>(x), static_cast<double>(divisor)));
+}
+
+
+float
+nearest_floor(const float x, const float increments)
+{
+  const float remainder = mod(x, increments);
+  return x - remainder;
 }
 
 
