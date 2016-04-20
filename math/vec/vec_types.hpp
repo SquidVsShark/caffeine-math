@@ -8,24 +8,21 @@
 */
 
 
-#include "../detail/detail.hpp"
+#ifdef MATH_USE_SSE
 
-#define MATH_USE_SSE
-
+#include <emmintrin.h> // SSE2
 
 namespace math {
 
-
-// To access the components you should go through the vector interface.
-
-
-#ifdef MATH_USE_SSE
-
 using vec4 = __m128;
 using vec3 = __m128;
-using vec2 = __m64;
+using vec2 = __m128;
+
+} // ns
 
 #else
+
+namespace math {
 
 class vec4
 {
@@ -42,10 +39,9 @@ class vec2
   float data[2];
 };
 
-#endif
+} // ns
 
-  
-} // namespace
+#endif
 
 
 #endif // include guard

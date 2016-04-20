@@ -1,19 +1,17 @@
 #ifndef VEC4_SSE_INLINE_INCLUDED_084B42B1_5ABC_4DFA_B980_7631EDA6EAEB
 #define VEC4_SSE_INLINE_INCLUDED_084B42B1_5ABC_4DFA_B980_7631EDA6EAEB
+#ifdef MATH_USE_SSE
 
 
 /*
   Vector4
-  4D vector interface and impl.
+  4D vector sse impl.
 */
 
 
 #include "vec_types.hpp"
 #include "../general/general.hpp"
 #include <assert.h>
-#include <emmintrin.h> // SSE2
-
-// ** Implimentation ** //
 
 
 namespace math {
@@ -174,7 +172,7 @@ vec4_normalize(const vec4 a)
 float
 vec4_length(const vec4 a)
 {
-  // TODO: Better way
+  // TODO: Better way with sse?
 
   const float squared = vec4_get_x(a) * vec4_get_x(a) +
                          vec4_get_y(a) * vec4_get_y(a) +
@@ -236,4 +234,5 @@ vec4_is_not_near(const vec4 a, const vec4 b, const float error)
 } // namespace
 
 
+#endif // use sse
 #endif // include guard

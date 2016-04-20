@@ -64,7 +64,7 @@ MATH_VEC4_INLINE bool                   vec4_is_not_near(const vec4 a, const vec
 */
 
 
-#ifdef MATH_VEC4_SSE
+#ifdef MATH_USE_SSE
 
 #include "vec4_sse.inl"
 
@@ -72,7 +72,7 @@ MATH_VEC4_INLINE bool                   vec4_is_not_near(const vec4 a, const vec
 
 #include "vec4_fallback.inl"
 
-#endif
+#endif // impl choice
 
 
 #endif // include guard
