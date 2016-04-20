@@ -9,10 +9,7 @@
 
 
 #include "vec_types.hpp"
-#include "vec3.hpp"
-#include "vec2.hpp"
 #include "../general/general.hpp"
-#include <array>
 #include <assert.h>
 
 
@@ -30,10 +27,7 @@ MATH_VEC4_INLINE vec4                   vec4_zero_zero_zero_one();
 // Initialize vector.
 MATH_VEC4_INLINE vec4                   vec4_init(const float val);
 MATH_VEC4_INLINE vec4                   vec4_init(const float x, const float y, const float z, const float w);
-MATH_VEC4_INLINE vec4                   vec4_init(const vec2 vec, const float z ,const float w);
-MATH_VEC4_INLINE vec4                   vec4_init(const vec3 vec, const float w);
 MATH_VEC4_INLINE vec4                   vec4_init_with_array(const float *arr);
-MATH_VEC4_INLINE vec4                   vec4_init_with_array(const std::array<float, 4> &vec);
 
 // Get components.
 MATH_VEC4_INLINE float                  vec4_get_x(const vec4 vec);
@@ -41,7 +35,6 @@ MATH_VEC4_INLINE float                  vec4_get_y(const vec4 vec);
 MATH_VEC4_INLINE float                  vec4_get_z(const vec4 vec);
 MATH_VEC4_INLINE float                  vec4_get_w(const vec4 vec);
 MATH_VEC4_INLINE void                   vec4_to_array(const vec4 a, float *out_array);
-MATH_VEC4_INLINE std::array<float, 4>   vec4_to_std_array(const vec4 a);
 
 // Component wise arithmetic.
 MATH_VEC4_INLINE vec4                   vec4_add(const vec4 a, const vec4 b);
@@ -125,30 +118,9 @@ vec4_init(const float x, const float y, const float z, const float w)
 
 
 vec4
-vec4_init(const vec2 vec, const float z ,const float w)
-{
-  return vec4_init(vec2_get_x(vec), vec2_get_y(vec), z, w);
-}
-
-
-vec4
-vec4_init(const vec3 vec, const float w)
-{
-  return vec4_init(vec3_get_x(vec), vec3_get_y(vec), vec3_get_z(vec), w);
-}
-
-
-vec4
 vec4_init_with_array(const float *arr)
 {
   return vec4_init(arr[0], arr[1], arr[2], arr[3]);
-}
-
-
-vec4
-vec4_init_with_array(const std::array<float, 4> &arr)
-{
-  return vec4_init(arr.at(0), arr.at(1), arr.at(2), arr.at(3));
 }
 
 
@@ -193,20 +165,6 @@ vec4_to_array(const vec4 a, float *out_array)
   out_array[1] = vec4_get_y(a);
   out_array[2] = vec4_get_z(a);
   out_array[3] = vec4_get_w(a);
-}
-
-
-std::array<float, 4>
-vec4_to_std_array(const vec4 a)
-{
-  std::array<float, 4> return_array = {
-    vec4_get_x(a),
-    vec4_get_y(a),
-    vec4_get_z(a),
-    vec4_get_w(a),
-  };
-
-  return return_array;
 }
 
 
