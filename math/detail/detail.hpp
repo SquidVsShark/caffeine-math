@@ -3,12 +3,12 @@
 
 // Intrinsics settings
 
-#ifdef MATH_USE_SIMD
+//#ifdef MATH_USE_SIMD
 #define MATH_ON_SSE2
 #include <emmintrin.h>
-#else
-#define MATH_ON_FPU
-#endif
+//#else
+//#define MATH_ON_FPU
+//#endif
 
 
 #ifdef MATH_FORCE_INLINE

@@ -8,6 +8,7 @@
 */
 
 
+#include "../detail/detail.hpp"
 #include <cmath>
 #include <algorithm>
 
