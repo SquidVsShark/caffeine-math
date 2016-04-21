@@ -1,60 +1,23 @@
-#ifndef VEC3_FALLBACK_INCLUDED_DD26787F
-#define VEC3_FALLBACK_INCLUDED_DD26787F
+#ifndef VEC3_FALLBACK_INCLUDED_78A1B493_AA3B_4D09_89FC_D86CBBDEE3F0
+#define VEC3_FALLBACK_INCLUDED_78A1B493_AA3B_4D09_89FC_D86CBBDEE3F0
 
 
-/*
-  Vector3
-  3D vector interface and impl.
-*/
-
-
-#include "vec_types.hpp"
 #include "../detail/detail.hpp"
+#include "vec_types.hpp"
 #include "../general/general.hpp"
 #include <assert.h>
 
 
+#ifdef MATH_ON_FPU
+
+
+/*
+  Vector3
+  3D vector fallback impl
+*/
+
+
 namespace math {
-
-
-// ** Interface ** //
-
-// Constants
-MATH_VEC3_INLINE vec3                   vec3_zero();
-MATH_VEC3_INLINE vec3                   vec3_one();
-MATH_VEC3_INLINE vec3                   vec3_zero_zero_one();
-
-// Initialize vector.
-MATH_VEC3_INLINE vec3                   vec3_init(const float val);
-MATH_VEC3_INLINE vec3                   vec3_init(const float x, const float y, const float z);
-MATH_VEC3_INLINE vec3                   vec3_init_with_array(const float *arr);
-
-// Get components.
-MATH_VEC3_INLINE float                  vec3_get_x(const vec3 vec);
-MATH_VEC3_INLINE float                  vec3_get_y(const vec3 vec);
-MATH_VEC3_INLINE float                  vec3_get_z(const vec3 vec);
-MATH_VEC3_INLINE void                   vec3_to_array(const vec3 a, float *out_array);
-
-// Component wise arithmetic.
-MATH_VEC3_INLINE vec3                   vec3_add(const vec3 a, const vec3 b);
-MATH_VEC3_INLINE vec3                   vec3_subtract(const vec3 a, const vec3 b);
-MATH_VEC3_INLINE vec3                   vec3_multiply(const vec3 a, const vec3 b);
-MATH_VEC3_INLINE vec3                   vec3_divide(const vec3 a, const vec3 b);
-
-// Special operations.
-MATH_VEC3_INLINE vec3                   vec3_lerp(const vec3 start, const vec3 end, const float dt);
-//MATH_VEC3_INLINE vec3                vec3_slerp(const vec3 start, const vec3 end, const float dt);
-MATH_VEC3_INLINE vec3                   vec3_scale(const vec3 a, const float scale);
-MATH_VEC3_INLINE vec3                   vec3_normalize(const vec3 a);
-MATH_VEC3_INLINE float                  vec3_length(const vec3 a);
-MATH_VEC3_INLINE vec3                   vec3_cross(const vec3 a, const vec3 b);
-MATH_VEC3_INLINE float                  vec3_dot(const vec3 a, const vec3 b);
-
-// ** Equal Test ** //
-MATH_VEC3_INLINE bool                   vec3_is_equal(const vec3 a, const vec3 b);
-MATH_VEC3_INLINE bool                   vec3_is_not_equal(const vec3 a, const vec3 b);
-MATH_VEC3_INLINE bool                   vec3_is_near(const vec3 a, const vec3 b, const float error);
-MATH_VEC3_INLINE bool                   vec3_is_not_near(const vec3 a, const vec3 b, const float error);
 
 
 // ** Implimentation ** //
@@ -323,5 +286,5 @@ vec3_is_not_near(const vec3 a, const vec3 b, const float error)
 
 } // namespace
 
-
+#endif // on fpu
 #endif // include guard

@@ -1,18 +1,20 @@
-#ifndef VECTOR2_FALLBACK_INCLUDED_
-#define VECTOR2_FALLBACK_INCLUDED_
+#ifndef VECTOR2_FALLBACK_INCLUDED_E819F68F_EE77_4C08_8B2D_152123C0C47A
+#define VECTOR2_FALLBACK_INCLUDED_E819F68F_EE77_4C08_8B2D_152123C0C47A
+
+
+#include "../detail/detail.hpp"
+#include "vec_types.hpp"
+#include "../general/general.hpp"
+#include <assert.h>
+
+
+#ifdef MATH_ON_FPU
 
 
 /*
   Vector2
-  2D vector interface and impl.
+  2D vector fallback impl.
 */
-
-
-#include "vec_types.hpp"
-#include "../detail/detail.hpp"
-#include "../general/general.hpp"
-#include <assert.h>
-
 
 namespace math {
 
@@ -244,4 +246,5 @@ vec2_is_not_near(const vec2 a, const vec2 b, const float error)
 } // namespace
 
 
+#endif // math on fpu
 #endif // include guard

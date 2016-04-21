@@ -4,14 +4,12 @@
 
 /*
   Vector2
-  2D vector interface and impl.
+  2D vector interface.
 */
 
 
-#include "vec_types.hpp"
 #include "../detail/detail.hpp"
-#include "../general/general.hpp"
-#include <assert.h>
+#include "vec_types.hpp"
 
 
 namespace math {
@@ -61,7 +59,7 @@ MATH_VEC2_INLINE bool                   vec2_is_not_near(const vec2 a, const vec
 
 // What impl to use?
 
-#ifdef MATH_USE_SSE
+#ifdef MATH_ON_SSE2
 
 #include "vec2_sse.inl"
 

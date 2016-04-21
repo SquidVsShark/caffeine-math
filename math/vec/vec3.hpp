@@ -4,14 +4,12 @@
 
 /*
   Vector3
-  3D vector interface and impl.
+  3D vector interface.
 */
 
 
-#include "vec_types.hpp"
 #include "../detail/detail.hpp"
-#include "../general/general.hpp"
-#include <assert.h>
+#include "vec_types.hpp"
 
 
 namespace math {
@@ -62,7 +60,7 @@ MATH_VEC3_INLINE bool                   vec3_is_not_near(const vec3 a, const vec
 
 // What impl to use
 
-#ifdef MATH_USE_SSE
+#ifdef MATH_ON_SSE2
 
 #include "vec3_sse.inl"
 

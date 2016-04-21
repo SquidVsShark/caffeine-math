@@ -1,17 +1,20 @@
-#ifndef VEC3_SSE_INCLUDED_
-#define VEC3_SSE_INCLUDED_
-#ifdef MATH_USE_SSE
+#ifndef VEC3_SSE_INCLUDED_7FCC7E5E_C1B2_4281_B76B_9B1065958FC6
+#define VEC3_SSE_INCLUDED_7FCC7E5E_C1B2_4281_B76B_9B1065958FC6
+
+
+#include "../detail/detail.hpp"
+#include "vec_types.hpp"
+#include "../general/general.hpp"
+#include <assert.h>
+
+
+#ifdef MATH_ON_SSE2
 
 
 /*
   Vector3
   3D vector sse impl.
 */
-
-
-#include "vec_types.hpp"
-#include "../general/general.hpp"
-#include <assert.h>
 
 
 namespace math {
@@ -92,7 +95,9 @@ void
 vec3_to_array(const vec3 a, float *out_array)
 {
   // TODO: Need to make sure out_array is 16 bytes aligned some how.
-  _mm_store_ps(out_array, a);
+  out_array[0] = a[0];
+  out_array[1] = a[1];
+  out_array[2] = a[2];
 }
 
 
@@ -191,7 +196,7 @@ vec3
 vec3_cross(const vec3 a, const vec3 b)
 {
   // TODO: Better way with sse?
-  
+
   const float x = (vec3_get_y(a) * vec3_get_z(b)) - (vec3_get_z(a) * vec3_get_y(b));
   const float y = (vec3_get_x(a) * vec3_get_z(b)) - (vec3_get_z(a) * vec3_get_x(b));
   const float z = (vec3_get_x(a) * vec3_get_y(b)) - (vec3_get_y(a) * vec3_get_x(b));

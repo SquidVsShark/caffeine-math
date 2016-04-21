@@ -1,17 +1,19 @@
 #ifndef VEC4_SSE_INLINE_INCLUDED_084B42B1_5ABC_4DFA_B980_7631EDA6EAEB
 #define VEC4_SSE_INLINE_INCLUDED_084B42B1_5ABC_4DFA_B980_7631EDA6EAEB
-#ifdef MATH_USE_SSE
 
+
+#include "../detail/detail.hpp"
+#include "vec_types.hpp"
+#include "../general/general.hpp"
+#include <assert.h>
+
+
+#ifdef MATH_ON_SSE2
 
 /*
   Vector4
   4D vector sse impl.
 */
-
-
-#include "vec_types.hpp"
-#include "../general/general.hpp"
-#include <assert.h>
 
 
 namespace math {
@@ -190,7 +192,7 @@ vec4_dot(const vec4 a, const vec4 b)
   // with sse
    return (vec4_get_x(a) * vec4_get_x(b)) +
           (vec4_get_y(a) * vec4_get_y(b)) +
-          (vec4_get_z(a) * vec4_get_z(b)) + 
+          (vec4_get_z(a) * vec4_get_z(b)) +
           (vec4_get_w(a) * vec4_get_w(b));
 }
 

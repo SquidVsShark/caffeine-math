@@ -1,17 +1,20 @@
-#ifndef VECTOR2_SSE_INCLUDED_
-#define VECTOR2_SSE_INCLUDED_
-#ifdef MATH_USE_SSE
+#ifndef VECTOR2_SSE_INCLUDED_33FF3450_AE41_46EC_8B96_680B5DFE2CB2
+#define VECTOR2_SSE_INCLUDED_33FF3450_AE41_46EC_8B96_680B5DFE2CB2
+
+
+#include "../detail/detail.hpp"
+#include "vec_types.hpp"
+#include "../general/general.hpp"
+#include <assert.h>
+
+
+#ifdef MATH_ON_SSE2
 
 
 /*
   Vector2
   2D vector sse impl.
 */
-
-
-#include "vec_types.hpp"
-#include "../general/general.hpp"
-#include <assert.h>
 
 
 namespace math {
@@ -85,7 +88,8 @@ void
 vec2_to_array(const vec2 a, float *out_array)
 {
   // TODO: Need to make sure out_array is 16 bytes aligned some how.
-  //_mm_store_ps(out_array, a);
+  out_array[0] = a[0];
+  out_array[1] = a[1];
 }
 
 

@@ -1,16 +1,20 @@
-#ifndef VEC4_FALLBACK_INLINE_INCLUDED_
-#define VEC4_FALLBACK_INLINE_INCLUDED_
+#ifndef VEC4_FALLBACK_INLINE_INCLUDED_443986F2_8DC2_4E3F_AB4A_CF1C6B0894AF
+#define VEC4_FALLBACK_INLINE_INCLUDED_443986F2_8DC2_4E3F_AB4A_CF1C6B0894AF
+
+
+#include "../detail/detail.hpp"
+#include "vec_types.hpp"
+#include "../general/general.hpp"
+#include <assert.h>
+
+
+#ifdef MATH_ON_FPU
 
 
 /*
   Vector4
-  4D vector interface and impl.
+  4D vector fallback impl.
 */
-
-
-#include "vec_types.hpp"
-#include "../general/general.hpp"
-#include <assert.h>
 
 
 namespace math {
@@ -222,7 +226,7 @@ vec4_dot(const vec4 a, const vec4 b)
 {
    return (vec4_get_x(a) * vec4_get_x(b)) +
           (vec4_get_y(a) * vec4_get_y(b)) +
-          (vec4_get_z(a) * vec4_get_z(b)) + 
+          (vec4_get_z(a) * vec4_get_z(b)) +
           (vec4_get_w(a) * vec4_get_w(b));
 }
 
@@ -275,4 +279,5 @@ vec4_is_not_near(const vec4 a, const vec4 b, const float error)
 } // namespace
 
 
-#endif // include guard
+#endif // on fpu
+#endif // inc guard

@@ -2,15 +2,17 @@
 #define VECTOR_TYPES_INCLUDED_76A0D96A_8385_4283_9EA9_CF89D0D5A10C
 
 
+#include "../detail/detail.hpp"
+
+
 /*
   Vector Types.
   These are the vector types in caffeine math.
 */
 
 
-#ifdef MATH_USE_SSE
+#ifdef MATH_ON_SSE2
 
-#include <emmintrin.h> // SSE2
 
 namespace math {
 
@@ -20,7 +22,9 @@ using vec2 = __m128;
 
 } // ns
 
-#else
+
+#else // Fallback
+
 
 namespace math {
 
@@ -41,7 +45,8 @@ class vec2
 
 } // ns
 
-#endif
+
+#endif // simd types
 
 
 #endif // include guard

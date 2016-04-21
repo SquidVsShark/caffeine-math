@@ -1,10 +1,10 @@
-#ifndef VECTOR4_INCLUDED_9C1AD544_35E1_456B_B882_DB0C9DAEBF09
-#define VECTOR4_INCLUDED_9C1AD544_35E1_456B_B882_DB0C9DAEBF09
+#ifndef VEC4_INCLUDED_9C1AD544_35E1_456B_B882_DB0C9DAEBF09
+#define VEC4_INCLUDED_9C1AD544_35E1_456B_B882_DB0C9DAEBF09
 
 
 /*
   Vector4
-  4D vector interface and impl.
+  4D vector interface.
 */
 
 
@@ -64,7 +64,7 @@ MATH_VEC4_INLINE bool                   vec4_is_not_near(const vec4 a, const vec
 */
 
 
-#ifdef MATH_USE_SSE
+#ifdef MATH_ON_SSE2
 
 #include "vec4_sse.inl"
 
