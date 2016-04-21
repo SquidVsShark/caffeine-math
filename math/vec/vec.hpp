@@ -13,4 +13,4 @@
 #include "vec4.hpp"
 
 
-#endif // include guard
+#endif // inc guard

@@ -1,10 +1,13 @@
 #ifndef DETAIL_INCLUDED_738ADE13_1093_4593_AF81_2F9CB58DAE42
 #define DETAIL_INCLUDED_738ADE13_1093_4593_AF81_2F9CB58DAE42
 
+// Intrinsics settings
 
-#ifdef MATH_ENABLE_SIMD
-#define MATH_NO_SIMD
-#define MATH_SSE2
+#ifdef MATH_USE_SIMD
+#define MATH_ON_SSE2
+#include <emmintrin.h>
+#else
+#define MATH_ON_FPU
 #endif
 
 

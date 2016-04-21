@@ -10,7 +10,7 @@ floating point vector types (2,3 and 4), floating point matrix types (3x3 and 4x
 
 
 ## SIMD Status
-Currently have partial SIMD support in vector math.
+There is no SIMD support currently, I have been working on it a little, but its not a priority for me right now because I have no math bottlenecks. However the library has been designed around a SIMD implementation so when it comes there should be minimal fuss.
 
 
 ## License
