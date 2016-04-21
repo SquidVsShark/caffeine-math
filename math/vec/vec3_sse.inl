@@ -183,12 +183,13 @@ vec3_normalize(const vec3 a)
 float
 vec3_length(const vec3 a)
 {
-  // TODO: Better way with sse?
+  __m128 sq = _mm_mul_ps(a, a);
 
-  const float squared = vec3_get_x(a) * vec3_get_x(a) +
-                         vec3_get_y(a) * vec3_get_y(a) +
-                         vec3_get_z(a) * vec3_get_z(a);
-  return sqrt(squared);
+  sq = _mm_add_ps(sq, _mm_movehl_ps(sq, sq));
+  sq = _mm_add_ss(sq, _mm_shuffle_ps(sq, sq, 1));
+  sq = _mm_sqrt_ps(sq);
+
+  return sq[0];
 }
 
 
@@ -208,9 +209,12 @@ vec3_cross(const vec3 a, const vec3 b)
 float
 vec3_dot(const vec3 a, const vec3 b)
 {
-  return (vec3_get_x(a) * vec3_get_x(b)) +
-         (vec3_get_y(a) * vec3_get_y(b)) +
-         (vec3_get_z(a) * vec3_get_z(b));
+  __m128 mu = _mm_mul_ps(a, b);
+
+  mu = _mm_add_ps(mu, _mm_movehl_ps(mu, mu));
+  mu = _mm_add_ss(mu, _mm_shuffle_ps(mu, mu, 1));
+
+  return mu[0];
 }
 
 

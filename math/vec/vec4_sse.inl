@@ -174,26 +174,26 @@ vec4_normalize(const vec4 a)
 float
 vec4_length(const vec4 a)
 {
-  // TODO: Better way with sse?
+  __m128 sq = _mm_mul_ps(a, a);
 
-  const float squared = vec4_get_x(a) * vec4_get_x(a) +
-                         vec4_get_y(a) * vec4_get_y(a) +
-                         vec4_get_z(a) * vec4_get_z(a) +
-                         vec4_get_w(a) * vec4_get_w(a);
+  sq = _mm_add_ps(sq, _mm_movehl_ps(sq, sq));
+  sq = _mm_add_ss(sq, _mm_shuffle_ps(sq, sq, 1));
+  sq = _mm_sqrt_ps(sq);
 
-  return sqrt(squared);
+  return sq[0];
+
 }
 
 
 float
 vec4_dot(const vec4 a, const vec4 b)
 {
-  // TODO: This will not be the fastest way todo a dot.
-  // with sse
-   return (vec4_get_x(a) * vec4_get_x(b)) +
-          (vec4_get_y(a) * vec4_get_y(b)) +
-          (vec4_get_z(a) * vec4_get_z(b)) +
-          (vec4_get_w(a) * vec4_get_w(b));
+  __m128 mu = _mm_mul_ps(a, b);
+
+  mu = _mm_add_ps(mu, _mm_movehl_ps(mu, mu));
+  mu = _mm_add_ss(mu, _mm_shuffle_ps(mu, mu, 1));
+
+  return mu[0];
 }
 
 

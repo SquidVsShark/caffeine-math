@@ -154,11 +154,13 @@ vec2_normalize(const vec2 a)
 float
 vec2_length(const vec2 a)
 {
-  // TODO: Better way with sse?
+  __m128 sq = _mm_mul_ps(a, a);
 
-  const float squared = vec2_get_x(a) * vec2_get_x(a) +
-                         vec2_get_y(a) * vec2_get_y(a);
-  return sqrt(squared);
+  sq = _mm_add_ps(sq, _mm_movehl_ps(sq, sq));
+  sq = _mm_add_ss(sq, _mm_shuffle_ps(sq, sq, 1));
+  sq = _mm_sqrt_ps(sq);
+
+  return sq[0];
 }
 
 
@@ -173,8 +175,12 @@ vec2_cross(const vec2 a, const vec2 b)
 float
 vec2_dot(const vec2 a, const vec2 b)
 {
-  return (vec2_get_x(a) * vec2_get_x(b)) +
-         (vec2_get_y(a) * vec2_get_y(b));
+  __m128 mu = _mm_mul_ps(a, b);
+
+  mu = _mm_add_ps(mu, _mm_movehl_ps(mu, mu));
+  mu = _mm_add_ss(mu, _mm_shuffle_ps(mu, mu, 1));
+
+  return mu[0];
 }
 
 
