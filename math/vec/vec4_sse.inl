@@ -233,8 +233,8 @@ vec4_is_not_near(const vec4 a, const vec4 b, const float error)
 }
 
 
-} // namespace
+} // ns
 
 
 #endif // use sse
-#endif // include guard
+#endif // inc guard

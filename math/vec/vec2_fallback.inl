@@ -243,8 +243,8 @@ vec2_is_not_near(const vec2 a, const vec2 b, const float error)
 }
 
 
-} // namespace
+} // ns
 
 
 #endif // math on fpu
-#endif // include guard
+#endif // inc guard

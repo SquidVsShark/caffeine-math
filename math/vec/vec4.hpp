@@ -75,4 +75,4 @@ MATH_VEC4_INLINE bool                   vec4_is_not_near(const vec4 a, const vec
 #endif // impl choice
 
 
-#endif // include guard
+#endif // inc guard

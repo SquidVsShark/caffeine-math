@@ -49,4 +49,4 @@ class vec2
 #endif // simd types
 
 
-#endif // include guard
+#endif // inc guard

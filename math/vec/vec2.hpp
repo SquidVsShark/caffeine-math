@@ -54,7 +54,7 @@ MATH_VEC2_INLINE bool                   vec2_is_near(const vec2 a, const vec2 b,
 MATH_VEC2_INLINE bool                   vec2_is_not_near(const vec2 a, const vec2 b, const float error);
 
 
-} // namespace
+} // ns
 
 
 // What impl to use?
@@ -69,4 +69,4 @@ MATH_VEC2_INLINE bool                   vec2_is_not_near(const vec2 a, const vec
 
 #endif // Choose which impl to use.
 
-#endif // include guard
+#endif // inc guard
