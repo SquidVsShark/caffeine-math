@@ -73,23 +73,28 @@ vec2_init_with_array(const float *arr)
 float
 vec2_get_x(const vec2 vec)
 {
-  return vec[0];
+  __declspec(align(16)) float vec2[4];
+  _mm_store_ps(&vec2[0], vec);
+  return vec2[0];
 }
 
 
 float
 vec2_get_y(const vec2 vec)
 {
-  return vec[1];
+  __declspec(align(16)) float vec2[4];
+  _mm_store_ps(&vec2[0], vec);
+  return vec2[1];
 }
 
 
 void
 vec2_to_array(const vec2 a, float *out_array)
 {
-  // TODO: Need to make sure out_array is 16 bytes aligned some how.
-  out_array[0] = a[0];
-  out_array[1] = a[1];
+  __declspec(align(16)) float vec2[4];
+  _mm_store_ps(&vec2[0], a);
+
+  memcpy(out_array, &vec2[0], sizeof(float) * 2);
 }
 
 
@@ -160,7 +165,9 @@ vec2_length(const vec2 a)
   sq = _mm_add_ss(sq, _mm_shuffle_ps(sq, sq, 1));
   sq = _mm_sqrt_ps(sq);
 
-  return sq[0];
+  __declspec(align(16)) float vec_store[4];
+  _mm_store_ps(&vec_store[0], sq);
+  return vec_store[0];
 }
 
 
@@ -180,7 +187,9 @@ vec2_dot(const vec2 a, const vec2 b)
   mu = _mm_add_ps(mu, _mm_movehl_ps(mu, mu));
   mu = _mm_add_ss(mu, _mm_shuffle_ps(mu, mu, 1));
 
-  return mu[0];
+  __declspec(align(16)) float vec_store[4];
+  _mm_store_ps(&vec_store[0], mu);
+  return vec_store[0];
 }
 
 

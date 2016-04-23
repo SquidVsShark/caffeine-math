@@ -126,15 +126,6 @@ aabb_intersection_test(const aabb &a,
 }
 
 
-
-bool
-aabb_intersection_ray_test(const ray &ray, const aabb &box)
-{
-  return false;
-}
-
-
-
 } // ns
 
 

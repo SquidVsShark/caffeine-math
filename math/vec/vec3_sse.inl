@@ -44,7 +44,6 @@ vec3_zero_zero_one()
   return(_mm_load_ps(data));
 }
 
-// Initialize
 
 vec3
 vec3_init(const float val)
@@ -73,31 +72,37 @@ vec3_init_with_array(const float *arr)
 float
 vec3_get_x(const vec3 vec)
 {
-  return vec[0];
+  __declspec(align(16)) float vec_store[4];
+  _mm_store_ps(&vec_store[0], vec);
+  return vec_store[0];
 }
 
 
 float
 vec3_get_y(const vec3 vec)
 {
-  return vec[1];
+  __declspec(align(16)) float vec_store[4];
+  _mm_store_ps(&vec_store[0], vec);
+  return vec_store[1];
 }
 
 
 float
 vec3_get_z(const vec3 vec)
 {
-  return vec[2];
+  __declspec(align(16)) float vec_store[4];
+  _mm_store_ps(&vec_store[0], vec);
+  return vec_store[2];
 }
 
 
 void
 vec3_to_array(const vec3 a, float *out_array)
 {
-  // TODO: Need to make sure out_array is 16 bytes aligned some how.
-  out_array[0] = a[0];
-  out_array[1] = a[1];
-  out_array[2] = a[2];
+  __declspec(align(16)) float vec_store[4];
+  _mm_store_ps(&vec_store[0], a);
+
+  memcpy(out_array, &vec_store[0], sizeof(float) * 3);
 }
 
 
@@ -189,7 +194,9 @@ vec3_length(const vec3 a)
   sq = _mm_add_ss(sq, _mm_shuffle_ps(sq, sq, 1));
   sq = _mm_sqrt_ps(sq);
 
-  return sq[0];
+  __declspec(align(16)) float vec_store[4];
+  _mm_store_ps(&vec_store[0], sq);
+  return vec_store[0];
 }
 
 
@@ -214,7 +221,10 @@ vec3_dot(const vec3 a, const vec3 b)
   mu = _mm_add_ps(mu, _mm_movehl_ps(mu, mu));
   mu = _mm_add_ss(mu, _mm_shuffle_ps(mu, mu, 1));
 
-  return mu[0];
+
+  __declspec(align(16)) float vec_store[4];
+  _mm_store_ps(&vec_store[0], mu);
+  return vec_store[0];
 }
 
 

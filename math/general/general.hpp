@@ -53,7 +53,11 @@ MATH_GENR_INLINE float              degrees_to_radians(const float degrees); // 
 MATH_GENR_INLINE float              sqrt(const float x);
 MATH_GENR_INLINE float              abs(const float x);
 MATH_GENR_INLINE float              max(const float a, const float b);
+MATH_GENR_INLINE int32_t            max(const int32_t a, const int32_t b);
+MATH_GENR_INLINE uint32_t           max(const uint32_t a, const uint32_t b);
 MATH_GENR_INLINE float              min(const float a, const float b);
+MATH_GENR_INLINE int32_t            min(const int32_t a, const int32_t b);
+MATH_GENR_INLINE uint32_t           min(const uint32_t a, const uint32_t b);
 MATH_GENR_INLINE float              clamp(const float x, const float between_a, const float between_b);
 MATH_GENR_INLINE bool               is_between(const float to_check, const float a, const float b);
 MATH_GENR_INLINE bool               is_near(const float a, const float b, const float error_margin);
@@ -85,8 +89,37 @@ max(const float x, const float y)
 }
 
 
+int32_t
+max(const int32_t x, const int32_t y)
+{
+  return std::max(x, y);
+}
+
+
+uint32_t
+max(const uint32_t x, const uint32_t y)
+{
+  return std::max(x, y);
+}
+
+
 float
 min(const float x, const float y)
+{
+  return std::min(x, y);
+}
+
+
+int32_t
+min(const int32_t x, const int32_t y)
+{
+  return std::min(x, y);
+}
+
+
+
+uint32_t
+min(const uint32_t x, const uint32_t y)
 {
   return std::min(x, y);
 }

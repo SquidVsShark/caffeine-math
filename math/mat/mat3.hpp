@@ -37,8 +37,8 @@ inline mat3                       mat3_scale(const vec2 scale);
 inline vec3                       mat3_multiply(const vec3 vec, const mat3 &b);
 inline mat3                       mat3_multiply(const mat3 &lhs, const mat3 &rhs);
 
-inline mat3                       mat3_translate(const vec2 vec) { return mat3_id(); }
-inline mat3                       mat3_translate(const float x, const float y) { return mat3_id(); }
+inline mat3                       mat3_translate(const vec2 vec); // no imp
+inline mat3                       mat3_translate(const float x, const float y); // no imp
 inline mat3                       mat3_rotation_from_euler(const float radians);
 
 inline float                      mat3_get_determinant(const mat3 &a);
@@ -192,7 +192,7 @@ vec3
 mat3_multiply(const vec3 lhs, const mat3 &rhs)
 {
   const detail::internal_mat3 *right = reinterpret_cast<const detail::internal_mat3*>(&rhs);
-  float vec_data[9];
+  __declspec(align(16)) float vec_data[9];
 
   for(uint32_t i = 0; i < 3; ++i)
   {

@@ -137,10 +137,10 @@ quat_init_with_euler_angles(const float pitch_radians, const float yaw_radians, 
 quat
 quat_init_with_mat3(const mat3 &mat)
 {
-  const float w = math::sqrt(math::max( 0, 1 + mat3_get(mat, 0,0) + mat3_get(mat, 1,1) + mat3_get(mat, 2,2) )) * 0.5;
-  const float x = math::sqrt(math::max( 0, 1 + mat3_get(mat, 0,0) - mat3_get(mat, 1,1) - mat3_get(mat, 2,2) )) * 0.5;
-  const float y = math::sqrt(math::max( 0, 1 - mat3_get(mat, 0,0) + mat3_get(mat, 1,1) - mat3_get(mat, 2,2) )) * 0.5;
-  const float z = math::sqrt(math::max( 0, 1 - mat3_get(mat, 0,0) - mat3_get(mat, 1,1) + mat3_get(mat, 2,2) )) * 0.5;
+  const float w = math::sqrt(math::max( 0.f, 1 + mat3_get(mat, 0,0) + mat3_get(mat, 1,1) + mat3_get(mat, 2,2) )) * 0.5f;
+  const float x = math::sqrt(math::max( 0.f, 1 + mat3_get(mat, 0,0) - mat3_get(mat, 1,1) - mat3_get(mat, 2,2) )) * 0.5f;
+  const float y = math::sqrt(math::max( 0.f, 1 - mat3_get(mat, 0,0) + mat3_get(mat, 1,1) - mat3_get(mat, 2,2) )) * 0.5f;
+  const float z = math::sqrt(math::max( 0.f, 1 - mat3_get(mat, 0,0) - mat3_get(mat, 1,1) + mat3_get(mat, 2,2) )) * 0.5f;
   
   const float q_x = x * math::sign(mat3_get(mat,2,1) - mat3_get(mat,1,2));
   const float q_y = y * math::sign(mat3_get(mat,0,2) - mat3_get(mat,2,0));
