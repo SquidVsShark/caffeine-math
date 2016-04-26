@@ -14,15 +14,33 @@ namespace math {
 
 // ** Interface ** //
 
+inline aabb         aabb_init(const vec3 max, const vec3 min, const vec3 origin);
 inline aabb         aabb_from_xyz_array(const float vertex[], const size_t number_of_floats);
 inline math::vec3   aabb_get_extents(const aabb &a);
 inline void         aabb_scale(aabb &aabb_to_scale, const vec3 scale);
 inline void         aabb_scale(aabb &aabb_to_scale, const float scale);
 inline bool         aabb_intersection_test(const aabb &a, const aabb &b);
 inline bool         aabb_intersection_ray_test(const ray &ray, const aabb &box);
+inline bool         aabb_fits_inside_aabb(const aabb &a, const aabb &b);
+inline void         aabb_subdivide(const aabb &a, aabb out_aabb[8]);
 
 
 // ** Impl ** //
+
+
+aabb
+aabb_init(const vec3 max,
+          const vec3 min,
+          const vec3 origin)
+{
+  aabb return_aabb;
+  return_aabb.max = max;
+  return_aabb.min = min;
+  return_aabb.half_extents = vec3_scale(vec3_subtract(max, min), 0.5f);
+  return_aabb.origin = origin;
+  
+  return return_aabb;
+}
 
 
 aabb
@@ -125,6 +143,18 @@ aabb_intersection_test(const aabb &a,
           detail::sat_test(math::vec3_get_z(a.origin), math::vec3_get_z(b.origin), (math::vec3_get_z(a.half_extents) + math::vec3_get_z(b.half_extents))));
 }
 
+
+bool
+aabb_fits_inside_aabb(const aabb &a, const aabb &b)
+{
+  return false; // place holder
+}
+
+
+void
+aabb_subdivide(const aabb &a, aabb out_aabb[8])
+{
+}
 
 } // ns
 

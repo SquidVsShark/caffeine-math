@@ -21,15 +21,15 @@ namespace math {
 
 // ** Constants ** //
 
-MATH_GENR_INLINE float              pi()          { return 3.14159265359f;  }
-MATH_GENR_INLINE float              two_pi()      { return 2.f * pi();      }
-MATH_GENR_INLINE float              half_pi()     { return pi() * 0.5f;     }
-MATH_GENR_INLINE float              tau()         { return two_pi();        }
-MATH_GENR_INLINE float              half_tau()    { return pi();            }
-MATH_GENR_INLINE float              quart_tau()   { return half_pi();       }
-MATH_GENR_INLINE float              g_ratio()     { return 1.61803398875f;  }
-MATH_GENR_INLINE float              root_two()    { return 1.41421356237f;  }
-MATH_GENR_INLINE float              root_three()  { return 1.73205080757f;  }
+MATH_CONSTEXPR float              pi()          { return 3.14159265359f;  }
+MATH_CONSTEXPR float              two_pi()      { return 2.f * pi();      }
+MATH_CONSTEXPR float              half_pi()     { return pi() * 0.5f;     }
+MATH_CONSTEXPR float              tau()         { return two_pi();        }
+MATH_CONSTEXPR float              half_tau()    { return pi();            }
+MATH_CONSTEXPR float              quart_tau()   { return half_pi();       }
+MATH_CONSTEXPR float              g_ratio()     { return 1.61803398875f;  }
+MATH_CONSTEXPR float              root_two()    { return 1.41421356237f;  }
+MATH_CONSTEXPR float              root_three()  { return 1.73205080757f;  }
 
 
 // ** Trig ** //
@@ -48,6 +48,14 @@ MATH_GENR_INLINE float              radians_to_degrees(const float radians); // 
 MATH_GENR_INLINE float              degrees_to_radians(const float degrees); // TODO:
 
 
+// ** Casting ** //
+
+MATH_GENR_INLINE float              to_float(const uint32_t x);
+MATH_GENR_INLINE float              to_float(const int32_t x);
+MATH_GENR_INLINE int32_t            to_int(const float x);
+MATH_GENR_INLINE uint32_t           to_uint(const float x);
+
+
 // ** Other general ** //
 
 MATH_GENR_INLINE float              sqrt(const float x);
@@ -62,13 +70,15 @@ MATH_GENR_INLINE float              clamp(const float x, const float between_a, 
 MATH_GENR_INLINE bool               is_between(const float to_check, const float a, const float b);
 MATH_GENR_INLINE bool               is_near(const float a, const float b, const float error_margin);
 MATH_GENR_INLINE bool               is_pow_two(const uint32_t i); // TODO:
-MATH_GENR_INLINE bool               fmod(const float x, const float max); // TODO;
 MATH_GENR_INLINE float              sign(const float x); // Returns 1 or -1
 MATH_GENR_INLINE float              mod(const float x, const float divisor);
 MATH_GENR_INLINE float              nearest_floor(const float x, const float increments);
+MATH_GENR_INLINE float              ceil(const float x);
+MATH_GENR_INLINE float              floor(const float x);
 
 
 // ** Search ** //
+
 MATH_GENR_INLINE bool               index_linear_search(const uint32_t to_find, const uint32_t search[], const size_t size_of_search, size_t *out_result);
 
 
@@ -203,16 +213,23 @@ a_sin(const float radians)
 }
 
 
+namespace detail
+{
+  MATH_CONSTEXPR float over_pi() { return 180.f / pi(); }
+  MATH_CONSTEXPR float over_180() { return pi() / 180.f; }
+}
+
+
 float
 radians_to_degrees(const float radians)
 {
-  return radians * (180.f / pi());
+  return radians * detail::over_pi();
 }
 
 float
 degrees_to_radians(const float degrees)
 {
-  return degrees * (pi() / 180.f);
+  return degrees * detail::over_180();
 }
 
 
@@ -239,6 +256,20 @@ index_linear_search(const uint32_t to_find, const uint32_t search[], const size_
 }
 
 
+float
+ceil(const float x)
+{
+  return ((float)(long)((x)+1));
+}
+
+
+float
+floor(const float x)
+{
+  return ((float)(long)x);
+}
+
+
 bool
 is_near(const float a, const float b, const float error_margin)
 {
@@ -260,6 +291,34 @@ nearest_floor(const float x, const float increments)
 {
   const float remainder = mod(x, increments);
   return x - remainder;
+}
+
+
+float
+to_float(const uint32_t x)
+{
+  return (float)x;
+}
+
+
+float
+to_float(const int32_t x)
+{
+  return (float)x;
+}
+
+
+int32_t
+to_int(const float x)
+{
+  return (int32_t)x;
+}
+
+
+uint32_t
+to_uint(const float x)
+{
+  return (uint32_t)x;
 }
 
 
