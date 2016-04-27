@@ -12,8 +12,6 @@ struct aabb
 {
   math::vec3 max;
   math::vec3 min;
-  math::vec3 half_extents;
-  math::vec3 origin;
 };
 
 
