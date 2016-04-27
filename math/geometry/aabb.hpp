@@ -17,6 +17,10 @@ namespace math {
 inline aabb         aabb_init(const vec3 max, const vec3 min, const vec3 origin);
 inline aabb         aabb_from_xyz_array(const float vertex[], const size_t number_of_floats);
 inline math::vec3   aabb_get_extents(const aabb &a);
+inline vec3         aabb_get_half_extents(const aabb &a);
+inline vec3         aabb_get_offset_min(const aabb &a);
+inline vec3         aabb_get_offset_max(const aabb &a);
+
 inline void         aabb_scale(aabb &aabb_to_scale, const vec3 scale);
 inline void         aabb_scale(aabb &aabb_to_scale, const float scale);
 inline bool         aabb_intersection_test(const aabb &a, const aabb &b);
