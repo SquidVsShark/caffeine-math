@@ -23,6 +23,7 @@ inline vec3         aabb_get_min(const aabb &a);
 inline vec3         aabb_get_max(const aabb &a);
 inline vec3         aabb_get_origin(const aabb &a);
 
+inline void         aabb_set_origin(aabb &aabb_to_move, const vec3 new_origin);
 inline void         aabb_scale(aabb &aabb_to_scale, const vec3 scale);
 inline void         aabb_scale(aabb &aabb_to_scale, const float scale);
 
@@ -136,6 +137,15 @@ void
 aabb_scale(aabb &aabb_to_scale, const float scale)
 {
   return aabb_scale(aabb_to_scale, vec3_init(scale));
+}
+
+
+void
+aabb_set_origin(aabb &aabb_to_move, const vec3 new_position)
+{
+  const vec3 diff = vec3_subtract(aabb_get_origin(aabb_to_move), new_position);
+  aabb_to_move.min = vec3_add(aabb_to_move.min, diff);
+  aabb_to_move.max = vec3_add(aabb_to_move.max, diff);
 }
 
 
