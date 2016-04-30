@@ -14,7 +14,7 @@ namespace math {
 
 // ** Interface ** //
 
-inline aabb         aabb_init(const vec3 max, const vec3 min);
+inline aabb         aabb_init(const vec3 min, const vec3 max);
 inline aabb         aabb_init_from_xyz_data(const float vertex[], const size_t number_of_floats);
 
 inline vec3         aabb_get_extents(const aabb &a);
@@ -34,10 +34,10 @@ inline bool         aabb_intersection_test(const aabb &a, const aabb &b);
 
 
 aabb
-aabb_init(const vec3 max,
-          const vec3 min)
+aabb_init(const vec3 min, const vec3 max)
 {
   aabb return_aabb;
+  
   return_aabb.max = max;
   return_aabb.min = min;
   
@@ -91,7 +91,12 @@ aabb_init_from_xyz_data(const float vertex[],
 vec3
 aabb_get_extents(const aabb &a)
 {
-  return vec3_subtract(a.max, a.min);
+  const vec3 extent = vec3_subtract(a.max, a.min);
+  const float x = math::abs(vec3_get_x(extent));
+  const float y = math::abs(vec3_get_y(extent));
+  const float z = math::abs(vec3_get_z(extent));
+  
+  return vec3_init(x, y, z);
 }
 
 
