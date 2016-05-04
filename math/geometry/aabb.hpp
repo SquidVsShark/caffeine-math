@@ -172,9 +172,16 @@ bool
 aabb_intersection_test(const aabb &a,
                        const aabb &b)
 {
-  return (detail::sat_test(math::vec3_get_x(aabb_get_origin(a)), math::vec3_get_x(aabb_get_origin(b)), (math::vec3_get_x(aabb_get_half_extents(a)) + math::vec3_get_x(aabb_get_half_extents(b)))) &&
-          detail::sat_test(math::vec3_get_y(aabb_get_origin(a)), math::vec3_get_y(aabb_get_origin(b)), (math::vec3_get_y(aabb_get_half_extents(a)) + math::vec3_get_y(aabb_get_half_extents(b)))) &&
-          detail::sat_test(math::vec3_get_z(aabb_get_origin(a)), math::vec3_get_z(aabb_get_origin(b)), (math::vec3_get_z(aabb_get_half_extents(a)) + math::vec3_get_z(aabb_get_half_extents(b)))));
+  const vec3 origin_a = aabb_get_origin(a);
+  const vec3 origin_b = aabb_get_origin(b);
+  
+  const vec3 half_ext_a = aabb_get_half_extents(a);
+  const vec3 half_ext_b = aabb_get_half_extents(b);
+  const vec3 combined_half_extent = vec3_add(half_ext_a, half_ext_b);
+
+  return (detail::sat_test(math::vec3_get_x(origin_a), math::vec3_get_x(origin_b), math::vec3_get_x(combined_half_extent)) &&
+          detail::sat_test(math::vec3_get_y(origin_a), math::vec3_get_y(origin_b), math::vec3_get_y(combined_half_extent)) &&
+          detail::sat_test(math::vec3_get_z(origin_a), math::vec3_get_z(origin_b), math::vec3_get_z(combined_half_extent)));
 }
 
 

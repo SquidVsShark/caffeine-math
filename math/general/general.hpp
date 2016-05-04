@@ -167,7 +167,12 @@ is_between(const float value, const float limit_a, const float limit_b)
 float
 abs(const float x)
 {
+  #ifndef MATH_EXPERIMENTAL
+  int i=((*(int*)&x)&0x7fffffff);
+  return (*(float*)&i);
+  #else
   return std::abs(x);
+  #endif
 }
 
 
