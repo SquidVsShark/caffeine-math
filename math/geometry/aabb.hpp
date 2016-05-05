@@ -185,6 +185,18 @@ aabb_intersection_test(const aabb &a,
 }
 
 
+bool
+aabb_fits_inside_aabb(const aabb &a, const aabb &b)
+{
+  return false; // place holder
+}
+
+
+void
+aabb_subdivide(const aabb &a, aabb out_aabb[8])
+{
+}
+
 } // ns
 
 
