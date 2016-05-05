@@ -86,8 +86,6 @@ aabb_init_from_xyz_data(const float vertex[],
 
   return out_aabb;
 }
-
-
 vec3
 aabb_get_extents(const aabb &a)
 {
@@ -184,18 +182,6 @@ aabb_intersection_test(const aabb &a,
           detail::sat_test(math::vec3_get_z(origin_a), math::vec3_get_z(origin_b), math::vec3_get_z(combined_half_extent)));
 }
 
-
-bool
-aabb_fits_inside_aabb(const aabb &a, const aabb &b)
-{
-  return false; // place holder
-}
-
-
-void
-aabb_subdivide(const aabb &a, aabb out_aabb[8])
-{
-}
 
 } // ns
 
