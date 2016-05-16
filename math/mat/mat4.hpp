@@ -527,7 +527,7 @@ mat4_get_inverse(const mat4 &to_inverse)
   
   const float determinant = to_i->data[0] * inverse[0] + to_i->data[1] * inverse[4] + to_i->data[2] * inverse[8] + to_i->data[3] * inverse[12];
 
-  assert(determinant > 0);
+  assert(determinant != 0);
   
   const float one_over_det = 1.f / determinant;
   

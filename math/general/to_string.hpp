@@ -16,27 +16,27 @@ inline std::string to_string(const vec4 vec);
 inline std::string to_string(const mat4 mat, const bool line_breaks = false);
 
 
-std::string
-to_string(const vec2 vec)
-{
-	const std::string x = std::to_string(vec2_get_x(vec));
-	const std::string y = std::to_string(vec2_get_y(vec));
+//inline std::string
+//to_string(const vec2 vec)
+//{
+//	const std::string x = std::to_string(vec2_get_x(vec));
+//	const std::string y = std::to_string(vec2_get_y(vec));
+//
+//	return std::string("Vec2: " + x + ", " + y);
+//}
 
-	return std::string("Vec2: " + x + ", " + y);
-}
 
+//inline std::string
+//to_string(const vec3 vec)
+//{
+//	const std::string x = std::to_string(vec3_get_x(vec));
+//	const std::string y = std::to_string(vec3_get_y(vec));
+//	const std::string z = std::to_string(vec3_get_z(vec));
+//
+//	return std::string("Vec3: " + x + ", " + y + ", " + z);
+//}
 
-std::string
-to_string(const vec3 vec)
-{
-	const std::string x = std::to_string(vec3_get_x(vec));
-	const std::string y = std::to_string(vec3_get_y(vec));
-	const std::string z = std::to_string(vec3_get_z(vec));
-
-	return std::string("Vec3: " + x + ", " + y + ", " + z);
-}
-
-std::string
+inline std::string
 to_string(const vec4 vec)
 {
 	const std::string x = std::to_string(vec4_get_x(vec));
@@ -48,7 +48,7 @@ to_string(const vec4 vec)
 }
 
 
-std::string
+inline std::string
 to_string(const mat4 mat, const bool line_breaks)
 {
 	const std::string row_break = line_breaks ? "\n" : ", ";
