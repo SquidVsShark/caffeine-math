@@ -86,6 +86,8 @@ aabb_init_from_xyz_data(const float vertex[],
 
   return out_aabb;
 }
+
+
 vec3
 aabb_get_extents(const aabb &a)
 {
