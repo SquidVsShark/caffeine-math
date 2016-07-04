@@ -11,6 +11,7 @@
 #include "../detail/detail.hpp"
 #include <cmath>
 #include <algorithm>
+#include <random>
 
 
 namespace math {
@@ -75,6 +76,9 @@ MATH_GENR_INLINE float              mod(const float x, const float divisor);
 MATH_GENR_INLINE float              nearest_floor(const float x, const float increments);
 MATH_GENR_INLINE float              ceil(const float x);
 MATH_GENR_INLINE float              floor(const float x);
+
+
+MATH_GENR_INLINE float              rand_range(const float start, const float end);
 
 
 // ** Search ** //
@@ -319,6 +323,18 @@ uint32_t
 to_uint(const float x)
 {
   return (uint32_t)x;
+}
+
+
+float
+rand_range(const float start, const float end)
+{
+  static std::random_device rd;
+  static std::default_random_engine re(rd());
+  
+  std::uniform_real_distribution<float> dist(start, end);
+
+  return dist(re);
 }
 
 
