@@ -235,13 +235,13 @@ mat4_orthographic(const float width, const float height, const float near_plane,
 
   const float ortho_mat[16] = 
   {
-    2.f / width,
+    2 / width,
     0.f,
     0.f,
     0.f,
 
     0.f,
-    2.f / height,
+    2 / height,
     0.f,
     0.f,
     
