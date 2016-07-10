@@ -4,13 +4,14 @@
 
 /*
   These are general math functions and constants.
-  Alot of them are simple stubs to stl functions.
+  Alot of them are simple stub functions to allow
+  for easy overriding if required.
 */
 
 
 #include "../detail/detail.hpp"
+#include <math.h>
 #include <cmath>
-#include <algorithm>
 #include <random>
 
 
@@ -22,15 +23,15 @@ namespace math {
 
 // ** Constants ** //
 
-MATH_CONSTEXPR float              pi()          { return 3.14159265359f;  }
-MATH_CONSTEXPR float              two_pi()      { return 2.f * pi();      }
-MATH_CONSTEXPR float              half_pi()     { return pi() * 0.5f;     }
-MATH_CONSTEXPR float              tau()         { return two_pi();        }
-MATH_CONSTEXPR float              half_tau()    { return pi();            }
-MATH_CONSTEXPR float              quart_tau()   { return half_pi();       }
-MATH_CONSTEXPR float              g_ratio()     { return 1.61803398875f;  }
-MATH_CONSTEXPR float              root_two()    { return 1.41421356237f;  }
-MATH_CONSTEXPR float              root_three()  { return 1.73205080757f;  }
+MATH_CONSTEXPR float                pi()          { return 3.14159265359f;  }
+MATH_CONSTEXPR float                two_pi()      { return 2.f * pi();      }
+MATH_CONSTEXPR float                half_pi()     { return pi() * 0.5f;     }
+MATH_CONSTEXPR float                tau()         { return two_pi();        }
+MATH_CONSTEXPR float                half_tau()    { return pi();            }
+MATH_CONSTEXPR float                quart_tau()   { return half_pi();       }
+MATH_CONSTEXPR float                g_ratio()     { return 1.61803398875f;  }
+MATH_CONSTEXPR float                root_two()    { return 1.41421356237f;  }
+MATH_CONSTEXPR float                root_three()  { return 1.73205080757f;  }
 
 
 // ** Trig ** //
@@ -45,8 +46,8 @@ MATH_GENR_INLINE float              a_sin(const float radians);
 
 // ** Degs/Rads ** //
 
-MATH_GENR_INLINE float              radians_to_degrees(const float radians); // TODO:
-MATH_GENR_INLINE float              degrees_to_radians(const float degrees); // TODO:
+MATH_GENR_INLINE float              radians_to_degrees(const float radians);
+MATH_GENR_INLINE float              degrees_to_radians(const float degrees);
 
 
 // ** Casting ** //
@@ -55,6 +56,11 @@ MATH_GENR_INLINE float              to_float(const uint32_t x);
 MATH_GENR_INLINE float              to_float(const int32_t x);
 MATH_GENR_INLINE int32_t            to_int(const float x);
 MATH_GENR_INLINE uint32_t           to_uint(const float x);
+
+
+// ** Random ** //
+
+MATH_GENR_INLINE float              rand_range(const float start, const float end);
 
 
 // ** Other general ** //
@@ -78,28 +84,20 @@ MATH_GENR_INLINE float              ceil(const float x);
 MATH_GENR_INLINE float              floor(const float x);
 
 
-MATH_GENR_INLINE float              rand_range(const float start, const float end);
-
-
-// ** Search ** //
-
-MATH_GENR_INLINE bool               index_linear_search(const uint32_t to_find, const uint32_t search[], const size_t size_of_search, size_t *out_result);
-
-
 // ** IMPL ** //
 
 
 float
 sqrt(const float x)
 {
-  return std::sqrt(x);
+  return sqrtf(x);
 }
 
 
 float
 max(const float x, const float y)
 {
-  return std::max(x, y);
+  return fmaxf(x, y);
 }
 
 
@@ -120,7 +118,7 @@ max(const uint32_t x, const uint32_t y)
 float
 min(const float x, const float y)
 {
-  return std::min(x, y);
+  return fminf(x, y);
 }
 
 
@@ -171,55 +169,55 @@ is_between(const float value, const float limit_a, const float limit_b)
 float
 abs(const float x)
 {
-  return std::abs(x);
+  return fabsf(x);
 }
 
 
 float
 tan(const float x)
 {
-  return std::tan(x);
+  return tanf(x);
 }
 
 
 float
 a_tan2(const float x, const float y)
 {
-  return std::atan2(x, y);
+  return atan2f(x, y);
 }
 
 
 float
 cos(const float radians)
 {
-  return std::cos(radians);
+  return cosf(radians);
 }
 
 
 float
 a_cos(const float radians)
 {
-  return std::acos(radians);
+  return acosf(radians);
 }
 
 
 float
 sin(const float radians)
 {
-  return std::sin(radians);
+  return sinf(radians);
 }
 
 
 float
 a_sin(const float radians)
 {
-  return std::asin(radians);
+  return asinf(radians);
 }
 
 
 namespace detail
 {
-  MATH_CONSTEXPR float over_pi() { return 180.f / pi(); }
+  MATH_CONSTEXPR float over_pi()  { return 180.f / pi(); }
   MATH_CONSTEXPR float over_180() { return pi() / 180.f; }
 }
 
@@ -241,22 +239,6 @@ float
 sign(const float x)
 {
   return x >= 0.f ? 1.f : -1.f;
-}
-
-
-bool
-index_linear_search(const uint32_t to_find, const uint32_t search[], const size_t size_of_search, size_t *out_result)
-{
-  for(std::size_t i = 0; i < size_of_search; ++i)
-  {
-    if(search[i] == to_find)
-    {
-      (*out_result) = i;
-      return true;
-    }
-  }
-
-  return false;
 }
 
 
@@ -286,7 +268,7 @@ is_near(const float a, const float b, const float error_margin)
 float
 mod(const float x, const float divisor)
 {
-  return static_cast<float>(std::fmod(static_cast<double>(x), static_cast<double>(divisor)));
+  return fmodf(x, divisor);
 }
 
 

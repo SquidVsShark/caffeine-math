@@ -321,19 +321,17 @@ quat_get(const quat quat, const uint32_t i)
   {
     case(0):
       return quat_get_x(quat);
-      break;
     case(1):
       return quat_get_y(quat);
-      break;
     case(2):
       return quat_get_z(quat);
-      break;
     case(3):
       return quat_get_w(quat);
-      break; 
     default:
       assert(false);
   }
+  
+  return 0.f;
 }
 
 
