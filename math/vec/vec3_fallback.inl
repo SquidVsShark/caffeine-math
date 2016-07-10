@@ -22,16 +22,6 @@ namespace math {
 
 // ** Implimentation ** //
 
-// This is not part of public interface, keep walking :)
-// Using anything in the detail namespace is undefined-behaviour.
-namespace detail
-{
-  struct internal_vec3
-  {
-    float x, y, z;
-  };
-}
-
 
 // Constants
 vec3
@@ -67,11 +57,10 @@ vec3
 vec3_init(const float x, const float y, const float z)
 {
   vec3 return_vec;
-  detail::internal_vec3 *internal_vec = reinterpret_cast<detail::internal_vec3*>(&return_vec);
 
-  internal_vec->x = x;
-  internal_vec->y = y;
-  internal_vec->z = z;
+  return_vec.data[0] = x;
+  return_vec.data[1] = y;
+  return_vec.data[2] = z;
 
   return return_vec;
 }
@@ -89,24 +78,21 @@ vec3_init_with_array(const float *arr)
 float
 vec3_get_x(const vec3 vec)
 {
-  const detail::internal_vec3 *internal_vec = reinterpret_cast<const detail::internal_vec3*>(&vec);
-  return internal_vec->x;
+  return vec.data[0];
 }
 
 
 float
 vec3_get_y(const vec3 vec)
 {
-  const detail::internal_vec3 *internal_vec = reinterpret_cast<const detail::internal_vec3*>(&vec);
-  return internal_vec->y;
+  return vec.data[1];
 }
 
 
 float
 vec3_get_z(const vec3 vec)
 {
-  const detail::internal_vec3 *internal_vec = reinterpret_cast<const detail::internal_vec3*>(&vec);
-  return internal_vec->z;
+  return vec.data[2];
 }
 
 
@@ -122,43 +108,31 @@ vec3_to_array(const vec3 a, float *out_array)
 vec3
 vec3_add(const vec3 a, const vec3 b)
 {
-  const detail::internal_vec3 *vec_a = reinterpret_cast<const detail::internal_vec3*>(&a);
-  const detail::internal_vec3 *vec_b = reinterpret_cast<const detail::internal_vec3*>(&b);
-
-  return vec3_init(vec_a->x + vec_b->x, vec_a->y + vec_b->y, vec_a->z + vec_b->z);
+  return vec3_init(get_x(a) + get_x(b), get_y(a) + get_y(b), get_z(a) + get_z(b));
 }
 
 
 vec3
 vec3_subtract(const vec3 a, const vec3 b)
 {
-  const detail::internal_vec3 *vec_a = reinterpret_cast<const detail::internal_vec3*>(&a);
-  const detail::internal_vec3 *vec_b = reinterpret_cast<const detail::internal_vec3*>(&b);
-
-  return vec3_init(vec_a->x - vec_b->x, vec_a->y - vec_b->y, vec_a->z - vec_b->z);
+  return vec3_init(get_x(a) - get_x(b), get_y(a) - get_y(b), get_z(a) - get_z(b));
 }
 
 
 vec3
 vec3_multiply(const vec3 a, const vec3 b)
 {
-  const detail::internal_vec3 *vec_a = reinterpret_cast<const detail::internal_vec3*>(&a);
-  const detail::internal_vec3 *vec_b = reinterpret_cast<const detail::internal_vec3*>(&b);
-
-  return vec3_init(vec_a->x * vec_b->x, vec_a->y * vec_b->y, vec_a->z * vec_b->z);
+  return vec3_init(get_x(a) * get_x(b), get_y(a) * get_y(b), get_z(a) * get_z(b));
 }
 
 
 vec3
 vec3_divide(const vec3 a, const vec3 b)
 {
-  const detail::internal_vec3 *vec_a = reinterpret_cast<const detail::internal_vec3*>(&a);
-  const detail::internal_vec3 *vec_b = reinterpret_cast<const detail::internal_vec3*>(&b);
-
   // Divide by zero check.
-  assert(vec_b->x != 0 && vec_b->y != 0 && vec_b->z != 0);
+  assert(get_x(b) != 0 && get_y(b) != 0 && get_z(b) != 0);
 
-  return vec3_init(vec_a->x / vec_b->x, vec_a->y / vec_b->y, vec_a->z / vec_b->z);
+  return vec3_init(get_x(a) / get_x(b), get_y(a) / get_y(b), get_z(a) / get_z(b));
 }
 
 
@@ -216,8 +190,7 @@ vec3_normalize(const vec3 a)
 float
 vec3_length(const vec3 a)
 {
-  const detail::internal_vec3 *vec_a = reinterpret_cast<const detail::internal_vec3*>(&a);
-  const float x = vec_a->x * vec_a->x + vec_a->y * vec_a->y + vec_a->z * vec_a->z;
+  const float x = get_x(a) * get_x(a) + get_y(a) * get_y(a) + get_z(a) * get_z(a);
 
   return sqrt(x);
 }
