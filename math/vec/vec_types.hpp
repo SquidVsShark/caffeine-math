@@ -14,8 +14,9 @@
 #ifdef MATH_ON_SSE2
 #define SIMD_TYPE __m128
 #else
-//typedef decltype(nullptr) nulltype;
-#define SIMD_TYPE int
+// in FPU mode SIMD_TYPE is nothing.
+typedef decltype(nullptr) nulltype_t;
+#define SIMD_TYPE nulltype_t
 #endif
 
 
