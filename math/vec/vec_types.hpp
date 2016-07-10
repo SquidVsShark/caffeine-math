@@ -12,41 +12,45 @@
 
 
 #ifdef MATH_ON_SSE2
+#define SIMD_TYPE __m128
+#else
+#define SIMD_TYPE decltype(nullptr);
+#endif
 
 
 namespace math {
 
-using vec4 = __m128;
-using vec3 = __m128;
-using vec2 = __m128;
+struct vec4
+{
+  union
+  {
+    SIMD_TYPE simd_vec;
+    float data[4];
+  };
+};
+
+
+struct vec3
+{
+  union
+  {
+    SIMD_TYPE simd_vec;
+    float data[3];
+  };
+};
+
+
+struct vec2
+{
+  union
+  {
+    SIMD_TYPE simd_vec;
+    float data[2];
+  };
+};
+
 
 } // ns
-
-
-#else // Fallback
-
-
-namespace math {
-
-class vec4
-{
-  float data[4];
-};
-
-class vec3
-{
-  float data[3];
-};
-
-class vec2
-{
-  float data[2];
-};
-
-} // ns
-
-
-#endif // simd types
 
 
 #endif // inc guard

@@ -54,6 +54,34 @@ MATH_VEC3_INLINE bool                   vec3_is_not_equal(const vec3 a, const ve
 MATH_VEC3_INLINE bool                   vec3_is_near(const vec3 a, const vec3 b, const float error);
 MATH_VEC3_INLINE bool                   vec3_is_not_near(const vec3 a, const vec3 b, const float error);
 
+// ** Short hand getters ** //
+MATH_VEC3_INLINE float                  get_x(const vec3 vec);
+MATH_VEC3_INLINE float                  get_y(const vec3 vec);
+MATH_VEC3_INLINE float                  get_z(const vec3 vec);
+
+
+// Alias getters
+
+float
+get_x(const vec3 vec)
+{
+  return vec3_get_x(vec);
+}
+
+
+float
+get_y(const vec3 vec)
+{
+  return vec3_get_y(vec);
+}
+
+
+float
+get_z(const vec3 vec)
+{
+  return vec3_get_z(vec);
+}
+
 
 } // ns
 

@@ -53,6 +53,26 @@ MATH_VEC2_INLINE bool                   vec2_is_not_equal(const vec2 a, const ve
 MATH_VEC2_INLINE bool                   vec2_is_near(const vec2 a, const vec2 b, const float error);
 MATH_VEC2_INLINE bool                   vec2_is_not_near(const vec2 a, const vec2 b, const float error);
 
+// ** Short hand getter ** //
+MATH_VEC2_INLINE float                  get_x(const vec2 vec);
+MATH_VEC2_INLINE float                  get_y(const vec2 vec);
+
+
+// Alias getters
+
+float
+get_x(const vec2 vec)
+{
+  return vec2_get_x(vec);
+}
+
+
+float
+get_y(const vec2 vec)
+{
+  return vec2_get_y(vec);
+}
+
 
 } // ns
 

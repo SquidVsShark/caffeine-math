@@ -248,7 +248,7 @@ quat_get_rotation_matrix(const quat to_mat3)
   const float z_sq = quat_z * quat_z;
   
 	std::array<float, 9> mat_data =
-	{
+	{{
 		1 - 2 * y_sq - 2 * z_sq,
     2 * (quat_x * quat_y) - 2 * (quat_z * quat_w),
 		2 * (quat_x * quat_z) + 2 * (quat_y * quat_w),
@@ -260,7 +260,7 @@ quat_get_rotation_matrix(const quat to_mat3)
 		2 * (quat_x * quat_z) - 2 * (quat_y * quat_w),
 		2 * (quat_y * quat_z) + 2 * (quat_x * quat_w),
 		1 - 2 * x_sq - 2 * y_sq,
-	};
+	}};
 
   return mat3_init_with_array(&mat_data[0]);
 }

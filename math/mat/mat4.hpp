@@ -53,6 +53,7 @@ MATH_MAT4_INLINE mat4                       mat4_get_transpose(const mat4 &a);
 MATH_MAT4_INLINE mat4                       mat4_get_inverse(const mat4 &a);
 MATH_MAT4_INLINE float                      mat4_get_determinant(const mat4 &a);
 MATH_MAT4_INLINE mat4                       mat4_get_scale(const mat4 &a, const vec3 scale);
+
 // Get/Set information
 MATH_MAT4_INLINE float                      mat4_get(const mat4 &mat, const uint32_t row, const uint32_t col);
 MATH_MAT4_INLINE float                      mat4_get(const mat4 &mat, const uint32_t i);
@@ -552,9 +553,9 @@ mat4_get_determinant(const mat4 &det)
 
   const detail::internal_mat3 *mat = reinterpret_cast<const detail::internal_mat3*>(&det);
 
-  const mat3 det_a_mat = mat3_init_with_array({mat->data[5], mat->data[6], mat->data[7],
+  const mat3 det_a_mat = mat3_init_with_array({{mat->data[5], mat->data[6], mat->data[7],
                                                mat->data[9], mat->data[10], mat->data[11],
-                                               mat->data[13], mat->data[14], mat->data[15]});
+                                               mat->data[13], mat->data[14], mat->data[15]}});
   const float det_a = mat->data[0] * mat3_get_determinant(det_a_mat);
 
   const mat3 det_b_mat = mat3_init_with_array({mat->data[4], mat->data[6], mat->data[7],
