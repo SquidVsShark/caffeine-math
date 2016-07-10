@@ -26,7 +26,7 @@ vec2
 vec2_zero()
 {
   const float zero = 0.f;
-  return(_mm_load_ps1(&zero));
+  return vec2{{_mm_load_ps1(&zero)}};
 }
 
 
@@ -34,7 +34,7 @@ vec2
 vec2_one()
 {
   const float one = 1.f;
-  return(_mm_load_ps1(&one));
+  return vec2{{_mm_load_ps1(&one)}};
 }
 
 
@@ -57,14 +57,14 @@ vec2
 vec2_init(const float x, const float y)
 {
   const float zero = 0;
-  return(_mm_set_ps(zero, zero, y, x));
+  return vec2{{_mm_set_ps(zero, zero, y, x)}};
 }
 
 
 vec2
 vec2_init_with_array(const float *arr)
 {
-  return(_mm_load_ps(arr));
+  return vec2{{_mm_load_ps(arr)}};
 }
 
 
@@ -74,7 +74,7 @@ float
 vec2_get_x(const vec2 vec)
 {
   __declspec(align(16)) float vec2[4];
-  _mm_store_ps(&vec2[0], vec);
+  _mm_store_ps(&vec2[0], vec.simd_vec);
   return vec2[0];
 }
 
@@ -83,7 +83,7 @@ float
 vec2_get_y(const vec2 vec)
 {
   __declspec(align(16)) float vec2[4];
-  _mm_store_ps(&vec2[0], vec);
+  _mm_store_ps(&vec2[0], vec.simd_vec);
   return vec2[1];
 }
 
@@ -92,7 +92,7 @@ void
 vec2_to_array(const vec2 a, float *out_array)
 {
   __declspec(align(16)) float vec2[4];
-  _mm_store_ps(&vec2[0], a);
+  _mm_store_ps(&vec2[0], a.simd_vec);
 
   memcpy(out_array, &vec2[0], sizeof(float) * 2);
 }
@@ -101,28 +101,28 @@ vec2_to_array(const vec2 a, float *out_array)
 vec2
 vec2_add(const vec2 a, const vec2 b)
 {
-  return(_mm_add_ps(a, b));
+  return vec2{{_mm_add_ps(a.simd_vec, b.simd_vec)}};
 }
 
 
 vec2
 vec2_subtract(const vec2 a, const vec2 b)
 {
-  return(_mm_sub_ps(a, b));
+  return vec2{{_mm_sub_ps(a.simd_vec, b.simd_vec)}};
 }
 
 
 vec2
 vec2_multiply(const vec2 a, const vec2 b)
 {
-  return(_mm_mul_ps(a, b));
+  return vec2{{_mm_mul_ps(a.simd_vec, b.simd_vec)}};
 }
 
 
 vec2
 vec2_divide(const vec2 a, const vec2 b)
 {
-  return(_mm_div_ps(a, b));
+  return vec2{{_mm_div_ps(a.simd_vec, b.simd_vec)}};
 }
 
 
@@ -159,7 +159,7 @@ vec2_normalize(const vec2 a)
 float
 vec2_length(const vec2 a)
 {
-  __m128 sq = _mm_mul_ps(a, a);
+  __m128 sq = _mm_mul_ps(a.simd_vec, a.simd_vec);
 
   sq = _mm_add_ps(sq, _mm_movehl_ps(sq, sq));
   sq = _mm_add_ss(sq, _mm_shuffle_ps(sq, sq, 1));
@@ -182,7 +182,7 @@ vec2_cross(const vec2 a, const vec2 b)
 float
 vec2_dot(const vec2 a, const vec2 b)
 {
-  __m128 mu = _mm_mul_ps(a, b);
+  __m128 mu = _mm_mul_ps(a.simd_vec, b.simd_vec);
 
   mu = _mm_add_ps(mu, _mm_movehl_ps(mu, mu));
   mu = _mm_add_ss(mu, _mm_shuffle_ps(mu, mu, 1));

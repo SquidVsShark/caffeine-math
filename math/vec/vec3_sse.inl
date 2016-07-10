@@ -25,7 +25,7 @@ vec3
 vec3_zero()
 {
   const float zero = 0.f;
-  return(_mm_load_ps1(&zero));
+  return vec3{{_mm_load_ps1(&zero)}};
 }
 
 
@@ -33,7 +33,7 @@ vec3
 vec3_one()
 {
   const float one = 1.f;
-  return(_mm_load_ps1(&one));
+  return vec3{{_mm_load_ps1(&one)}};
 }
 
 
@@ -41,14 +41,14 @@ vec3
 vec3_zero_zero_one()
 {
   const float data[] = {0.f, 0.f, 1.f, 0.f};
-  return(_mm_load_ps(data));
+  return vec3{{_mm_load_ps(data)}};
 }
 
 
 vec3
 vec3_init(const float val)
 {
-  return(_mm_load_ps1(&val));
+  return vec3{{_mm_load_ps1(&val)}};
 }
 
 
@@ -56,14 +56,14 @@ vec3
 vec3_init(const float x, const float y, const float z)
 {
   const float zero = 0;
-  return(_mm_set_ps(zero, z, y, x));
+  return vec3{{_mm_set_ps(zero, z, y, x)}};
 }
 
 
 vec3
 vec3_init_with_array(const float *arr)
 {
-  return(_mm_load_ps(arr));
+  return vec3{{_mm_load_ps(arr)}};
 }
 
 
@@ -72,27 +72,30 @@ vec3_init_with_array(const float *arr)
 float
 vec3_get_x(const vec3 vec)
 {
-  __declspec(align(16)) float vec_store[4];
-  _mm_store_ps(&vec_store[0], vec);
-  return vec_store[0];
+//  __declspec(align(16)) float vec_store[4];
+//  _mm_store_ps(&vec_store[0], vec);
+//  return vec_store[0];
+  return vec.data[0];
 }
 
 
 float
 vec3_get_y(const vec3 vec)
 {
-  __declspec(align(16)) float vec_store[4];
-  _mm_store_ps(&vec_store[0], vec);
-  return vec_store[1];
+//  __declspec(align(16)) float vec_store[4];
+//  _mm_store_ps(&vec_store[0], vec);
+//  return vec_store[1];
+  return vec.data[1];
 }
 
 
 float
 vec3_get_z(const vec3 vec)
 {
-  __declspec(align(16)) float vec_store[4];
-  _mm_store_ps(&vec_store[0], vec);
-  return vec_store[2];
+//  __declspec(align(16)) float vec_store[4];
+//  _mm_store_ps(&vec_store[0], vec);
+//  return vec_store[2];
+  return vec.data[2];
 }
 
 
@@ -100,7 +103,7 @@ void
 vec3_to_array(const vec3 a, float *out_array)
 {
   __declspec(align(16)) float vec_store[4];
-  _mm_store_ps(&vec_store[0], a);
+  _mm_store_ps(&vec_store[0], a.simd_vec);
 
   memcpy(out_array, &vec_store[0], sizeof(float) * 3);
 }
@@ -109,28 +112,28 @@ vec3_to_array(const vec3 a, float *out_array)
 vec3
 vec3_add(const vec3 a, const vec3 b)
 {
-  return(_mm_add_ps(a, b));
+  return vec3{{_mm_add_ps(a.simd_vec, b.simd_vec)}};
 }
 
 
 vec3
 vec3_subtract(const vec3 a, const vec3 b)
 {
-  return(_mm_sub_ps(a, b));
+  return vec3{{_mm_sub_ps(a.simd_vec, b.simd_vec)}};
 }
 
 
 vec3
 vec3_multiply(const vec3 a, const vec3 b)
 {
-  return(_mm_mul_ps(a, b));
+  return vec3{{_mm_mul_ps(a.simd_vec, b.simd_vec)}};
 }
 
 
 vec3
 vec3_divide(const vec3 a, const vec3 b)
 {
-  return(_mm_div_ps(a, b));
+  return vec3{{_mm_div_ps(a.simd_vec, b.simd_vec)}};
 }
 
 
@@ -188,7 +191,7 @@ vec3_normalize(const vec3 a)
 float
 vec3_length(const vec3 a)
 {
-  __m128 sq = _mm_mul_ps(a, a);
+  __m128 sq = _mm_mul_ps(a.simd_vec, a.simd_vec);
 
   sq = _mm_add_ps(sq, _mm_movehl_ps(sq, sq));
   sq = _mm_add_ss(sq, _mm_shuffle_ps(sq, sq, 1));
@@ -216,11 +219,10 @@ vec3_cross(const vec3 a, const vec3 b)
 float
 vec3_dot(const vec3 a, const vec3 b)
 {
-  __m128 mu = _mm_mul_ps(a, b);
+  __m128 mu = _mm_mul_ps(a.simd_vec, b.simd_vec);
 
   mu = _mm_add_ps(mu, _mm_movehl_ps(mu, mu));
   mu = _mm_add_ss(mu, _mm_shuffle_ps(mu, mu, 1));
-
 
   __declspec(align(16)) float vec_store[4];
   _mm_store_ps(&vec_store[0], mu);
@@ -231,7 +233,7 @@ vec3_dot(const vec3 a, const vec3 b)
 bool
 vec3_is_equal(const vec3 a, const vec3 b)
 {
-  return !!_mm_movemask_ps(_mm_cmpeq_ps(a, b));
+  return !!_mm_movemask_ps(_mm_cmpeq_ps(a.simd_vec, b.simd_vec));
 }
 
 

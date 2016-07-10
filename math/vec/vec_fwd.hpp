@@ -5,31 +5,16 @@
 #include "../detail/detail.hpp"
 
 
-#ifdef MATH_ON_SSE2
-
-
 namespace math {
 
-using vec4 = __m128;
-using vec3 = __m128;
-using vec2 = __m128;
+
+struct vec2;
+struct vec3;
+struct vec4;
+
 
 } // ns
 
-
-#else // use fallback
-
-
-namespace math {
-
-class vec2;
-class vec3;
-class vec4;
-
-} // ns
-
-
-#endif // simd_types
 
 
 #endif // inc guard
