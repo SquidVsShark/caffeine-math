@@ -7,14 +7,15 @@
 
 /*
   Vector Types.
-  These are the vector types in caffeine math.
+  These are the vector types.
 */
 
 
 #ifdef MATH_ON_SSE2
 #define SIMD_TYPE __m128
 #else
-#define SIMD_TYPE decltype(nullptr);
+//typedef decltype(nullptr) nulltype;
+#define SIMD_TYPE int
 #endif
 
 

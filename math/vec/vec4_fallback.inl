@@ -22,16 +22,6 @@ namespace math {
 
 // ** Implimentation ** //
 
-// This is not part of public interface, keep walking :)
-// Using anything in the detail namespace is undefined-behaviour.
-namespace detail
-{
-  struct internal_vec4
-  {
-    float x, y, z, w;
-  };
-}
-
 
 // Constants
 vec4
@@ -68,12 +58,11 @@ vec4
 vec4_init(const float x, const float y, const float z, const float w)
 {
   vec4 return_vec;
-  detail::internal_vec4 *internal_vec = reinterpret_cast<detail::internal_vec4*>(&return_vec);
 
-  internal_vec->x = x;
-  internal_vec->y = y;
-  internal_vec->z = z;
-  internal_vec->w = w;
+  return_vec.data[0] = x;
+  return_vec.data[1] = y;
+  return_vec.data[2] = z;
+  return_vec.data[3] = w;
 
   return return_vec;
 }
@@ -91,32 +80,28 @@ vec4_init_with_array(const float *arr)
 float
 vec4_get_x(const vec4 vec)
 {
-  const detail::internal_vec4 *internal_vec = reinterpret_cast<const detail::internal_vec4*>(&vec);
-  return internal_vec->x;
+  return vec.data[0];
 }
 
 
 float
 vec4_get_y(const vec4 vec)
 {
-  const detail::internal_vec4 *internal_vec = reinterpret_cast<const detail::internal_vec4*>(&vec);
-  return internal_vec->y;
+  return vec.data[1];
 }
 
 
 float
 vec4_get_z(const vec4 vec)
 {
-  const detail::internal_vec4 *internal_vec = reinterpret_cast<const detail::internal_vec4*>(&vec);
-  return internal_vec->z;
+  return vec.data[2];
 }
 
 
 float
 vec4_get_w(const vec4 vec)
 {
-  const detail::internal_vec4 *internal_vec = reinterpret_cast<const detail::internal_vec4*>(&vec);
-  return internal_vec->w;
+  return vec.data[3];
 }
 
 
@@ -133,43 +118,31 @@ vec4_to_array(const vec4 a, float *out_array)
 vec4
 vec4_add(const vec4 a, const vec4 b)
 {
-  const detail::internal_vec4 *vec_a = reinterpret_cast<const detail::internal_vec4*>(&a);
-  const detail::internal_vec4 *vec_b = reinterpret_cast<const detail::internal_vec4*>(&b);
-
-  return vec4_init(vec_a->x + vec_b->x, vec_a->y + vec_b->y, vec_a->z + vec_b->z, vec_a->w + vec_b->w);
+  return vec4_init(get_x(a) + get_x(b), get_y(a) + get_y(b), get_z(a) + get_z(b), get_w(a) + get_w(b));
 }
 
 
 vec4
 vec4_subtract(const vec4 a, const vec4 b)
 {
-  const detail::internal_vec4 *vec_a = reinterpret_cast<const detail::internal_vec4*>(&a);
-  const detail::internal_vec4 *vec_b = reinterpret_cast<const detail::internal_vec4*>(&b);
-
-  return vec4_init(vec_a->x - vec_b->x, vec_a->y - vec_b->y, vec_a->z - vec_b->z, vec_a->w - vec_b->w);
+  return vec4_init(get_x(a) - get_x(b), get_y(a) - get_y(b), get_z(a) - get_z(b), get_w(a) - get_w(b));
 }
 
 
 vec4
 vec4_multiply(const vec4 a, const vec4 b)
 {
-  const detail::internal_vec4 *vec_a = reinterpret_cast<const detail::internal_vec4*>(&a);
-  const detail::internal_vec4 *vec_b = reinterpret_cast<const detail::internal_vec4*>(&b);
-
-  return vec4_init(vec_a->x * vec_b->x, vec_a->y * vec_b->y, vec_a->z * vec_b->z, vec_a->w * vec_b->w);
+  return vec4_init(get_x(a) * get_x(b), get_y(a) * get_y(b), get_z(a) * get_z(b), get_w(a) * get_w(b));
 }
 
 
 vec4
 vec4_divide(const vec4 a, const vec4 b)
 {
-  const detail::internal_vec4 *vec_a = reinterpret_cast<const detail::internal_vec4*>(&a);
-  const detail::internal_vec4 *vec_b = reinterpret_cast<const detail::internal_vec4*>(&b);
-
   // Divide by zero check.
-  assert(vec_b->x != 0 && vec_b->y != 0 && vec_b->z != 0 && vec_b->w != 0);
+  assert(get_x(b) != 0 && get_y(b) != 0 && get_z(b) != 0 && get_w(b) != 0);
 
-  return vec4_init(vec_a->x / vec_b->x, vec_a->y / vec_b->y, vec_a->z / vec_b->z, vec_a->w / vec_b->w);
+  return vec4_init(get_x(a) / get_x(b), get_y(a) / get_y(b), get_z(a) / get_z(b), get_w(a) / get_w(b));
 }
 
 
@@ -214,8 +187,7 @@ vec4_normalize(const vec4 a)
 float
 vec4_length(const vec4 a)
 {
-  const detail::internal_vec4 *vec_a = reinterpret_cast<const detail::internal_vec4*>(&a);
-  const float x = vec_a->x * vec_a->x + vec_a->y * vec_a->y + vec_a->z * vec_a->z + vec_a->w * vec_a->w;
+  const float x = get_x(a) * get_x(a) + get_y(a) * get_y(a) + get_z(a) * get_z(a) + get_w(a) * get_w(a);
 
   return sqrt(x);
 }

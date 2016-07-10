@@ -19,17 +19,6 @@
 namespace math {
 
 
-// This is not part of public interface, keep walking :)
-// Using anything in the detail namespace is undefined-behaviour.
-namespace detail
-{
-  struct internal_vec2
-  {
-    float x, y;
-  };
-}
-
-
 // Constants
 
 vec2
@@ -65,10 +54,9 @@ vec2
 vec2_init(const float x, const float y)
 {
   vec2 return_vec;
-  detail::internal_vec2 *internal_vec = reinterpret_cast<detail::internal_vec2*>(&return_vec);
-
-  internal_vec->x = x;
-  internal_vec->y = y;
+  
+  return_vec.data[0] = x;
+  return_vec.data[1] = y;
 
   return return_vec;
 }
@@ -86,16 +74,14 @@ vec2_init_with_array(const float *arr)
 float
 vec2_get_x(const vec2 vec)
 {
-  const detail::internal_vec2 *internal_vec = reinterpret_cast<const detail::internal_vec2*>(&vec);
-  return internal_vec->x;
+  return vec.data[0];
 }
 
 
 float
 vec2_get_y(const vec2 vec)
 {
-  const detail::internal_vec2 *internal_vec = reinterpret_cast<const detail::internal_vec2*>(&vec);
-  return internal_vec->y;
+  return vec.data[1];
 }
 
 
@@ -110,43 +96,31 @@ vec2_to_array(const vec2 a, float *out_array)
 vec2
 vec2_add(const vec2 a, const vec2 b)
 {
-  const detail::internal_vec2 *vec_a = reinterpret_cast<const detail::internal_vec2*>(&a);
-  const detail::internal_vec2 *vec_b = reinterpret_cast<const detail::internal_vec2*>(&b);
-
-  return vec2_init(vec_a->x + vec_b->x, vec_a->y + vec_b->y);
+  return vec2_init(get_x(a) + get_x(b), get_y(a) + get_y(b));
 }
 
 
 vec2
 vec2_subtract(const vec2 a, const vec2 b)
 {
-  const detail::internal_vec2 *vec_a = reinterpret_cast<const detail::internal_vec2*>(&a);
-  const detail::internal_vec2 *vec_b = reinterpret_cast<const detail::internal_vec2*>(&b);
-
-  return vec2_init(vec_a->x - vec_b->x, vec_a->y - vec_b->y);
+  return vec2_init(get_x(a) - get_x(b), get_y(a) - get_y(b));
 }
 
 
 vec2
 vec2_multiply(const vec2 a, const vec2 b)
 {
-  const detail::internal_vec2 *vec_a = reinterpret_cast<const detail::internal_vec2*>(&a);
-  const detail::internal_vec2 *vec_b = reinterpret_cast<const detail::internal_vec2*>(&b);
-
-  return vec2_init(vec_a->x * vec_b->x, vec_a->y * vec_b->y);
+  return vec2_init(get_x(a) * get_x(b), get_y(a) * get_y(b));
 }
 
 
 vec2
 vec2_divide(const vec2 a, const vec2 b)
 {
-  const detail::internal_vec2 *vec_a = reinterpret_cast<const detail::internal_vec2*>(&a);
-  const detail::internal_vec2 *vec_b = reinterpret_cast<const detail::internal_vec2*>(&b);
-
   // Divide by zero check.
-  assert(vec_b->x != 0 && vec_b->y != 0);
+  assert(get_x(b) != 0 && get_y(b) != 0);
 
-  return vec2_init(vec_a->x / vec_b->x, vec_a->y / vec_b->y);
+  return vec2_init(get_x(a) / get_x(b), get_y(a) / get_y(b));
 }
 
 
@@ -183,8 +157,7 @@ vec2_normalize(const vec2 a)
 float
 vec2_length(const vec2 a)
 {
-  const detail::internal_vec2 *vec_a = reinterpret_cast<const detail::internal_vec2*>(&a);
-  const float x = vec_a->x * vec_a->x + vec_a->y * vec_a->y;
+  const float x = get_x(a) * get_x(a) + get_y(a) * get_y(a);
 
   return sqrt(x);
 }
