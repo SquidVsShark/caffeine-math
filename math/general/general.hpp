@@ -61,27 +61,34 @@ MATH_GENR_INLINE uint32_t           to_uint(const float x);
 // ** Random ** //
 
 MATH_GENR_INLINE float              rand_range(const float start, const float end);
+MATH_GENR_INLINE uint32_t           rand_range(const uint32_t start, const uint32_t end);
+MATH_GENR_INLINE int32_t            rand_range(const int32_t start, const int32_t end);
 
 
 // ** Other general ** //
 
 MATH_GENR_INLINE float              sqrt(const float x);
 MATH_GENR_INLINE float              abs(const float x);
+
 MATH_GENR_INLINE float              max(const float a, const float b);
 MATH_GENR_INLINE int32_t            max(const int32_t a, const int32_t b);
 MATH_GENR_INLINE uint32_t           max(const uint32_t a, const uint32_t b);
 MATH_GENR_INLINE float              min(const float a, const float b);
 MATH_GENR_INLINE int32_t            min(const int32_t a, const int32_t b);
 MATH_GENR_INLINE uint32_t           min(const uint32_t a, const uint32_t b);
+
 MATH_GENR_INLINE float              clamp(const float x, const float between_a, const float between_b);
 MATH_GENR_INLINE bool               is_between(const float to_check, const float a, const float b);
 MATH_GENR_INLINE bool               is_near(const float a, const float b, const float error_margin);
-MATH_GENR_INLINE bool               is_pow_two(const uint32_t i); // TODO:
+
+MATH_GENR_INLINE bool               is_pow_two(const uint32_t i);
+  
 MATH_GENR_INLINE float              sign(const float x); // Returns 1 or -1
 MATH_GENR_INLINE float              mod(const float x, const float divisor);
-MATH_GENR_INLINE float              nearest_floor(const float x, const float increments);
+
 MATH_GENR_INLINE float              ceil(const float x);
 MATH_GENR_INLINE float              floor(const float x);
+MATH_GENR_INLINE float              nearest_floor(const float x, const float increments);
 
 
 // ** IMPL ** //
@@ -228,6 +235,7 @@ radians_to_degrees(const float radians)
   return radians * detail::over_pi();
 }
 
+
 float
 degrees_to_radians(const float degrees)
 {
@@ -239,6 +247,13 @@ float
 sign(const float x)
 {
   return x >= 0.f ? 1.f : -1.f;
+}
+
+
+bool
+is_pow_two(const uint32_t i)
+{
+  return (i & (i - 1)) == 0;
 }
 
 
@@ -315,6 +330,30 @@ rand_range(const float start, const float end)
   static std::default_random_engine re(rd());
   
   std::uniform_real_distribution<float> dist(start, end);
+
+  return dist(re);
+}
+
+
+uint32_t
+rand_range(const uint32_t start, const uint32_t end)
+{
+  static std::random_device rd;
+  static std::default_random_engine re(rd());
+  
+  std::uniform_int_distribution<uint32_t> dist(start, end);
+
+  return dist(re);
+}
+
+
+int32_t
+rand_range(const int32_t start, const int32_t end)
+{
+  static std::random_device rd;
+  static std::default_random_engine re(rd());
+  
+  std::uniform_int_distribution<int32_t> dist(start, end);
 
   return dist(re);
 }
