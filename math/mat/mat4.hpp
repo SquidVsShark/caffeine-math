@@ -12,7 +12,6 @@
 #include "mat_types.hpp"
 #include "mat3.hpp"
 #include "../vec/vec4.hpp"
-#include <array>
 #include <assert.h>
 
 
@@ -28,7 +27,6 @@ MATH_MAT4_INLINE mat4                       mat4_init(); // will return an id ar
 MATH_MAT4_INLINE mat4                       mat4_init(const float x);
 MATH_MAT4_INLINE mat4                       mat4_init_with_mat3(const mat3 sub_matrix);
 MATH_MAT4_INLINE mat4                       mat4_init_with_array(const float arr[]);
-MATH_MAT4_INLINE mat4                       mat4_init_with_array(const std::array<float, 16> &array);
 
 // Generate affine/special transformation matrices.
 MATH_MAT4_INLINE mat4                       mat4_lookat(const vec3 eye_position, const vec3 look_at_position, const vec3 up);
@@ -64,7 +62,6 @@ MATH_MAT4_INLINE vec3                       mat4_get_scale(const mat4 &a);
 MATH_MAT4_INLINE const float*               mat4_get_data(const mat4 &mat);
 
 MATH_MAT4_INLINE void                       mat4_to_array(const mat4 &m, float *array);
-MATH_MAT4_INLINE std::array<float, 16>      mat4_to_array(const mat4 &m);
 
 
 // Impl
@@ -148,13 +145,6 @@ mat4_init_with_array(const float array[])
   memcpy(internal_mat->data, array, sizeof(internal_mat->data));
   
   return return_mat;
-}
-
-
-mat4
-mat4_init_with_array(const std::array<float, 16> &array)
-{
-  return mat4_init_with_array(array.data());
 }
 
 
@@ -644,17 +634,6 @@ mat4_to_array(const mat4 &mat, float *out_array)
 {
   const detail::internal_mat4 *internal_mat = reinterpret_cast<const detail::internal_mat4*>(&mat);
   memcpy(out_array, internal_mat->data, sizeof(float) * 16);
-}
-
-
-std::array<float, 16>
-mat4_to_array(const mat4 &mat)
-{
-  std::array<float, 16> return_arr;
-  
-  mat4_to_array(mat, return_arr.data());
-
-  return return_arr;
 }
 
 
