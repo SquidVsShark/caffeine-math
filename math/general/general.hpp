@@ -12,6 +12,7 @@
 #include "../detail/detail.hpp"
 #include <math.h>
 #include <cmath>
+#include <algorithm>
 #include <random>
 
 
@@ -69,6 +70,7 @@ MATH_GENR_INLINE int32_t            rand_range(const int32_t start, const int32_
 
 MATH_GENR_INLINE float              sqrt(const float x);
 MATH_GENR_INLINE float              abs(const float x);
+MATH_GENR_INLINE int32_t            abs(const int32_t x);
 
 MATH_GENR_INLINE float              max(const float a, const float b);
 MATH_GENR_INLINE int32_t            max(const int32_t a, const int32_t b);
@@ -177,6 +179,13 @@ float
 abs(const float x)
 {
   return fabsf(x);
+}
+
+
+int32_t
+abs(const int32_t x)
+{
+  return std::abs(x);
 }
 
 
