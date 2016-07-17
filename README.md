@@ -15,3 +15,4 @@ There is no SIMD support currently, I have been working on it a little, but its 
 
 ## License
 MIT
+
