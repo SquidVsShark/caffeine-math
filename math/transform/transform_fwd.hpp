@@ -1,0 +1,14 @@
+#ifndef TRANSFORM_FWD_INCLUDED_BB09801A_0D5D_47D5_B7BB_D4FCF2D94D9B
+#define TRANSFORM_FWD_INCLUDED_BB09801A_0D5D_47D5_B7BB_D4FCF2D94D9B
+
+
+namespace math {
+
+
+struct transform;
+
+
+} // ns
+
+
+#endif // inc guard
