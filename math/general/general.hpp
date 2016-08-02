@@ -75,9 +75,14 @@ MATH_GENR_INLINE int32_t            abs(const int32_t x);
 MATH_GENR_INLINE float              max(const float a, const float b);
 MATH_GENR_INLINE int32_t            max(const int32_t a, const int32_t b);
 MATH_GENR_INLINE uint32_t           max(const uint32_t a, const uint32_t b);
+
 MATH_GENR_INLINE float              min(const float a, const float b);
 MATH_GENR_INLINE int32_t            min(const int32_t a, const int32_t b);
 MATH_GENR_INLINE uint32_t           min(const uint32_t a, const uint32_t b);
+
+MATH_GENR_INLINE float              max_length(const float a, const float b);
+
+MATH_GENR_INLINE float              min_length(const float a, const float b);
 
 MATH_GENR_INLINE float              clamp(const float x, const float between_a, const float between_b);
 MATH_GENR_INLINE bool               is_between(const float to_check, const float a, const float b);
@@ -94,6 +99,30 @@ MATH_GENR_INLINE float              nearest_floor(const float x, const float inc
 
 
 // ** IMPL ** //
+
+
+float
+max_length(const float a, const float b)
+{
+  if(math::abs(a) >= math::abs(b))
+  {
+    return a;
+  }
+  
+  return b;
+}
+
+
+float
+min_length(const float a, const float b)
+{
+  if(math::abs(a) <= math::abs(b))
+  {
+    return a;
+  }
+  
+  return b;
+}
 
 
 float
