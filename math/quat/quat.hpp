@@ -45,6 +45,13 @@ inline float            quat_get_w(const quat quat);
 inline float            quat_get(const quat quat, const uint32_t i);
 
 
+// Shorthand getters
+inline float            get_x(const quat quat) { return quat_get_x(quat); }
+inline float            get_y(const quat quat) { return quat_get_y(quat); }
+inline float            get_z(const quat quat) { return quat_get_z(quat); }
+inline float            get_w(const quat quat) { return quat_get_w(quat); }
+
+
 // Impl
 
 namespace detail
