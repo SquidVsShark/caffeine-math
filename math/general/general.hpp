@@ -33,6 +33,7 @@ MATH_CONSTEXPR float                quart_tau()   { return half_pi();       }
 MATH_CONSTEXPR float                g_ratio()     { return 1.61803398875f;  }
 MATH_CONSTEXPR float                root_two()    { return 1.41421356237f;  }
 MATH_CONSTEXPR float                root_three()  { return 1.73205080757f;  }
+MATH_CONSTEXPR float                epsilon()     { return 0.000000001f;    }
 
 
 // ** Trig ** //
