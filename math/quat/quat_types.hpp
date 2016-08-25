@@ -10,7 +10,7 @@
 namespace math {
 
 
-class quat
+struct quat
 {
 	float data[4]; // x, y, z, w;
 };

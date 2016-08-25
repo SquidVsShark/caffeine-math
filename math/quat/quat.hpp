@@ -153,21 +153,6 @@ quat_init_with_mat3(const mat3 &mat)
   const float q_y = y * math::sign(mat3_get(mat,0,2) - mat3_get(mat,2,0));
   const float q_z = z * math::sign(mat3_get(mat,1,0) - mat3_get(mat,0,1));
   
-
-//  const float w = math::sqrt(1.f + mat3_get(mat, 0, 0) + mat3_get(mat, 1, 1) + mat3_get(mat, 2, 2)) * 0.5f;
-//  const float div = w * 4.f;
-//  
-//  const float q_x = (mat3_get(mat, 2, 1) - mat3_get(mat, 1, 2)) / div;
-//  const float q_y = (mat3_get(mat, 0, 2) - mat3_get(mat, 2, 0)) / div;
-//  const float q_z = (mat3_get(mat, 1, 0) - mat3_get(mat, 0, 1)) / div;
-
-
-//	w = Math.sqrt(1.0 + m1.m00 + m1.m11 + m1.m22) / 2.0;
-//	double w4 = (4.0 * w);
-//	x = (m1.m21 - m1.m12) / w4 ;
-//	y = (m1.m02 - m1.m20) / w4 ;
-//	z = (m1.m10 - m1.m01) / w4 ;
-
   return quat_init(q_x, q_y, q_z, w);
 }
 
@@ -223,19 +208,6 @@ quat_length(const quat to_length)
 vec3
 quat_rotate_point(const quat rotation, const vec3 point)
 {
-//  const detail::internal_quat *rot_quat = reinterpret_cast<const detail::internal_quat*>(&rotation);
-//
-//  const float x = rot_quat->x;
-//  const float y = rot_quat->y;
-//  const float z = rot_quat->z;
-//  const float w = rot_quat->w;
-//
-//  const float p_x = w*w*vec3_get_x(point) + 2*y*w*vec3_get_z(point) - 2*z*w*vec3_get_y(point) + x*x* vec3_get_x(point) + 2*y*x*vec3_get_y(point) + 2*z*x*vec3_get_z(point) - z*z*vec3_get_x(point) - y*y*vec3_get_x(point);
-//  const float p_y = 2*x*y*vec3_get_x(point) + y*y*vec3_get_y(point) + 2*z*y*vec3_get_z(point) + 2*w*z* vec3_get_x(point) - z*z*vec3_get_y(point) + w*w*vec3_get_y(point) - 2*x*w*vec3_get_z(point) - x*x*vec3_get_y(point);
-//  const float p_z = 2*x*z*vec3_get_x(point) + 2*y*z*vec3_get_y(point) + z*z*vec3_get_z(point) - 2*w*y* vec3_get_x(point) - y*y*vec3_get_z(point) + 2*w*x*vec3_get_y(point) - x*x*vec3_get_z(point) + w*w*vec3_get_z(point);
-//
-//  const vec3 rotated_point = vec3_init(p_x, p_y, p_z);
-
   const auto rot_mat = quat_get_rotation_matrix(rotation);
 
   return mat3_multiply(point, rot_mat);
@@ -324,18 +296,9 @@ quat_get(const quat quat, const uint32_t i)
 {
   assert(i < 4);
 
-  switch(i)
+  if(i < 4)
   {
-    case(0):
-      return quat_get_x(quat);
-    case(1):
-      return quat_get_y(quat);
-    case(2):
-      return quat_get_z(quat);
-    case(3):
-      return quat_get_w(quat);
-    default:
-      assert(false);
+    return quat.data[i];
   }
   
   return 0.f;

@@ -25,6 +25,7 @@ MATH_VEC3_INLINE vec3                   vec3_zero_zero_one();
 // Initialize vector.
 MATH_VEC3_INLINE vec3                   vec3_init(const float val);
 MATH_VEC3_INLINE vec3                   vec3_init(const float x, const float y, const float z);
+MATH_VEC3_INLINE vec3                   vec3_init(const vec2 vec, const float z);
 MATH_VEC3_INLINE vec3                   vec3_init_with_array(const float *arr);
 
 // Get components.
@@ -58,6 +59,15 @@ MATH_VEC3_INLINE bool                   vec3_is_not_near(const vec3 a, const vec
 MATH_VEC3_INLINE float                  get_x(const vec3 vec);
 MATH_VEC3_INLINE float                  get_y(const vec3 vec);
 MATH_VEC3_INLINE float                  get_z(const vec3 vec);
+
+
+// Shorthand init
+
+//vec3
+//vec3_init(const vec2 vec, const float z)
+//{
+//  return vec3_init(math::get_x(vec), math::get_y(vec), z);
+//}
 
 
 // Alias getters

@@ -5,7 +5,7 @@
 namespace math {
 
 
-class quat;
+struct quat;
 
 
 } // ns
