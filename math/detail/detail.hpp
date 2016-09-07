@@ -11,10 +11,27 @@
 #endif
 
 
-#ifdef MATH_FORCE_INLINE
-#define MATH_INLINE __forceinline
-#else
+// Windows Inline
+#ifdef _WIN32
+
 #define MATH_INLINE inline
+
+// GCC and Clang support this method.
+#elif defined __has_attribute
+
+  // Will likely always exist, but in case it doesn't.
+  #if __has_attribute(always_inline)
+  #define MATH_INLINE inline
+  // Fallback to regular inline.
+  #else
+  #define MATH_INLINE inline
+  #endif
+
+// Fallback to regular inline.
+#else
+
+#define MATH_INLINE inline
+
 #endif
 
 
