@@ -192,7 +192,7 @@ vec3
 mat3_multiply(const vec3 lhs, const mat3 &rhs)
 {
   const detail::internal_mat3 *right = reinterpret_cast<const detail::internal_mat3*>(&rhs);
-  __declspec(align(16)) float vec_data[9];
+  __declspec(align(16)) float vec_data[3];
 
   for(uint32_t i = 0; i < 3; ++i)
   {

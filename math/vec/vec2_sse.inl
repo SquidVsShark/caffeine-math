@@ -25,7 +25,8 @@ namespace math {
 vec2
 vec2_zero()
 {
-  const float zero = 0.f;
+  constexpr float zero = 0.f;
+  
   return vec2{{_mm_load_ps1(&zero)}};
 }
 
@@ -33,8 +34,10 @@ vec2_zero()
 vec2
 vec2_one()
 {
-  const float one = 1.f;
-  return vec2{{_mm_load_ps1(&one)}};
+  constexpr float zero = 0.f;
+  constexpr float one = 1.f;
+  
+  return vec2{{_mm_set_ps(zero, zero, one, one)}};
 }
 
 
@@ -56,7 +59,8 @@ vec2_init(const float val)
 vec2
 vec2_init(const float x, const float y)
 {
-  const float zero = 0;
+  constexpr float zero = 0.f;
+  
   return vec2{{_mm_set_ps(zero, zero, y, x)}};
 }
 
@@ -64,7 +68,10 @@ vec2_init(const float x, const float y)
 vec2
 vec2_init_with_array(const float *arr)
 {
-  return vec2{{_mm_load_ps(arr)}};
+  constexpr float zero = 0.f;
+  enum { x = 0, y };
+
+  return vec2{{_mm_set_ps(zero, zero, arr[y], arr[x])}};
 }
 
 
