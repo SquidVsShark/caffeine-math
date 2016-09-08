@@ -28,6 +28,8 @@ MATH_VEC2_INLINE vec2                   vec2_init(const float x, const float y);
 MATH_VEC2_INLINE vec2                   vec2_init_with_array(const float *arr);
 
 // ** Get elements ** //
+MATH_VEC2_INLINE float                  get_x(const vec2 vec);
+MATH_VEC2_INLINE float                  get_y(const vec2 vec);
 MATH_VEC2_INLINE float                  vec2_get_x(const vec2 vec);
 MATH_VEC2_INLINE float                  vec2_get_y(const vec2 vec);
 MATH_VEC2_INLINE void                   vec2_to_array(const vec2 a, float *out_array);
@@ -53,9 +55,6 @@ MATH_VEC2_INLINE bool                   vec2_is_not_equal(const vec2 a, const ve
 MATH_VEC2_INLINE bool                   vec2_is_near(const vec2 a, const vec2 b, const float error);
 MATH_VEC2_INLINE bool                   vec2_is_not_near(const vec2 a, const vec2 b, const float error);
 
-// ** Short hand getter ** //
-MATH_VEC2_INLINE float                  get_x(const vec2 vec);
-MATH_VEC2_INLINE float                  get_y(const vec2 vec);
 
 
 // Alias getters

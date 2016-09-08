@@ -25,13 +25,15 @@ MATH_VEC3_INLINE vec3                   vec3_zero_zero_one();
 // Initialize vector.
 MATH_VEC3_INLINE vec3                   vec3_init(const float val);
 MATH_VEC3_INLINE vec3                   vec3_init(const float x, const float y, const float z);
-MATH_VEC3_INLINE vec3                   vec3_init(const vec2 vec, const float z);
 MATH_VEC3_INLINE vec3                   vec3_init_with_array(const float *arr);
 
 // Get components.
 MATH_VEC3_INLINE float                  vec3_get_x(const vec3 vec);
 MATH_VEC3_INLINE float                  vec3_get_y(const vec3 vec);
 MATH_VEC3_INLINE float                  vec3_get_z(const vec3 vec);
+MATH_VEC3_INLINE float                  get_x(const vec3 vec);
+MATH_VEC3_INLINE float                  get_y(const vec3 vec);
+MATH_VEC3_INLINE float                  get_z(const vec3 vec);
 MATH_VEC3_INLINE void                   vec3_to_array(const vec3 a, float *out_array);
 
 // Component wise arithmetic.
@@ -54,11 +56,6 @@ MATH_VEC3_INLINE bool                   vec3_is_equal(const vec3 a, const vec3 b
 MATH_VEC3_INLINE bool                   vec3_is_not_equal(const vec3 a, const vec3 b);
 MATH_VEC3_INLINE bool                   vec3_is_near(const vec3 a, const vec3 b, const float error);
 MATH_VEC3_INLINE bool                   vec3_is_not_near(const vec3 a, const vec3 b, const float error);
-
-// ** Short hand getters ** //
-MATH_VEC3_INLINE float                  get_x(const vec3 vec);
-MATH_VEC3_INLINE float                  get_y(const vec3 vec);
-MATH_VEC3_INLINE float                  get_z(const vec3 vec);
 
 
 // Shorthand init

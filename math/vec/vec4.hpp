@@ -26,8 +26,6 @@ MATH_VEC4_INLINE vec4                   vec4_zero_zero_zero_one();
 // Initialize vector.
 MATH_VEC4_INLINE vec4                   vec4_init(const float val);
 MATH_VEC4_INLINE vec4                   vec4_init(const float x, const float y, const float z, const float w);
-MATH_VEC4_INLINE vec4                   vec4_init(const vec2 vec, const float z, const float w);
-MATH_VEC4_INLINE vec4                   vec4_init(const vec3 vec, const float w);
 MATH_VEC4_INLINE vec4                   vec4_init_with_array(const float *arr);
 
 // Get components.
@@ -35,6 +33,10 @@ MATH_VEC4_INLINE float                  vec4_get_x(const vec4 vec);
 MATH_VEC4_INLINE float                  vec4_get_y(const vec4 vec);
 MATH_VEC4_INLINE float                  vec4_get_z(const vec4 vec);
 MATH_VEC4_INLINE float                  vec4_get_w(const vec4 vec);
+MATH_VEC4_INLINE float                  get_x(const vec4 vec);
+MATH_VEC4_INLINE float                  get_y(const vec4 vec);
+MATH_VEC4_INLINE float                  get_z(const vec4 vec);
+MATH_VEC4_INLINE float                  get_w(const vec4 vec);
 MATH_VEC4_INLINE void                   vec4_to_array(const vec4 a, float *out_array);
 
 // Component wise arithmetic.
@@ -57,26 +59,6 @@ MATH_VEC4_INLINE bool                   vec4_is_not_equal(const vec4 a, const ve
 MATH_VEC4_INLINE bool                   vec4_is_near(const vec4 a, const vec4 b, const float error);
 MATH_VEC4_INLINE bool                   vec4_is_not_near(const vec4 a, const vec4 b, const float error);
 
-// ** Short hand getters ** //
-MATH_VEC4_INLINE float                  get_x(const vec4 vec);
-MATH_VEC4_INLINE float                  get_y(const vec4 vec);
-MATH_VEC4_INLINE float                  get_z(const vec4 vec);
-MATH_VEC4_INLINE float                  get_w(const vec4 vec);
-
-
-// Shorthand inits
-//vec4
-//vec4_init(const vec2 vec, const float z, const float w)
-//{
-//  return vec4_init(get_x(vec), get_y(vec), z, w);
-//}
-//
-//
-//vec4
-//vec4_init(const vec3 vec, const float w)
-//{
-//  return vec4_init(get_x(vec), get_y(vec), get_z(vec), w);
-//}
 
 // Alias getters
 

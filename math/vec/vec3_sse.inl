@@ -55,7 +55,7 @@ vec3_init(const float val)
 vec3
 vec3_init(const float x, const float y, const float z)
 {
-  const float zero = 0;
+  constexpr float zero = 0;
   return vec3{{_mm_set_ps(zero, z, y, x)}};
 }
 
@@ -63,7 +63,10 @@ vec3_init(const float x, const float y, const float z)
 vec3
 vec3_init_with_array(const float *arr)
 {
-  return vec3{{_mm_load_ps(arr)}};
+  constexpr float zero = 0;
+  enum { x = 0, y, z };
+  
+  return vec3{{_mm_set_ps(zero, arr[z], arr[y], arr[x])}};
 }
 
 
@@ -225,6 +228,7 @@ vec3_dot(const vec3 a, const vec3 b)
   mu = _mm_add_ss(mu, _mm_shuffle_ps(mu, mu, 1));
 
   __declspec(align(16)) float vec_store[4];
+  memset(vec_store, 0, sizeof(vec_store));
   _mm_store_ps(&vec_store[0], mu);
   return vec_store[0];
 }

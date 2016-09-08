@@ -23,7 +23,7 @@ namespace math {
 vec4
 vec4_zero()
 {
-  const float zero = 0.f;
+  constexpr float zero = 0.f;
   return vec4{{_mm_load_ps1(&zero)}};
 }
 
@@ -31,7 +31,7 @@ vec4_zero()
 vec4
 vec4_one()
 {
-  const float one = 1.f;
+  constexpr float one = 1.f;
   return vec4{{_mm_load_ps1(&one)}};
 }
 
@@ -39,7 +39,7 @@ vec4_one()
 vec4
 vec4_zero_zero_zero_one()
 {
-  const float data[] = {0.f, 0.f, 0.f, 1.f};
+  constexpr float data[] = {0.f, 0.f, 0.f, 1.f};
   return vec4{{_mm_load_ps(data)}};
 }
 
@@ -231,6 +231,7 @@ vec4_is_near(const vec4 a, const vec4 b, const float error)
     is_near(vec4_get_y(a), vec4_get_y(b), error)
     &&
     is_near(vec4_get_z(a), vec4_get_z(b), error)
+    
     &&
     is_near(vec4_get_w(a), vec4_get_w(b), error)
   );
