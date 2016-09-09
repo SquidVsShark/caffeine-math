@@ -12,7 +12,6 @@
 #include "mat_types.hpp"
 #include "../vec/vec3.hpp"
 #include "../vec/vec2.hpp"
-#include <array>
 #include <cstring>
 
 
@@ -27,19 +26,23 @@ inline mat3                       mat3_zero();
 inline mat3                       mat3_init(); // will return an id array
 inline mat3                       mat3_init(const float x);
 inline mat3                       mat3_init_with_array(const float arr[]);
-inline mat3                       mat3_init_with_array(const std::array<float, 9> &array);
 
 // Operations
 inline mat3                       mat3_add(const mat3 &lhs, const mat3 &rhs);
 inline mat3                       mat3_subtract(const mat3 &lhs, const mat3 &rhs);
 inline mat3                       mat3_scale(const float x, const float y);
 inline mat3                       mat3_scale(const vec2 scale);
+
 inline vec3                       mat3_multiply(const vec3 vec, const mat3 &b);
 inline mat3                       mat3_multiply(const mat3 &lhs, const mat3 &rhs);
+inline mat3                       mat3_multiply(const mat3 &a, const mat3 &b, const mat3 &c);
 
 inline mat3                       mat3_translate(const vec2 vec); // no imp
 inline mat3                       mat3_translate(const float x, const float y); // no imp
-inline mat3                       mat3_rotation_from_euler(const float radians);
+
+inline mat3                       mat3_rotation_pitch_from_euler(const float radians);
+inline mat3                       mat3_rotation_yaw_from_euler(const float radians);
+inline mat3                       mat3_rotation_roll_from_euler(const float radians);
 
 inline float                      mat3_get_determinant(const mat3 &a);
 
@@ -48,7 +51,9 @@ inline mat3                       mat3_get_transpose(const mat3 &a);
 inline mat3                       mat3_get_inverse(const mat3 &a);
 inline mat3                       mat3_get_scale(const mat3 &a, const vec3 scale);
 inline void                       mat3_to_array(const mat3 &m, float *array);
-inline std::array<float, 9>       mat3_to_array(const mat3 &m);
+
+// Equality
+inline bool                       mat3_equal(const mat3 &left, const mat3 &right, const float error = math::epsilon());
 
 // Get/Set information
 inline float                      mat3_get(const mat3 &mat, const uint32_t row, const uint32_t col);
@@ -124,10 +129,12 @@ mat3_init_with_array(const float array[])
 }
 
 
-mat3
-mat3_init_with_array(const std::array<float, 9> &array)
+void
+mat3_to_array(const mat3 &m, float out_data[9])
 {
-  return mat3_init_with_array(array.data());
+  const detail::internal_mat3 *left = reinterpret_cast<const detail::internal_mat3*>(&m);
+  
+  memcpy(out_data, left->data, sizeof(float) * 9);
 }
 
 
@@ -239,17 +246,51 @@ mat3_multiply(const mat3 &lhs, const mat3 &rhs)
 
 
 mat3
-mat3_rotation_from_euler(const float radians)
+mat3_multiply(const mat3 &a, const mat3 &b, const mat3 &c)
 {
-  mat3 return_mat = mat3_id();
-  detail::internal_mat3 *mat = reinterpret_cast<detail::internal_mat3*>(&return_mat);
+  return mat3_multiply(a, mat3_multiply(b, c));
+}
 
-  mat->data[0] = +math::cos(radians);
-  mat->data[1] = -math::sin(radians);
-  mat->data[3] = +math::sin(radians);
-  mat->data[4] = +math::cos(radians);
 
-  return return_mat;
+mat3
+mat3_rotation_pitch_from_euler(const float rad)
+{
+  const float array[9]
+  {
+    1.f, 0.f, 0.f,
+    0.f, math::cos(rad), -sin(rad),
+    0.f, math::sin(rad), cos(rad),
+  };
+
+  return mat3_init_with_array(array);
+}
+
+
+mat3
+mat3_rotation_yaw_from_euler(const float rad)
+{
+  const float array[9]
+  {
+    math::cos(rad), 0.f, math::sin(rad),
+    0.f, 1.f, 0.f,
+    -math::sin(rad), 0.f, math::cos(rad),
+  };
+
+  return mat3_init_with_array(array);
+}
+
+
+mat3
+mat3_rotation_roll_from_euler(const float rad)
+{
+  const float array[9]
+  {
+    math::cos(rad), -math::sin(rad), 0.f,
+    math::sin(rad), math::cos(rad), 0.f,
+    0.f, 0.f, 1.f,
+  };
+
+  return mat3_init_with_array(array);
 }
 
 
@@ -293,6 +334,29 @@ mat3_get_transpose(const mat3 &m)
   };
   
   return mat3_init_with_array(transpose_data);
+}
+
+
+bool
+mat3_equal(const mat3 &left,
+           const mat3 &right,
+           const float error)
+{
+  float a[9];
+  mat3_to_array(left, a);
+  
+  float b[9];
+  mat3_to_array(right, b);
+  
+  for(uint32_t i = 0; i < 9; ++i)
+  {
+    if(!math::is_near(a[i], b[i], error))
+    {
+      return false;
+    }
+  }
+  
+  return true;
 }
 
 

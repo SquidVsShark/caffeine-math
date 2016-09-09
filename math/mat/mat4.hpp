@@ -540,27 +540,47 @@ mat4_get_determinant(const mat4 &det)
     e f g h     8 9 10 11
     i j k l     12 13 14 15
   */
-
+  
   const detail::internal_mat3 *mat = reinterpret_cast<const detail::internal_mat3*>(&det);
 
-  const mat3 det_a_mat = mat3_init_with_array({{mat->data[5], mat->data[6], mat->data[7],
-                                               mat->data[9], mat->data[10], mat->data[11],
-                                               mat->data[13], mat->data[14], mat->data[15]}});
+  const float det_a_data[9]
+  {
+    mat->data[5], mat->data[6], mat->data[7],
+    mat->data[9], mat->data[10], mat->data[11],
+    mat->data[13], mat->data[14], mat->data[15]
+  };
+
+  const mat3 det_a_mat = mat3_init_with_array(det_a_data);
   const float det_a = mat->data[0] * mat3_get_determinant(det_a_mat);
 
-  const mat3 det_b_mat = mat3_init_with_array({mat->data[4], mat->data[6], mat->data[7],
-                                               mat->data[8], mat->data[10], mat->data[11],
-                                               mat->data[12], mat->data[14], mat->data[15]});
+  const float det_b_data[9]
+  {
+    mat->data[4], mat->data[6], mat->data[7],
+    mat->data[8], mat->data[10], mat->data[11],
+    mat->data[12], mat->data[14], mat->data[15]
+  };
+  
+  const mat3 det_b_mat = mat3_init_with_array(det_b_data);
   const float det_b = mat->data[1] * mat3_get_determinant(det_b_mat);
-
-  const mat3 det_c_mat = mat3_init_with_array({mat->data[4], mat->data[5], mat->data[7],
-                                               mat->data[8], mat->data[9], mat->data[11],
-                                               mat->data[12], mat->data[13], mat->data[15]});
+  
+  const float det_c_data[9]
+  {
+    mat->data[4], mat->data[5], mat->data[7],
+    mat->data[8], mat->data[9], mat->data[11],
+    mat->data[12], mat->data[13], mat->data[15]
+  };
+  
+  const mat3 det_c_mat = mat3_init_with_array(det_c_data);
   const float det_c = mat->data[2] * mat3_get_determinant(det_c_mat);
+  
+  const float det_d_data[9]
+  {
+    mat->data[4], mat->data[5], mat->data[6],
+    mat->data[8], mat->data[9], mat->data[10],
+    mat->data[12], mat->data[13], mat->data[14]
+  };
 
-  const mat3 det_d_mat = mat3_init_with_array({mat->data[4], mat->data[5], mat->data[6],
-                                               mat->data[8], mat->data[9], mat->data[10],
-                                               mat->data[12], mat->data[13], mat->data[14]});
+  const mat3 det_d_mat = mat3_init_with_array(det_d_data);
   const float det_d = mat->data[3] * mat3_get_determinant(det_d_mat);
 
   return det_a - det_b + det_c - det_d;

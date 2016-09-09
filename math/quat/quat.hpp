@@ -28,7 +28,8 @@ inline quat             quat_init_with_euler_angles(const float pitch_radians, c
 inline quat             quat_init_with_mat3(const mat3 &mat);
 
 inline quat             quat_conjugate(const quat to_conj);
-inline quat             quat_multiply(const quat left, const quat &right);
+inline quat             quat_multiply(const quat left, const quat right);
+inline quat             quat_multiply(const quat a, const quat b, const quat c);
 inline quat             quat_normalize(const quat to_normalize);
 inline float            quat_length(const quat to_length);
 inline vec3             quat_rotate_point(const quat rotation, const vec3 point);
@@ -88,8 +89,6 @@ quat_init(const float x, const float y, const float z, const float w)
 quat
 quat_init_with_axis_angle(const float x, const float y, const float z, const float theta_radians)
 {
-  // TODO: Normalize Axis.
-
   const float half_angle = 0.5f * theta_radians;
   const float sin_angle  = math::sin(half_angle);
 
@@ -166,7 +165,7 @@ quat_conjugate(const quat to_conj)
 
 
 quat
-quat_multiply(const quat left, const quat &right)
+quat_multiply(const quat left, const quat right)
 {
   const detail::internal_quat *left_quat  = reinterpret_cast<const detail::internal_quat*>(&left);
   const detail::internal_quat *right_quat = reinterpret_cast<const detail::internal_quat*>(&right);
@@ -177,6 +176,13 @@ quat_multiply(const quat left, const quat &right)
   const float z = (left_quat->w * right_quat->z) + (left_quat->z * right_quat->w) + (left_quat->x * right_quat->y) - (left_quat->y * right_quat->x);
 
   return quat_init(x, y, z, w);
+}
+
+
+quat
+quat_multiply(const quat a, const quat b, const quat c)
+{
+  return quat_multiply(a, quat_multiply(b, c));
 }
 
 
@@ -226,8 +232,8 @@ quat_get_rotation_matrix(const quat to_mat3)
   const float y_sq = quat_y * quat_y;
   const float z_sq = quat_z * quat_z;
   
-	std::array<float, 9> mat_data =
-	{{
+  float mat_data[9]
+	{
 		1 - 2 * y_sq - 2 * z_sq,
     2 * (quat_x * quat_y) - 2 * (quat_z * quat_w),
 		2 * (quat_x * quat_z) + 2 * (quat_y * quat_w),
@@ -239,9 +245,9 @@ quat_get_rotation_matrix(const quat to_mat3)
 		2 * (quat_x * quat_z) - 2 * (quat_y * quat_w),
 		2 * (quat_y * quat_z) + 2 * (quat_x * quat_w),
 		1 - 2 * x_sq - 2 * y_sq,
-	}};
+	};
 
-  return mat3_init_with_array(&mat_data[0]);
+  return mat3_init_with_array(mat_data);
 }
 
 
