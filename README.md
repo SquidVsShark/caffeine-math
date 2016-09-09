@@ -1,6 +1,6 @@
-# Caffeine Math
+# Math
 
-[![Build Status](https://travis-ci.org/coredat/math.svg?branch=master)](https://travis-ci.org/coredat/math)
+[![Build Status](https://travis-ci.org/republic-of-almost/math.svg?branch=master)](https://travis-ci.org/republic-of-almost/math)
 
 This is a header only math library that built up in my hobby projects. I've extracted it and put it up here for anybody who wants it use it. Its a no-nonsense floating point math library.
 
@@ -10,7 +10,7 @@ floating point vector types (2,3 and 4), floating point matrix types (3x3 and 4x
 
 
 ## SIMD Status
-There is no SIMD support currently, I have been working on it a little, but its not a priority for me right now because I have no math bottlenecks. However the library has been designed around a SIMD implementation so when it comes there should be minimal fuss.
+There is partial SIMD support. Only vector types have it. To enable it, its recomeneded you build your project with preprocessor definition `MATH_USE_SIMD`
 
 
 ## License
