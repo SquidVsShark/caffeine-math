@@ -4,10 +4,11 @@
 // Intrinsics settings
 
 #ifdef MATH_USE_SIMD
-#define MATH_ON_SSE2
+#define MATH_ON_SIMD 1
+#define MATH_ON_SSE2 1
 #include <emmintrin.h>
 #else
-#define MATH_ON_FPU
+#define MATH_ON_FPU 1
 #endif
 
 
