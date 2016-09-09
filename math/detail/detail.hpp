@@ -12,6 +12,14 @@
 #endif
 
 
+// Align
+#ifdef _WIN32
+#define ALIGN16 __declspec(align(16))
+#else
+#define ALIGN16 __attribute__((aligned (16)))
+#endif
+
+
 // Windows Inline
 #ifdef _WIN32
 
