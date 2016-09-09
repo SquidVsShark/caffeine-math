@@ -7,9 +7,9 @@ task :ci do |t, args|
     "test/unit_tests/vec3.cpp",
     "test/unit_tests/vec4.cpp",
     
-    "test/unit_tests/vec2_simd.cpp",
-    "test/unit_tests/vec3_simd.cpp",
-    "test/unit_tests/vec4_simd.cpp",
+    "test/unit_tests/vec2_sse.cpp",
+    "test/unit_tests/vec3_sse.cpp",
+    "test/unit_tests/vec4_sse.cpp",
     
     "test/unit_tests/quat.cpp",
   ]
