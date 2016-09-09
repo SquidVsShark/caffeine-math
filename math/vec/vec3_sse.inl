@@ -6,7 +6,7 @@
 #include "vec_types.hpp"
 #include "../general/general.hpp"
 #include <assert.h>
-#include <cstring.h>
+#include <cstring>
 
 
 #ifdef MATH_ON_SSE2

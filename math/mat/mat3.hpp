@@ -13,6 +13,7 @@
 #include "../vec/vec3.hpp"
 #include "../vec/vec2.hpp"
 #include <cstring>
+#include "../detail/detail.hpp"
 
 
 namespace math {
@@ -199,7 +200,7 @@ vec3
 mat3_multiply(const vec3 lhs, const mat3 &rhs)
 {
   const detail::internal_mat3 *right = reinterpret_cast<const detail::internal_mat3*>(&rhs);
-  __declspec(align(16)) float vec_data[3];
+  ALIGN16 float vec_data[3];
 
   for(uint32_t i = 0; i < 3; ++i)
   {
