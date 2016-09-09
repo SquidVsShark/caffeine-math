@@ -72,7 +72,7 @@ vec4_init_with_array(const float *arr)
 float
 vec4_get_x(const vec4 vec)
 {
-  __declspec(align(16)) float vec_store[4];
+  ALIGN16 float vec_store[4];
   _mm_store_ps(&vec_store[0], vec.simd_vec);
   return vec_store[0];
 }
@@ -81,7 +81,7 @@ vec4_get_x(const vec4 vec)
 float
 vec4_get_y(const vec4 vec)
 {
-  __declspec(align(16)) float vec_store[4];
+  ALIGN16 float vec_store[4];
   _mm_store_ps(&vec_store[0], vec.simd_vec);
   return vec_store[1];
 }
@@ -90,7 +90,7 @@ vec4_get_y(const vec4 vec)
 float
 vec4_get_z(const vec4 vec)
 {
-  __declspec(align(16)) float vec_store[4];
+  ALIGN16 float vec_store[4];
   _mm_store_ps(&vec_store[0], vec.simd_vec);
   return vec_store[2];
 }
@@ -99,7 +99,7 @@ vec4_get_z(const vec4 vec)
 float
 vec4_get_w(const vec4 vec)
 {
-  __declspec(align(16)) float vec_store[4];
+  ALIGN16 float vec_store[4];
   _mm_store_ps(&vec_store[0], vec.simd_vec);
   return vec_store[3];
 }
@@ -188,7 +188,7 @@ vec4_length(const vec4 a)
   sq = _mm_add_ss(sq, _mm_shuffle_ps(sq, sq, 1));
   sq = _mm_sqrt_ps(sq);
 
-  __declspec(align(16)) float vec_store[4];
+  ALIGN16 float vec_store[4];
   _mm_store_ps(&vec_store[0], sq);
   return vec_store[0];
 }
@@ -202,7 +202,7 @@ vec4_dot(const vec4 a, const vec4 b)
   mu = _mm_add_ps(mu, _mm_movehl_ps(mu, mu));
   mu = _mm_add_ss(mu, _mm_shuffle_ps(mu, mu, 1));
 
-  __declspec(align(16)) float vec_store[4];
+  ALIGN16 float vec_store[4];
   _mm_store_ps(&vec_store[0], mu);
   return vec_store[0];
 }
