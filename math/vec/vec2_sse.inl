@@ -5,6 +5,7 @@
 #include "../detail/detail.hpp"
 #include "vec_types.hpp"
 #include "../general/general.hpp"
+#include <cstring>
 #include <assert.h>
 
 
