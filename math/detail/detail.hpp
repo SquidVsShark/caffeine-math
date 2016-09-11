@@ -23,7 +23,7 @@
 // Windows Inline
 #ifdef _WIN32
 
-#define MATH_INLINE inline __force_inline
+#define MATH_INLINE __forceinline
 
 // GCC and Clang support this method.
 #elif defined __has_attribute
