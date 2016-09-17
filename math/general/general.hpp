@@ -82,7 +82,6 @@ MATH_GENR_INLINE int32_t            min(const int32_t a, const int32_t b);
 MATH_GENR_INLINE uint32_t           min(const uint32_t a, const uint32_t b);
 
 MATH_GENR_INLINE float              max_length(const float a, const float b);
-
 MATH_GENR_INLINE float              min_length(const float a, const float b);
 
 MATH_GENR_INLINE float              clamp(const float x, const float between_a, const float between_b);
@@ -93,6 +92,7 @@ MATH_GENR_INLINE bool               is_pow_two(const uint32_t i);
   
 MATH_GENR_INLINE float              sign(const float x); // Returns 1 or -1
 MATH_GENR_INLINE float              mod(const float x, const float divisor);
+MATH_GENR_INLINE uint32_t           mod(const int32_t value, const uint32_t divisor);
 
 MATH_GENR_INLINE float              ceil(const float x);
 MATH_GENR_INLINE float              floor(const float x);
@@ -322,7 +322,28 @@ is_near(const float a, const float b, const float error_margin)
 float
 mod(const float x, const float divisor)
 {
-  return fmodf(x, divisor);
+  float mod = fmodf(x, divisor);
+  
+  if(mod < 0)
+  {
+    mod += divisor;
+  }
+  
+  return mod;
+}
+
+
+uint32_t
+mod(const int32_t value, const uint32_t divisor)
+{
+  int32_t mod = value % (int32_t)divisor;
+  
+  if(mod < 0)
+  {
+    mod += divisor;
+  }
+  
+  return mod;
 }
 
 
