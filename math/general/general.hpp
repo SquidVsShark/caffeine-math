@@ -350,8 +350,10 @@ mod(const int32_t value, const uint32_t divisor)
 float
 nearest_floor(const float x, const float increments)
 {
-  const float remainder = mod(x, increments);
-  return x - remainder;
+  const float s = sign(x);
+  
+  const float remainder = mod(abs(x), increments);
+  return (abs(x) - remainder) * s;
 }
 
 
