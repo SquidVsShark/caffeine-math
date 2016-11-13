@@ -67,6 +67,11 @@ MATH_GENR_INLINE uint32_t           rand_range(const uint32_t start, const uint3
 MATH_GENR_INLINE int32_t            rand_range(const int32_t start, const int32_t end);
 
 
+// ** Other waves ** //
+
+MATH_GENR_INLINE float              square_wave(const float time);
+
+
 // ** Other general ** //
 
 MATH_GENR_INLINE float              sqrt(const float x);
@@ -418,6 +423,16 @@ rand_range(const int32_t start, const int32_t end)
   std::uniform_int_distribution<int32_t> dist(start, end);
 
   return dist(re);
+}
+
+
+// ** Other waves ** //
+
+float
+square_wave(const float time)
+{
+  // Im sure we can do this without calling sin
+  return sign(sin(time));
 }
 
 
