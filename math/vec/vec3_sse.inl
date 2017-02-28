@@ -18,7 +18,7 @@
 */
 
 
-namespace math {
+_MATH_NS_OPEN
 
 
 // Constants
@@ -269,7 +269,7 @@ vec3_is_not_near(const vec3 a, const vec3 b, const float error)
 }
 
 
-} // ns
+_MATH_NS_CLOSE
 
 
 #endif // use sse

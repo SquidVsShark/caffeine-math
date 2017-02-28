@@ -2,12 +2,13 @@
 #define TO_STRING_INCLUDED_AA5F04E4_BDD9_4385_99F2_2C9E7210FDD6
 
 
+#include "../detail/detail.hpp"
 #include "../vec/vec.hpp"
 #include "../mat/mat.hpp"
 #include <string>
 
 
-namespace math {
+_MATH_NS_OPEN
 
 
 inline std::string to_string(const vec2 vec);
@@ -64,7 +65,7 @@ to_string(const mat4 mat, const bool line_breaks)
 }
 
 
-} // namespace
+_MATH_NS_CLOSE
 
 
 #endif // include guard

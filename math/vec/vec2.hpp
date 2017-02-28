@@ -12,7 +12,7 @@
 #include "vec_types.hpp"
 
 
-namespace math {
+_MATH_NS_OPEN
 
 
 // ** Interface ** //
@@ -73,7 +73,7 @@ get_y(const vec2 vec)
 }
 
 
-} // ns
+_MATH_NS_CLOSE
 
 
 // What impl to use?

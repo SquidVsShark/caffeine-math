@@ -7,7 +7,10 @@
 */
 
 
-namespace math {
+#include "../detail/detail.hpp"
+
+
+_MATH_NS_OPEN
 
 
 class mat3
@@ -21,7 +24,7 @@ class mat4
 };
 
 
-} // namespace
+_MATH_NS_CLOSE
 
 
 #endif // include guard

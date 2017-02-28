@@ -16,7 +16,8 @@
   2D vector fallback impl.
 */
 
-namespace math {
+
+_MATH_NS_OPEN
 
 
 // Constants
@@ -216,7 +217,7 @@ vec2_is_not_near(const vec2 a, const vec2 b, const float error)
 }
 
 
-} // ns
+_MATH_NS_CLOSE
 
 
 #endif // math on fpu

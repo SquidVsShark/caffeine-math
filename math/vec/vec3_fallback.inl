@@ -17,7 +17,7 @@
 */
 
 
-namespace math {
+_MATH_NS_OPEN
 
 
 // ** Implimentation ** //
@@ -257,7 +257,8 @@ vec3_is_not_near(const vec3 a, const vec3 b, const float error)
 }
 
 
-} // hs
+_MATH_NS_CLOSE
+
 
 #endif // on fpu
 #endif // inc guard

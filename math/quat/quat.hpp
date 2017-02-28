@@ -8,6 +8,7 @@
 */
 
 
+#include "../detail/detail.hpp"
 #include "quat_types.hpp"
 #include "../general/general.hpp"
 #include "../mat/mat4.hpp"
@@ -15,7 +16,7 @@
 #include "../vec/vec3.hpp"
 
 
-namespace math {
+_MATH_NS_OPEN
 
 
 // Interface
@@ -311,7 +312,7 @@ quat_get(const quat quat, const uint32_t i)
 }
 
 
-} // namespace
+_MATH_NS_CLOSE
 
 
 #endif // include guard

@@ -2,6 +2,7 @@
 #define AABB_INCLUDED_0C5E26F6_BFB1_422A_948B_0E4861927EEE
 
 
+#include "../detail/detail.hpp"
 #include "geometry_types.hpp"
 #include "../vec/vec3.hpp"
 #include "../general/general.hpp"
@@ -9,10 +10,11 @@
 #include <assert.h>
 
 
-namespace math {
+_MATH_NS_OPEN
 
 
-// ** Interface ** //
+// ----------------------------------------------------------- [ Interface ] --
+ 
 
 inline aabb         aabb_init(const vec3 min, const vec3 max);
 inline aabb         aabb_init_from_xyz_data(const float vertex[], const size_t number_of_floats);
@@ -30,7 +32,7 @@ inline void         aabb_scale(aabb &aabb_to_scale, const float scale);
 inline bool         aabb_intersection_test(const aabb &a, const aabb &b);
 
 
-// ** Impl ** //
+// ---------------------------------------------------------------- [ Impl ] --
 
 
 aabb
@@ -185,7 +187,7 @@ aabb_intersection_test(const aabb &a,
 }
 
 
-} // ns
+_MATH_NS_CLOSE
 
 
 #endif // inc guard

@@ -20,7 +20,8 @@ typedef decltype(nullptr) nulltype_t;
 #endif
 
 
-namespace math {
+_MATH_NS_OPEN
+
 
 struct vec4
 {
@@ -52,7 +53,7 @@ struct vec2
 };
 
 
-} // ns
+_MATH_NS_CLOSE
 
 
 #endif // inc guard

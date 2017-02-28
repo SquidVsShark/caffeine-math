@@ -1,6 +1,11 @@
 #ifndef DETAIL_INCLUDED_738ADE13_1093_4593_AF81_2F9CB58DAE42
 #define DETAIL_INCLUDED_738ADE13_1093_4593_AF81_2F9CB58DAE42
 
+
+#define _MATH_NS_OPEN namespace math {
+#define _MATH_NS_CLOSE }
+
+
 // Intrinsics settings
 
 #ifdef MATH_USE_SIMD

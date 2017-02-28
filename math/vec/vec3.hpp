@@ -12,7 +12,7 @@
 #include "vec_types.hpp"
 
 
-namespace math {
+_MATH_NS_OPEN
 
 
 // ** Interface ** //
@@ -90,7 +90,7 @@ get_z(const vec3 vec)
 }
 
 
-} // ns
+_MATH_NS_CLOSE
 
 
 // What impl to use

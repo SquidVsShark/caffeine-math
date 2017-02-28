@@ -9,13 +9,14 @@
 */
 
 
+#include "../detail/detail.hpp"
 #include "../transform/transform_types.hpp"
 #include "../quat/quat.hpp"
 #include "../vec/vec3.hpp"
 #include "../mat/mat4.hpp"
 
 
-namespace math {
+_MATH_NS_OPEN
 
 
 // ** Interface ** //
@@ -109,7 +110,7 @@ transform_get_world_matrix(const transform &to_world)
 }
 
 
-} // namespace
+_MATH_NS_CLOSE
 
 
 #endif // include guard

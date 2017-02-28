@@ -7,7 +7,10 @@
 */
 
 
-namespace math {
+#include "../detail/detail.hpp"
+
+
+_MATH_NS_OPEN
 
 
 struct quat
@@ -16,7 +19,7 @@ struct quat
 };
 
 
-} // namespace
+_MATH_NS_CLOSE
 
 
 #endif // include guard

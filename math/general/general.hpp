@@ -16,7 +16,7 @@
 #include <random>
 
 
-namespace math {
+_MATH_NS_OPEN
 
 
 // ** INTERFACE ** //
@@ -436,7 +436,7 @@ square_wave(const float time)
 }
 
 
-} // namespace
+_MATH_NS_CLOSE
 
 
 #endif // include guard

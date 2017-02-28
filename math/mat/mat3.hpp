@@ -9,6 +9,7 @@
 */
 
 
+#include "../detail/detail.hpp"
 #include "mat_types.hpp"
 #include "../vec/vec3.hpp"
 #include "../vec/vec2.hpp"
@@ -16,7 +17,7 @@
 #include "../detail/detail.hpp"
 
 
-namespace math {
+_MATH_NS_OPEN
 
 
 // Constants
@@ -391,9 +392,7 @@ mat3_set(mat3 &mat, const uint32_t row, const uint32_t col, const float set)
 }
 
 
-
-
-} // namespace
+_MATH_NS_CLOSE
 
 
 #endif // include guard

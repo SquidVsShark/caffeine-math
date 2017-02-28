@@ -12,7 +12,7 @@
 #include "../detail/detail.hpp"
 
 
-namespace math {
+_MATH_NS_OPEN
 
 
 // ** Interface ** //
@@ -90,7 +90,7 @@ get_w(const vec4 vec)
 }
 
 
-} // ns
+_MATH_NS_CLOSE
 
 
 /*

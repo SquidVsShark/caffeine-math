@@ -5,7 +5,7 @@
 #include "../detail/detail.hpp"
 
 
-namespace math {
+_MATH_NS_OPEN
 
 
 struct vec2;
@@ -13,7 +13,7 @@ struct vec3;
 struct vec4;
 
 
-} // ns
+_MATH_NS_CLOSE
 
 
 

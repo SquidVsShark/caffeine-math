@@ -9,13 +9,14 @@
 */
 
 
+#include "../detail/detail.hpp"
 #include "mat_types.hpp"
 #include "mat3.hpp"
 #include "../vec/vec4.hpp"
 #include <assert.h>
 
 
-namespace math {
+_MATH_NS_OPEN
 
 
 // Constants
@@ -709,7 +710,8 @@ mat4_get_sub_mat3(const mat4 &m)
   return mat3_init_with_array(mat_data);
 }
 
-} // namespace
+
+_MATH_NS_CLOSE
 
 
 #endif // include guard

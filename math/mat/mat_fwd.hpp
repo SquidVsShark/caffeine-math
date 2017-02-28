@@ -5,14 +5,14 @@
 #include "../detail/detail.hpp"
 
 
-namespace math {
+_MATH_NS_OPEN
 
 
-struct mat3;
-struct mat4;
+class mat3;
+class mat4;
 
 
-} // ns
+_MATH_NS_CLOSE
 
 
 

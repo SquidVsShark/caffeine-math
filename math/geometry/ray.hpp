@@ -2,10 +2,11 @@
 #define RAY_INCLUDED_9580B5C2_5FD1_4185_9537_C6C4F7EC3A4E
 
 
+#include "../detail/detail.hpp"
 #include "geometry_types.hpp"
 
 
-namespace math {
+_MATH_NS_OPEN
 
 
 // ** Interface ** //
@@ -43,7 +44,7 @@ ray_length(const ray &ray)
 }
 
 
-} // ns
+_MATH_NS_CLOSE
 
 
 #endif // inc guard
