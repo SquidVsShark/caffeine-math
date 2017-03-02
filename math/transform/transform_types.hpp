@@ -12,11 +12,9 @@ _MATH_NS_OPEN
 
 struct transform
 {
-  transform() {}
-
-  quat     rotation  = quat_init(0.f,0.f,0.f,1.f);
-  vec3     scale     = vec3_init(1.f,1.f,1.f);
-  vec3     position  = vec3_init(0.f,0.f,0.f);
+  vec3     position;
+  vec3     scale; 
+  quat     rotation;
 }; // class
 
 
