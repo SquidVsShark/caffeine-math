@@ -4,7 +4,7 @@
 
 /*
   Matrix 33
-  Through out this library we consider a 3x3 matrix as a 
+  Through out this library we consider a 3x3 matrix as a
   rotation and scale matrix specifically.
 */
 
@@ -20,51 +20,65 @@
 _MATH_NS_OPEN
 
 
-// Constants
-inline mat3                       mat3_id();
-inline mat3                       mat3_zero();
+// ----------------------------------------------------------- [ Constants ] --
 
-// Init
-inline mat3                       mat3_init(); // will return an id array
-inline mat3                       mat3_init(const float x);
-inline mat3                       mat3_init_with_array(const float arr[]);
 
-// Operations
-inline mat3                       mat3_add(const mat3 &lhs, const mat3 &rhs);
-inline mat3                       mat3_subtract(const mat3 &lhs, const mat3 &rhs);
-inline mat3                       mat3_scale(const float x, const float y);
-inline mat3                       mat3_scale(const vec2 scale);
+inline mat3          mat3_id();
+inline mat3          mat3_zero();
 
-inline vec3                       mat3_multiply(const vec3 vec, const mat3 &b);
-inline mat3                       mat3_multiply(const mat3 &lhs, const mat3 &rhs);
-inline mat3                       mat3_multiply(const mat3 &a, const mat3 &b, const mat3 &c);
 
-inline mat3                       mat3_translate(const vec2 vec); // no imp
-inline mat3                       mat3_translate(const float x, const float y); // no imp
+// ---------------------------------------------------------- [ Initialize ] --
 
-inline mat3                       mat3_rotation_pitch_from_euler(const float radians);
-inline mat3                       mat3_rotation_yaw_from_euler(const float radians);
-inline mat3                       mat3_rotation_roll_from_euler(const float radians);
 
-inline float                      mat3_get_determinant(const mat3 &a);
+inline mat3          mat3_init(); // will return an id array
+inline mat3          mat3_init(const float x);
+inline mat3          mat3_init_with_array(const float arr[]);
 
-// Transform matrices into other forms
-inline mat3                       mat3_get_transpose(const mat3 &a);
-inline mat3                       mat3_get_inverse(const mat3 &a);
-inline mat3                       mat3_get_scale(const mat3 &a, const vec3 scale);
-inline void                       mat3_to_array(const mat3 &m, float *array);
 
-// Equality
-inline bool                       mat3_equal(const mat3 &left, const mat3 &right, const float error = math::epsilon());
+// ---------------------------------------------------------- [ Operations ] --
 
-// Get/Set information
-inline float                      mat3_get(const mat3 &mat, const uint32_t row, const uint32_t col);
-inline float                      mat3_get(const mat3 &mat, const uint32_t i);
-inline void                       mat3_set(mat3 &mat, const uint32_t row, const uint32_t col, const float set);
-inline vec3                       mat3_get_scale(const mat3 &a);
+
+inline mat3          mat3_add(const mat3 &lhs, const mat3 &rhs);
+inline mat3          mat3_subtract(const mat3 &lhs, const mat3 &rhs);
+inline mat3          mat3_scale(const float x, const float y);
+inline mat3          mat3_scale(const vec2 scale);
+
+inline vec3          mat3_multiply(const vec3 vec, const mat3 &b);
+inline mat3          mat3_multiply(const mat3 &lhs, const mat3 &rhs);
+inline mat3          mat3_multiply(const mat3 &a, const mat3 &b, const mat3 &c);
+
+inline mat3          mat3_translate(const vec2 vec); // no imp
+inline mat3          mat3_translate(const float x, const float y); // no imp
+
+inline mat3          mat3_rotation_pitch_from_euler(const float radians);
+inline mat3          mat3_rotation_yaw_from_euler(const float radians);
+inline mat3          mat3_rotation_roll_from_euler(const float radians);
+
+inline float         mat3_get_determinant(const mat3 &a);
+
+inline mat3          mat3_get_transpose(const mat3 &a);
+inline mat3          mat3_get_inverse(const mat3 &a);
+inline mat3          mat3_get_scale(const mat3 &a, const vec3 scale);
+inline void          mat3_to_array(const mat3 &m, float *array);
+
+
+// ------------------------------------------------------------ [ Equality ] --
+
+
+inline bool          mat3_equal(const mat3 &left, const mat3 &right, const float error = math::epsilon());
+
+
+// ----------------------------------------------------------- [ Get / Set ] --
+
+
+inline float         mat3_get(const mat3 &mat, const uint32_t row, const uint32_t col);
+inline float         mat3_get(const mat3 &mat, const uint32_t i);
+inline void          mat3_set(mat3 &mat, const uint32_t row, const uint32_t col, const float set);
+inline vec3          mat3_get_scale(const mat3 &a);
 
 
 // Impl
+
 
 namespace detail
 {
@@ -114,7 +128,7 @@ mat3_init(const float x)
 {
   float array[9];
   std::fill_n(array, 9, x);
-  
+
   return mat3_init_with_array(array);
 }
 
@@ -126,7 +140,7 @@ mat3_init_with_array(const float array[])
   detail::internal_mat3 *internal_mat = reinterpret_cast<detail::internal_mat3*>(&return_mat);
 
   memcpy(internal_mat->data, array, sizeof(internal_mat->data));
-  
+
   return return_mat;
 }
 
@@ -135,7 +149,7 @@ void
 mat3_to_array(const mat3 &m, float out_data[9])
 {
   const detail::internal_mat3 *left = reinterpret_cast<const detail::internal_mat3*>(&m);
-  
+
   memcpy(out_data, left->data, sizeof(float) * 9);
 }
 
@@ -147,7 +161,7 @@ mat3_add(const mat3 &lhs, const mat3 &rhs)
   const detail::internal_mat3 *left  = reinterpret_cast<const detail::internal_mat3*>(&lhs);
   const detail::internal_mat3 *right = reinterpret_cast<const detail::internal_mat3*>(&rhs);
 
-  mat3 return_mat; 
+  mat3 return_mat;
   detail::internal_mat3 *internal_mat = reinterpret_cast<detail::internal_mat3*>(&return_mat);
 
   for(uint32_t i = 0; i < 9; ++i)
@@ -165,7 +179,7 @@ mat3_subtract(const mat3 &lhs, const mat3 &rhs)
   const detail::internal_mat3 *left  = reinterpret_cast<const detail::internal_mat3*>(&lhs);
   const detail::internal_mat3 *right = reinterpret_cast<const detail::internal_mat3*>(&rhs);
 
-  mat3 return_mat; 
+  mat3 return_mat;
   detail::internal_mat3 *internal_mat = reinterpret_cast<detail::internal_mat3*>(&return_mat);
 
   for(uint32_t i = 0; i < 9; ++i)
@@ -328,13 +342,13 @@ mat3
 mat3_get_transpose(const mat3 &m)
 {
   const detail::internal_mat3 *mat = reinterpret_cast<const detail::internal_mat3*>(&m);
-  
+
   const float transpose_data[9] = {
     mat->data[0], mat->data[3], mat->data[6],
     mat->data[1], mat->data[4], mat->data[7],
     mat->data[2], mat->data[5], mat->data[8],
   };
-  
+
   return mat3_init_with_array(transpose_data);
 }
 
@@ -346,10 +360,10 @@ mat3_equal(const mat3 &left,
 {
   float a[9];
   mat3_to_array(left, a);
-  
+
   float b[9];
   mat3_to_array(right, b);
-  
+
   for(uint32_t i = 0; i < 9; ++i)
   {
     if(!math::is_near(a[i], b[i], error))
@@ -357,7 +371,7 @@ mat3_equal(const mat3 &left,
       return false;
     }
   }
-  
+
   return true;
 }
 
@@ -376,7 +390,7 @@ float
 mat3_get(const mat3 &mat, const uint32_t index)
 {
   assert(index < 9);
-  
+
   const detail::internal_mat3 *internal_mat = reinterpret_cast<const detail::internal_mat3*>(&mat);
   return internal_mat->data[index];
 }

@@ -19,10 +19,8 @@
 _MATH_NS_OPEN
 
 
-// ** INTERFACE ** //
+// ----------------------------------------------------------- [ Constants ] --
 
-
-// ** Constants ** //
 
 MATH_CONSTEXPR float                pi()          { return 3.14159265359f;  }
 MATH_CONSTEXPR float                two_pi()      { return 2.f * pi();      }
@@ -36,7 +34,8 @@ MATH_CONSTEXPR float                root_three()  { return 1.73205080757f;  }
 MATH_CONSTEXPR float                epsilon()     { return 0.000000001f;    }
 
 
-// ** Trig ** //
+// ---------------------------------------------------------------- [ Trig ] --
+
 
 MATH_GENR_INLINE float              tan(const float x);
 MATH_GENR_INLINE float              a_tan2(const float x, const float y);
@@ -46,13 +45,15 @@ MATH_GENR_INLINE float              sin(const float radians);
 MATH_GENR_INLINE float              a_sin(const float radians);
 
 
-// ** Degs/Rads ** //
+// --------------------------------------------------- [ Degrees / Radians ] --
+
 
 MATH_GENR_INLINE float              radians_to_degrees(const float radians);
 MATH_GENR_INLINE float              degrees_to_radians(const float degrees);
 
 
-// ** Casting ** //
+// ------------------------------------------------------------- [ Casting ] --
+
 
 MATH_GENR_INLINE float              to_float(const uint32_t x);
 MATH_GENR_INLINE float              to_float(const int32_t x);
@@ -60,45 +61,34 @@ MATH_GENR_INLINE int32_t            to_int(const float x);
 MATH_GENR_INLINE uint32_t           to_uint(const float x);
 
 
-// ** Random ** //
+// -------------------------------------------------------------- [ Random ] --
+
 
 MATH_GENR_INLINE float              rand_range(const float start, const float end);
 MATH_GENR_INLINE uint32_t           rand_range(const uint32_t start, const uint32_t end);
 MATH_GENR_INLINE int32_t            rand_range(const int32_t start, const int32_t end);
 
 
-// ** Other waves ** //
+// ------------------------------------------------------------- [ General ] --
 
-MATH_GENR_INLINE float              square_wave(const float time);
-
-
-// ** Other general ** //
 
 MATH_GENR_INLINE float              sqrt(const float x);
 MATH_GENR_INLINE float              abs(const float x);
 MATH_GENR_INLINE int32_t            abs(const int32_t x);
-
 MATH_GENR_INLINE float              max(const float a, const float b);
 MATH_GENR_INLINE int32_t            max(const int32_t a, const int32_t b);
 MATH_GENR_INLINE uint32_t           max(const uint32_t a, const uint32_t b);
-
 MATH_GENR_INLINE float              min(const float a, const float b);
 MATH_GENR_INLINE int32_t            min(const int32_t a, const int32_t b);
 MATH_GENR_INLINE uint32_t           min(const uint32_t a, const uint32_t b);
-
 MATH_GENR_INLINE float              max_length(const float a, const float b);
 MATH_GENR_INLINE float              min_length(const float a, const float b);
-
 MATH_GENR_INLINE float              clamp(const float x, const float between_a, const float between_b);
 MATH_GENR_INLINE bool               is_between(const float to_check, const float a, const float b);
 MATH_GENR_INLINE bool               is_near(const float a, const float b, const float error_margin);
-
 MATH_GENR_INLINE bool               is_pow_two(const uint32_t i);
-  
 MATH_GENR_INLINE float              sign(const float x); // Returns 1 or -1
 MATH_GENR_INLINE float              mod(const float x, const float divisor);
-MATH_GENR_INLINE uint32_t           mod(const int32_t value, const uint32_t divisor);
-
 MATH_GENR_INLINE float              ceil(const float x);
 MATH_GENR_INLINE float              floor(const float x);
 MATH_GENR_INLINE float              nearest_floor(const float x, const float increments);
@@ -114,7 +104,7 @@ max_length(const float a, const float b)
   {
     return a;
   }
-  
+
   return b;
 }
 
@@ -126,7 +116,7 @@ min_length(const float a, const float b)
   {
     return a;
   }
-  
+
   return b;
 }
 
@@ -205,7 +195,7 @@ is_between(const float value, const float limit_a, const float limit_b)
 {
   const float min = math::min(limit_a, limit_b);
   const float max = math::max(limit_a, limit_b);
-  
+
   return value > min && value < max;
 }
 
@@ -327,38 +317,15 @@ is_near(const float a, const float b, const float error_margin)
 float
 mod(const float x, const float divisor)
 {
-  float mod = fmodf(x, divisor);
-  
-  if(mod < 0)
-  {
-    mod += divisor;
-  }
-  
-  return mod;
-}
-
-
-uint32_t
-mod(const int32_t value, const uint32_t divisor)
-{
-  int32_t mod = value % (int32_t)divisor;
-  
-  if(mod < 0)
-  {
-    mod += divisor;
-  }
-  
-  return mod;
+  return fmodf(x, divisor);
 }
 
 
 float
 nearest_floor(const float x, const float increments)
 {
-  const float s = sign(x);
-  
-  const float remainder = mod(abs(x), increments);
-  return (abs(x) - remainder) * s;
+  const float remainder = mod(x, increments);
+  return x - remainder;
 }
 
 
@@ -395,7 +362,7 @@ rand_range(const float start, const float end)
 {
   static std::random_device rd;
   static std::default_random_engine re(rd());
-  
+
   std::uniform_real_distribution<float> dist(start, end);
 
   return dist(re);
@@ -407,7 +374,7 @@ rand_range(const uint32_t start, const uint32_t end)
 {
   static std::random_device rd;
   static std::default_random_engine re(rd());
-  
+
   std::uniform_int_distribution<uint32_t> dist(start, end);
 
   return dist(re);
@@ -419,20 +386,10 @@ rand_range(const int32_t start, const int32_t end)
 {
   static std::random_device rd;
   static std::default_random_engine re(rd());
-  
+
   std::uniform_int_distribution<int32_t> dist(start, end);
 
   return dist(re);
-}
-
-
-// ** Other waves ** //
-
-float
-square_wave(const float time)
-{
-  // Im sure we can do this without calling sin
-  return sign(sin(time));
 }
 
 
