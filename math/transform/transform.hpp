@@ -21,6 +21,7 @@ _MATH_NS_OPEN
 
 // ** Interface ** //
 
+inline transform    transform_init();
 inline transform    transform_init(const vec3 position, const vec3 scale, const quat &rotation);
 inline transform    transform_init_from_world_matrix(const mat4 &matrix);
 inline mat4         transform_get_world_matrix(const transform &transform);
@@ -29,6 +30,17 @@ inline transform    transform_inherited(const transform &parent, const transform
 
 
 // ** Impl ** //
+
+
+transform
+transform_init()
+{
+  return {
+    math::vec3_zero(),
+    math::vec3_one(),
+    math::quat_init()
+  };
+}
 
 
 transform
