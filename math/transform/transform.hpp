@@ -21,12 +21,12 @@ _MATH_NS_OPEN
 
 // ** Interface ** //
 
-inline transform    transform_init();
-inline transform    transform_init(const vec3 position, const vec3 scale, const quat &rotation);
-inline transform    transform_init_from_world_matrix(const mat4 &matrix);
-inline mat4         transform_get_world_matrix(const transform &transform);
-inline void         transform_set_with_world_matrix(transform &transform, const mat4 &matrix);
-inline transform    transform_inherited(const transform &parent, const transform &child);
+MATH_TRAN_INLINE transform    transform_init();
+MATH_TRAN_INLINE transform    transform_init(const vec3 position, const vec3 scale, const quat &rotation);
+MATH_TRAN_INLINE transform    transform_init_from_world_matrix(const mat4 &matrix);
+MATH_TRAN_INLINE mat4         transform_get_world_matrix(const transform &transform);
+MATH_TRAN_INLINE void         transform_set_with_world_matrix(transform &transform, const mat4 &matrix);
+MATH_TRAN_INLINE transform    transform_inherited(const transform &parent, const transform &child);
 
 
 // ** Impl ** //
@@ -95,12 +95,20 @@ transform
 transform_inherited(const transform &parent, const transform &child)
 {
   transform inherited;
+  
+  math::vec3 rotated_offset = math::quat_rotate_point(parent.rotation, child.position);
+  
+  inherited.position = math::vec3_add(parent.position, rotated_offset);
+  
+//  inherited.rotation = math::quat_multiply(parent.rotation, child.rotation);
+  inherited.rotation = math::quat_multiply(child.rotation, parent.rotation);
 
   inherited.scale    = math::vec3_multiply(parent.scale, child.scale);
-  inherited.position = math::vec3_add(parent.position, child.position);
-
-  // TODO: Rotation.
-
+  
+  
+  
+  
+  
   return inherited;
 }
 
