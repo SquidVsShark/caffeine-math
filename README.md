@@ -31,6 +31,26 @@ const float angle = 0.12f;
 const math::quat = math::quat_init_with_axis_angle(axis, angle);
 ```
 
+
+### Getting Components
+
+While the type may be a struct its recomended you get the value using the interface.
+
+```cpp
+const math::vec3 vec_a = math::vec3_init(1.f,2.f,3.f);
+const float x = math::vec3_get_x(vec_a);
+
+const math::quat = math::quat_init_with_axis_angle(axis, angle);
+const float w = math::quat_get_w(quat);
+```
+
+Or shorthand
+
+```cpp
+const float x = math::get_x(vec_a);
+const float w = math::get_w(quat);
+```
+
 ## SIMD Support
 
 There is partial SIMD support. To enable it, its recomeneded you build your project with preprocessor definition `MATH_USE_SIMD`
