@@ -90,12 +90,15 @@ quat_init(const float x, const float y, const float z, const float w)
 quat
 quat_init_with_axis_angle(const float x, const float y, const float z, const float theta_radians)
 {
+  const math::vec3 axis = math::vec3_init(x, y, z);
+  const math::vec3 normal_axis = math::vec3_normalize(axis);
+
   const float half_angle = 0.5f * theta_radians;
   const float sin_angle  = math::sin(half_angle);
 
-  const float qx = sin_angle * x;
-  const float qy = sin_angle * y;
-  const float qz = sin_angle * z;
+  const float qx = sin_angle * math::get_x(normal_axis);
+  const float qy = sin_angle * math::get_y(normal_axis);
+  const float qz = sin_angle * math::get_z(normal_axis);
   const float qw = math::cos(half_angle);
 
   return quat_init(qx, qy, qz, qw);
