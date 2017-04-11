@@ -178,6 +178,29 @@ public:
     
     return &m_begin[i];
   }
+  
+//  template<typename ...Args>
+//  T*
+//  insert(const size_t i, Args&& ...args)
+//  {
+//    if(m_end == m_capacity)
+//    {
+//      reserve(size() << 1);
+//    }
+//
+//    if(i < size())
+//    {
+//      const size_t insert_index = i + 1;
+//      const size_t size_to_end  = size() - i;
+//
+//      memmove(m_begin + insert_index, m_begin + i, size_to_end * sizeof(T));
+//      m_end += 1;
+//
+//      new(&m_begin[i]) T{args...};
+//    }
+//
+//    return &m_begin[i];
+//  }
 
 
   // -------------------------------------------------------- [ Pop / Erase ] --
