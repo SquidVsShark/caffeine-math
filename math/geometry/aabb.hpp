@@ -17,6 +17,7 @@ _MATH_NS_OPEN
  
 
 inline aabb         aabb_init(const vec3 min, const vec3 max);
+inline aabb         aabb_init(const vec3 center, const float scale);
 inline aabb         aabb_init_from_xyz_data(const float vertex[], const size_t number_of_floats);
 
 inline vec3         aabb_get_extents(const aabb &a);
@@ -42,6 +43,20 @@ aabb_init(const vec3 min, const vec3 max)
   
   return_aabb.max = max;
   return_aabb.min = min;
+  
+  return return_aabb;
+}
+
+
+aabb
+aabb_init(const vec3 center, const float scale)
+{
+  const float half_scale = MATH_NS_NAME::abs(scale) * 0.5f;
+  
+  aabb return_aabb;
+  
+  return_aabb.max = vec3_add(vec3_scale(vec3_one(), +half_scale), center);
+  return_aabb.min = vec3_add(vec3_scale(vec3_one(), -half_scale), center);
   
   return return_aabb;
 }
@@ -94,9 +109,9 @@ vec3
 aabb_get_extents(const aabb &a)
 {
   const vec3 extent = vec3_subtract(a.max, a.min);
-  const float x = math::abs(vec3_get_x(extent));
-  const float y = math::abs(vec3_get_y(extent));
-  const float z = math::abs(vec3_get_z(extent));
+  const float x = MATH_NS_NAME::abs(vec3_get_x(extent));
+  const float y = MATH_NS_NAME::abs(vec3_get_y(extent));
+  const float z = MATH_NS_NAME::abs(vec3_get_z(extent));
   
   return vec3_init(x, y, z);
 }
@@ -135,8 +150,8 @@ aabb_get_origin(const aabb &a)
 void
 aabb_scale(aabb &aabb_to_scale, const vec3 scale)
 {
-  aabb_to_scale.max = math::vec3_multiply(aabb_to_scale.max, scale);
-  aabb_to_scale.min = math::vec3_multiply(aabb_to_scale.min, scale);
+  aabb_to_scale.max = MATH_NS_NAME::vec3_multiply(aabb_to_scale.max, scale);
+  aabb_to_scale.min = MATH_NS_NAME::vec3_multiply(aabb_to_scale.min, scale);
 }
 
 
@@ -165,7 +180,7 @@ namespace detail
            const float origin_b,
            const float combined_length)
   {
-    return math::abs(origin_b - origin_a) < combined_length;
+    return MATH_NS_NAME::abs(origin_b - origin_a) < combined_length;
   }
 } // ns
 
@@ -181,9 +196,9 @@ aabb_intersection_test(const aabb &a,
   const vec3 half_ext_b = aabb_get_half_extents(b);
   const vec3 combined_half_extent = vec3_add(half_ext_a, half_ext_b);
 
-  return (detail::sat_test(math::vec3_get_x(origin_a), math::vec3_get_x(origin_b), math::vec3_get_x(combined_half_extent)) &&
-          detail::sat_test(math::vec3_get_y(origin_a), math::vec3_get_y(origin_b), math::vec3_get_y(combined_half_extent)) &&
-          detail::sat_test(math::vec3_get_z(origin_a), math::vec3_get_z(origin_b), math::vec3_get_z(combined_half_extent)));
+  return (detail::sat_test(MATH_NS_NAME::vec3_get_x(origin_a), MATH_NS_NAME::vec3_get_x(origin_b), MATH_NS_NAME::vec3_get_x(combined_half_extent)) &&
+          detail::sat_test(MATH_NS_NAME::vec3_get_y(origin_a), MATH_NS_NAME::vec3_get_y(origin_b), MATH_NS_NAME::vec3_get_y(combined_half_extent)) &&
+          detail::sat_test(MATH_NS_NAME::vec3_get_z(origin_a), MATH_NS_NAME::vec3_get_z(origin_b), MATH_NS_NAME::vec3_get_z(combined_half_extent)));
 }
 
 

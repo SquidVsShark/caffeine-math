@@ -187,7 +187,7 @@ mat4
 mat4_projection(const float width, const float height, const float near_plane, const float far_plane, const float fov)
 {
   const float aspect_ratio = width / height;
-  const float one_over_tan_half_fov = 1.f / math::tan(fov * 0.5f);
+  const float one_over_tan_half_fov = 1.f / MATH_NS_NAME::tan(fov * 0.5f);
   const float plane_diff = far_plane - near_plane;
 
   //mat4 return_mat = mat4_zero();
@@ -615,11 +615,11 @@ mat4_rotate_around_axis(const vec3 axis, const float radians)
   mat4 rotation = mat4_id();
   detail::internal_mat4 *rotate_me = reinterpret_cast<detail::internal_mat4*>(&rotation);
   
-  const math::vec3 norm_axis = math::vec3_normalize(axis);
-  assert(math::vec3_length(norm_axis));
+  const MATH_NS_NAME::vec3 norm_axis = MATH_NS_NAME::vec3_normalize(axis);
+  assert(MATH_NS_NAME::vec3_length(norm_axis));
 
-  const float sin_theta           = math::sin(radians);
-  const float cos_theta           = math::cos(radians);
+  const float sin_theta           = MATH_NS_NAME::sin(radians);
+  const float cos_theta           = MATH_NS_NAME::cos(radians);
   const float one_minus_cos_theta = 1.f - cos_theta;
   
   const float x = vec3_get_x(norm_axis);

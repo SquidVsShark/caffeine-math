@@ -21,12 +21,12 @@ _MATH_NS_OPEN
 
 // ** Interface ** //
 
-MATH_TRAN_INLINE transform    transform_init();
-MATH_TRAN_INLINE transform    transform_init(const vec3 position, const vec3 scale, const quat &rotation);
-MATH_TRAN_INLINE transform    transform_init_from_world_matrix(const mat4 &matrix);
-MATH_TRAN_INLINE mat4         transform_get_world_matrix(const transform &transform);
-MATH_TRAN_INLINE void         transform_set_with_world_matrix(transform &transform, const mat4 &matrix);
-MATH_TRAN_INLINE transform    transform_inherited(const transform &parent, const transform &child);
+inline transform    transform_init();
+inline transform    transform_init(const vec3 position, const vec3 scale, const quat &rotation);
+inline transform    transform_init_from_world_matrix(const mat4 &matrix);
+inline mat4         transform_get_world_matrix(const transform &transform);
+inline void         transform_set_with_world_matrix(transform &transform, const mat4 &matrix);
+inline transform    transform_inherited(const transform &parent, const transform &child);
 
 
 // ** Impl ** //
@@ -36,9 +36,9 @@ transform
 transform_init()
 {
   return {
-    math::vec3_zero(),
-    math::vec3_one(),
-    math::quat_init()
+    MATH_NS_NAME::vec3_zero(),
+    MATH_NS_NAME::vec3_one(),
+    MATH_NS_NAME::quat_init()
   };
 }
 
@@ -66,18 +66,18 @@ transform_init_from_world_matrix(const mat4 &matrix)
   const vec3 position = vec3_init(x, y, z);
   
   // get scale.
-  const float s_x = math::sign(mat4_get(matrix, 0, 0)) *
-                    math::sqrt((mat4_get(matrix, 0, 0) * mat4_get(matrix, 0, 0)) +
+  const float s_x = MATH_NS_NAME::sign(mat4_get(matrix, 0, 0)) *
+                    MATH_NS_NAME::sqrt((mat4_get(matrix, 0, 0) * mat4_get(matrix, 0, 0)) +
                                (mat4_get(matrix, 0, 1) * mat4_get(matrix, 0, 1)) +
                                (mat4_get(matrix, 0, 2) * mat4_get(matrix, 0, 2)));
 
-  const float s_y = math::sign(mat4_get(matrix, 1, 1)) *
-                    math::sqrt((mat4_get(matrix, 1, 0) * mat4_get(matrix, 1, 0)) +
+  const float s_y = MATH_NS_NAME::sign(mat4_get(matrix, 1, 1)) *
+                    MATH_NS_NAME::sqrt((mat4_get(matrix, 1, 0) * mat4_get(matrix, 1, 0)) +
                                (mat4_get(matrix, 1, 1) * mat4_get(matrix, 1, 1)) +
                                (mat4_get(matrix, 1, 2) * mat4_get(matrix, 1, 2)));
   
-  const float s_z = math::sign(mat4_get(matrix, 2, 2)) *
-                    math::sqrt((mat4_get(matrix, 2, 0) * mat4_get(matrix, 2, 0)) +
+  const float s_z = MATH_NS_NAME::sign(mat4_get(matrix, 2, 2)) *
+                    MATH_NS_NAME::sqrt((mat4_get(matrix, 2, 0) * mat4_get(matrix, 2, 0)) +
                                (mat4_get(matrix, 2, 1) * mat4_get(matrix, 2, 1)) +
                                (mat4_get(matrix, 2, 2) * mat4_get(matrix, 2, 2)));
   
@@ -95,20 +95,12 @@ transform
 transform_inherited(const transform &parent, const transform &child)
 {
   transform inherited;
-  
-  math::vec3 rotated_offset = math::quat_rotate_point(parent.rotation, child.position);
-  
-  inherited.position = math::vec3_add(parent.position, rotated_offset);
-  
-//  inherited.rotation = math::quat_multiply(parent.rotation, child.rotation);
-  inherited.rotation = math::quat_multiply(child.rotation, parent.rotation);
 
-  inherited.scale    = math::vec3_multiply(parent.scale, child.scale);
-  
-  
-  
-  
-  
+  inherited.scale    = MATH_NS_NAME::vec3_multiply(parent.scale, child.scale);
+  inherited.position = MATH_NS_NAME::vec3_add(parent.position, child.position);
+
+  // TODO: Rotation.
+
   return inherited;
 }
 

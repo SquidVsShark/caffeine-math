@@ -8,8 +8,9 @@
 _MATH_NS_OPEN
 
 
-struct aabb;
 struct ray;
+struct aabb;
+struct plane;
 
 
 _MATH_NS_CLOSE

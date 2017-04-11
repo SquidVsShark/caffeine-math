@@ -9,17 +9,24 @@
 _MATH_NS_OPEN
 
 
-struct aabb
+struct ray
 {
-  math::vec3 max;
-  math::vec3 min;
+  MATH_NS_NAME::vec3 start;
+  MATH_NS_NAME::vec3 end;
 };
 
 
-struct ray
+struct aabb
 {
-  math::vec3 start;
-  math::vec3 dir;
+  MATH_NS_NAME::vec3 max;
+  MATH_NS_NAME::vec3 min;
+};
+
+
+struct plane
+{
+  MATH_NS_NAME::vec3 position;
+  MATH_NS_NAME::vec3 normal;
 };
 
 

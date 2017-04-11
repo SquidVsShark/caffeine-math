@@ -32,6 +32,7 @@ MATH_CONSTEXPR float                g_ratio()     { return 1.61803398875f;  }
 MATH_CONSTEXPR float                root_two()    { return 1.41421356237f;  }
 MATH_CONSTEXPR float                root_three()  { return 1.73205080757f;  }
 MATH_CONSTEXPR float                epsilon()     { return 0.000000001f;    }
+MATH_CONSTEXPR float                ten_epsilon() { return epsilon() * 10.f;}
 
 
 // ---------------------------------------------------------------- [ Trig ] --
@@ -100,7 +101,7 @@ MATH_GENR_INLINE float              nearest_floor(const float x, const float inc
 float
 max_length(const float a, const float b)
 {
-  if(math::abs(a) >= math::abs(b))
+  if(MATH_NS_NAME::abs(a) >= MATH_NS_NAME::abs(b))
   {
     return a;
   }
@@ -112,7 +113,7 @@ max_length(const float a, const float b)
 float
 min_length(const float a, const float b)
 {
-  if(math::abs(a) <= math::abs(b))
+  if(MATH_NS_NAME::abs(a) <= MATH_NS_NAME::abs(b))
   {
     return a;
   }
@@ -193,8 +194,8 @@ clamp(const float x, const float between_a, const float between_b)
 bool
 is_between(const float value, const float limit_a, const float limit_b)
 {
-  const float min = math::min(limit_a, limit_b);
-  const float max = math::max(limit_a, limit_b);
+  const float min = MATH_NS_NAME::min(limit_a, limit_b);
+  const float max = MATH_NS_NAME::max(limit_a, limit_b);
 
   return value > min && value < max;
 }
@@ -360,12 +361,17 @@ to_uint(const float x)
 float
 rand_range(const float start, const float end)
 {
-  static std::random_device rd;
-  static std::default_random_engine re(rd());
+  // static std::random_device rd;
+  // static std::default_random_engine re(rd());
 
-  std::uniform_real_distribution<float> dist(start, end);
+  // std::uniform_real_distribution<float> dist(start, end);
 
-  return dist(re);
+  // return dist(re);
+
+  const uint32_t range = (MATH_NS_NAME::max(start,end) - MATH_NS_NAME::min(start, end)) * 1000.f;
+  const uint32_t rand_value = rand() % range;
+
+  return MATH_NS_NAME::min(start, end) + MATH_NS_NAME::to_float(rand_value) / 1000.f;
 }
 
 

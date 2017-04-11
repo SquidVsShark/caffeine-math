@@ -90,16 +90,13 @@ quat_init(const float x, const float y, const float z, const float w)
 quat
 quat_init_with_axis_angle(const float x, const float y, const float z, const float theta_radians)
 {
-  const math::vec3 axis = math::vec3_init(x, y, z);
-  const math::vec3 normal_axis = math::vec3_normalize(axis);
-
   const float half_angle = 0.5f * theta_radians;
-  const float sin_angle  = math::sin(half_angle);
+  const float sin_angle  = MATH_NS_NAME::sin(half_angle);
 
-  const float qx = sin_angle * math::get_x(normal_axis);
-  const float qy = sin_angle * math::get_y(normal_axis);
-  const float qz = sin_angle * math::get_z(normal_axis);
-  const float qw = math::cos(half_angle);
+  const float qx = sin_angle * x;
+  const float qy = sin_angle * y;
+  const float qz = sin_angle * z;
+  const float qw = MATH_NS_NAME::cos(half_angle);
 
   return quat_init(qx, qy, qz, qw);
 }
@@ -128,12 +125,12 @@ quat_init_with_euler_angles(const float pitch_radians, const float yaw_radians, 
   const float half_yaw   = yaw_radians * 0.5f;
   const float half_pitch = pitch_radians * 0.5f;
 
-  const float cz = math::cos(half_roll);
-  const float sz = math::sin(half_roll);
-  const float cy = math::cos(half_yaw);
-  const float sy = math::sin(half_yaw);
-  const float cx = math::cos(half_pitch);
-  const float sx = math::sin(half_pitch);
+  const float cz = MATH_NS_NAME::cos(half_roll);
+  const float sz = MATH_NS_NAME::sin(half_roll);
+  const float cy = MATH_NS_NAME::cos(half_yaw);
+  const float sy = MATH_NS_NAME::sin(half_yaw);
+  const float cx = MATH_NS_NAME::cos(half_pitch);
+  const float sx = MATH_NS_NAME::sin(half_pitch);
 
   const float w = cz * cy * cx + sz * sy * sz;
   const float x = cz * cy * sx - sz * sy * cz;
@@ -147,14 +144,14 @@ quat_init_with_euler_angles(const float pitch_radians, const float yaw_radians, 
 quat
 quat_init_with_mat3(const mat3 &mat)
 {
-  const float w = math::sqrt(math::max( 0.f, 1 + mat3_get(mat, 0,0) + mat3_get(mat, 1,1) + mat3_get(mat, 2,2) )) * 0.5f;
-  const float x = math::sqrt(math::max( 0.f, 1 + mat3_get(mat, 0,0) - mat3_get(mat, 1,1) - mat3_get(mat, 2,2) )) * 0.5f;
-  const float y = math::sqrt(math::max( 0.f, 1 - mat3_get(mat, 0,0) + mat3_get(mat, 1,1) - mat3_get(mat, 2,2) )) * 0.5f;
-  const float z = math::sqrt(math::max( 0.f, 1 - mat3_get(mat, 0,0) - mat3_get(mat, 1,1) + mat3_get(mat, 2,2) )) * 0.5f;
+  const float w = MATH_NS_NAME::sqrt(MATH_NS_NAME::max( 0.f, 1 + mat3_get(mat, 0,0) + mat3_get(mat, 1,1) + mat3_get(mat, 2,2) )) * 0.5f;
+  const float x = MATH_NS_NAME::sqrt(MATH_NS_NAME::max( 0.f, 1 + mat3_get(mat, 0,0) - mat3_get(mat, 1,1) - mat3_get(mat, 2,2) )) * 0.5f;
+  const float y = MATH_NS_NAME::sqrt(MATH_NS_NAME::max( 0.f, 1 - mat3_get(mat, 0,0) + mat3_get(mat, 1,1) - mat3_get(mat, 2,2) )) * 0.5f;
+  const float z = MATH_NS_NAME::sqrt(MATH_NS_NAME::max( 0.f, 1 - mat3_get(mat, 0,0) - mat3_get(mat, 1,1) + mat3_get(mat, 2,2) )) * 0.5f;
   
-  const float q_x = x * math::sign(mat3_get(mat,2,1) - mat3_get(mat,1,2));
-  const float q_y = y * math::sign(mat3_get(mat,0,2) - mat3_get(mat,2,0));
-  const float q_z = z * math::sign(mat3_get(mat,1,0) - mat3_get(mat,0,1));
+  const float q_x = x * MATH_NS_NAME::sign(mat3_get(mat,2,1) - mat3_get(mat,1,2));
+  const float q_y = y * MATH_NS_NAME::sign(mat3_get(mat,0,2) - mat3_get(mat,2,0));
+  const float q_z = z * MATH_NS_NAME::sign(mat3_get(mat,1,0) - mat3_get(mat,0,1));
   
   return quat_init(q_x, q_y, q_z, w);
 }
@@ -211,7 +208,7 @@ float
 quat_length(const quat to_length)
 {
   const detail::internal_quat *length_quat = reinterpret_cast<const detail::internal_quat*>(&to_length);
-  return math::sqrt((length_quat->w * length_quat->w) + (length_quat->x * length_quat->x) + (length_quat->y * length_quat->y) + (length_quat->z * length_quat->z));
+  return MATH_NS_NAME::sqrt((length_quat->w * length_quat->w) + (length_quat->x * length_quat->x) + (length_quat->y * length_quat->y) + (length_quat->z * length_quat->z));
 }
 
 

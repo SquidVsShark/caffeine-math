@@ -65,7 +65,7 @@ inline void          mat3_to_array(const mat3 &m, float *array);
 // ------------------------------------------------------------ [ Equality ] --
 
 
-inline bool          mat3_equal(const mat3 &left, const mat3 &right, const float error = math::epsilon());
+inline bool          mat3_equal(const mat3 &left, const mat3 &right, const float error = MATH_NS_NAME::epsilon());
 
 
 // ----------------------------------------------------------- [ Get / Set ] --
@@ -274,8 +274,8 @@ mat3_rotation_pitch_from_euler(const float rad)
   const float array[9]
   {
     1.f, 0.f, 0.f,
-    0.f, math::cos(rad), -sin(rad),
-    0.f, math::sin(rad), cos(rad),
+    0.f, MATH_NS_NAME::cos(rad), -sin(rad),
+    0.f, MATH_NS_NAME::sin(rad), cos(rad),
   };
 
   return mat3_init_with_array(array);
@@ -287,9 +287,9 @@ mat3_rotation_yaw_from_euler(const float rad)
 {
   const float array[9]
   {
-    math::cos(rad), 0.f, math::sin(rad),
+    MATH_NS_NAME::cos(rad), 0.f, MATH_NS_NAME::sin(rad),
     0.f, 1.f, 0.f,
-    -math::sin(rad), 0.f, math::cos(rad),
+    -MATH_NS_NAME::sin(rad), 0.f, MATH_NS_NAME::cos(rad),
   };
 
   return mat3_init_with_array(array);
@@ -301,8 +301,8 @@ mat3_rotation_roll_from_euler(const float rad)
 {
   const float array[9]
   {
-    math::cos(rad), -math::sin(rad), 0.f,
-    math::sin(rad), math::cos(rad), 0.f,
+    MATH_NS_NAME::cos(rad), -MATH_NS_NAME::sin(rad), 0.f,
+    MATH_NS_NAME::sin(rad), MATH_NS_NAME::cos(rad), 0.f,
     0.f, 0.f, 1.f,
   };
 
@@ -366,7 +366,7 @@ mat3_equal(const mat3 &left,
 
   for(uint32_t i = 0; i < 9; ++i)
   {
-    if(!math::is_near(a[i], b[i], error))
+    if(!MATH_NS_NAME::is_near(a[i], b[i], error))
     {
       return false;
     }
