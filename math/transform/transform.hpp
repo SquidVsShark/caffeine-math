@@ -62,9 +62,9 @@ transform_init_from_world_matrix(const mat4 &matrix)
   const float x = mat4_get(matrix, 3, 0);
   const float y = mat4_get(matrix, 3, 1);
   const float z = mat4_get(matrix, 3, 2);
-  
+
   const vec3 position = vec3_init(x, y, z);
-  
+
   // get scale.
   const float s_x = MATH_NS_NAME::sign(mat4_get(matrix, 0, 0)) *
                     MATH_NS_NAME::sqrt((mat4_get(matrix, 0, 0) * mat4_get(matrix, 0, 0)) +
@@ -75,18 +75,18 @@ transform_init_from_world_matrix(const mat4 &matrix)
                     MATH_NS_NAME::sqrt((mat4_get(matrix, 1, 0) * mat4_get(matrix, 1, 0)) +
                                (mat4_get(matrix, 1, 1) * mat4_get(matrix, 1, 1)) +
                                (mat4_get(matrix, 1, 2) * mat4_get(matrix, 1, 2)));
-  
+
   const float s_z = MATH_NS_NAME::sign(mat4_get(matrix, 2, 2)) *
                     MATH_NS_NAME::sqrt((mat4_get(matrix, 2, 0) * mat4_get(matrix, 2, 0)) +
                                (mat4_get(matrix, 2, 1) * mat4_get(matrix, 2, 1)) +
                                (mat4_get(matrix, 2, 2) * mat4_get(matrix, 2, 2)));
-  
+
   const vec3 scale = vec3_init(s_x, s_y, s_z);
 
   // get rotation.
   const mat3 sub_mat  = mat4_get_sub_mat3(matrix);
   const quat rotation = quat_init_with_mat3(sub_mat);
-  
+
   return transform_init(position, scale, rotation);
 }
 
@@ -97,9 +97,8 @@ transform_inherited(const transform &parent, const transform &child)
   transform inherited;
 
   inherited.scale    = MATH_NS_NAME::vec3_multiply(parent.scale, child.scale);
-  inherited.position = MATH_NS_NAME::vec3_add(parent.position, child.position);
-
-  // TODO: Rotation.
+  inherited.position = MATH_NS_NAME::vec3_multiply(MATH_NS_NAME::vec3_add(parent.position, child.position), parent.scale);
+  inherited.rotation = MATH_NS_NAME::quat_multiply(child.rotation, parent.rotation);
 
   return inherited;
 }
@@ -110,14 +109,14 @@ transform_get_world_matrix(const transform &to_world)
 {
   // Get scale
   const mat4 scale = mat4_scale(to_world.scale);
-  
+
   // Get rotation
   mat4 rotation = mat4_init_with_mat3(quat_get_rotation_matrix(to_world.rotation));
   mat4_set(rotation, 3, 3, 1.f);
-  
+
   // Get translation
   const mat4 translation = mat4_translate(to_world.position);
-  
+
   return mat4_multiply(scale, rotation, translation);
 }
 
