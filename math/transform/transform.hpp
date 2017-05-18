@@ -19,7 +19,8 @@
 _MATH_NS_OPEN
 
 
-// ** Interface ** //
+// ------------------------------------------------------------ [ Interface ] --
+
 
 inline transform    transform_init();
 inline transform    transform_init(const vec3 position, const vec3 scale, const quat &rotation);
@@ -29,7 +30,7 @@ inline void         transform_set_with_world_matrix(transform &transform, const 
 inline transform    transform_inherited(const transform &parent, const transform &child);
 
 
-// ** Impl ** //
+// ----------------------------------------------------------------- [ Impl ] --
 
 
 transform
@@ -97,8 +98,20 @@ transform_inherited(const transform &parent, const transform &child)
   transform inherited;
 
   inherited.scale    = MATH_NS_NAME::vec3_multiply(parent.scale, child.scale);
-  inherited.position = MATH_NS_NAME::vec3_multiply(MATH_NS_NAME::vec3_add(parent.position, child.position), parent.scale);
   inherited.rotation = MATH_NS_NAME::quat_multiply(child.rotation, parent.rotation);
+  
+  math::vec3 pos = math::quat_rotate_point(child.rotation, child.position);
+  
+  inherited.position = MATH_NS_NAME::quat_rotate_point(
+    parent.rotation,
+    MATH_NS_NAME::vec3_add(
+      parent.position,
+      MATH_NS_NAME::vec3_multiply(
+        pos,
+        parent.scale
+      )
+    )
+  );
 
   return inherited;
 }
