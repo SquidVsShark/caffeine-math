@@ -100,18 +100,16 @@ transform_inherited(const transform &parent, const transform &child)
   inherited.scale    = MATH_NS_NAME::vec3_multiply(parent.scale, child.scale);
   inherited.rotation = MATH_NS_NAME::quat_multiply(child.rotation, parent.rotation);
   
-  math::vec3 pos = math::quat_rotate_point(child.rotation, child.position);
-  
-  inherited.position = MATH_NS_NAME::quat_rotate_point(
-    parent.rotation,
-    MATH_NS_NAME::vec3_add(
-      parent.position,
-      MATH_NS_NAME::vec3_multiply(
-        pos,
-        parent.scale
+  inherited.position = MATH_NS_NAME::vec3_add(
+    parent.position,
+    MATH_NS_NAME::quat_rotate_point(
+      parent.rotation,
+        MATH_NS_NAME::vec3_multiply(
+          child.position,
+          parent.scale
+        )
       )
-    )
-  );
+    );
 
   return inherited;
 }
