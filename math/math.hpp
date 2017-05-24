@@ -12,6 +12,7 @@
 #include "quat/quat.hpp"
 #include "transform/transform.hpp"
 #include "geometry/geometry.hpp"
+#include "general/general.hpp"
 
 
 #endif // inc guard
