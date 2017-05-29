@@ -82,7 +82,7 @@ MATH_GENR_INLINE uint32_t           max(const uint32_t a, const uint32_t b);
 MATH_GENR_INLINE float              min(const float a, const float b);
 MATH_GENR_INLINE int32_t            min(const int32_t a, const int32_t b);
 MATH_GENR_INLINE uint32_t           min(const uint32_t a, const uint32_t b);
-MATH_GENR_INLINE size_t             min(const size_t a, const size_t b);
+MATH_GENR_INLINE uint64_t           min(const uint64_t a, const uint64_t b);
 MATH_GENR_INLINE float              max_length(const float a, const float b);
 MATH_GENR_INLINE float              min_length(const float a, const float b);
 MATH_GENR_INLINE float              clamp(const float x, const float between_a, const float between_b);
@@ -173,8 +173,8 @@ min(const uint32_t x, const uint32_t y)
 }
 
 
-size_t
-min(const size_t x, const size_t y)
+uint64_t
+min(const uint64_t x, const uint64_t y)
 {
   return std::min(x, y);
 }
