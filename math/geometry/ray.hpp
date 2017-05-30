@@ -19,6 +19,7 @@ inline vec3       ray_direction(const ray &ray);
 
 inline float      ray_test_aabb(const ray &ray, const aabb &target);
 inline bool       ray_test_plane(const ray &ray, const plane &target, float *out_distance = nullptr);
+inline bool       ray_test_triangles(const ray &in_ray, const float tris[], const size_t tri_count, float *out_distance = nullptr);
 
 
 // ---------------------------------------------------------------- [ Impl ] --
@@ -115,6 +116,65 @@ ray_test_plane(const ray &in_ray, const plane &target, float *out_distance)
   
   return false;
 }
+
+
+bool
+ray_test_triangles(
+  const ray &in_ray,
+  const float tris[],
+  const size_t tri_count,
+  float *out_distance)
+{
+  const vec3 r_dir = ray_direction(in_ray);
+  
+  for(size_t i = 0; i < tri_count; ++i)
+  {
+    const size_t tri = i * 3;
+    const size_t tri_index = i * 3 * 3;
+   
+    const vec3 v0 = vec3_init_with_array(&tris[tri_index]);
+    const vec3 v1 = vec3_subtract(vec3_init_with_array(&tris[tri_index + 3]), v0);
+    const vec3 v2 = vec3_subtract(vec3_init_with_array(&tris[tri_index + 6]), v0);
+
+    const vec3 p_vec = vec3_cross(r_dir, v2);
+    const float dot  = vec3_dot(v1, p_vec);
+
+    if(dot < MATH_NS_NAME::epsilon())
+    {
+      continue;
+    }
+
+    const float o_dot = 1 / dot;
+    const vec3 t_vec  = vec3_subtract(in_ray.start, v0);
+    const float u     = vec3_dot(t_vec, p_vec) * o_dot;
+  
+    if(!MATH_NS_NAME::is_between(u, 0.f, 1.f))
+    {
+      continue;
+    }
+ 
+    const vec3 q_vec = vec3_cross(t_vec, v1);
+    const float v    = vec3_dot(r_dir, q_vec) * o_dot;
+  
+    if (v < 0 || u + v > 1)
+    {
+      continue;
+    }
+ 
+    const float t = vec3_dot(v2, q_vec) * o_dot;
+  
+    if(out_distance)
+    {
+      *out_distance = t;
+    }
+  
+    return true;
+    
+  }
+  
+  return false;
+}
+
 
 
 _MATH_NS_CLOSE
